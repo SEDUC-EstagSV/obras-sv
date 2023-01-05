@@ -35,8 +35,6 @@ function formatarRelatorioSit($situacao)
 }
 
 function confereAutoridade(){
-    session_start();
-
     if($_SESSION["user"][1] < 3 || !$_SESSION["user"][1]){
         header("location: painel.php");
     }

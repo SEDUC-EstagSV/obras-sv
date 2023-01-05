@@ -1,4 +1,11 @@
 <?php
+
+
+include_once('function-seduc.php');
+
+confereAutoridade();
+
+
 require_once 'function-contrato.php';
 
 switch ($_REQUEST["acaocontrato"]) {

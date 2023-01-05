@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Novo Contrato</h1>
 
 <form action="?page=salvarcontrato" method="POST">
