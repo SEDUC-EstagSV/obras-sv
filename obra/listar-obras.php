@@ -27,7 +27,13 @@ if ($qtd > 0) {
     print "<th>Situação da Obra</th>";
     print "<th>Descrição da Atividade</th>";
     print "<th>Comentários</th>";
-    print "<th>Ações</th>";
+
+    if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+    {
+        print "<th>Ações</th>";
+    }
+
+
     print "</tr>";
     while ($row = $res->fetch_object()) {
         print "<tr>";
@@ -47,12 +53,18 @@ if ($qtd > 0) {
         print "<td>" . $row->st_Obra . "</td>";
         print "<td>" . $row->tp_AtivDescricao . "</td>";
         print "<td>" . $row->tp_Comentario . "</td>";
-        print "<td>
+        
+        if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+          {
+            print "<td>
 
-                    <button onclick=\"location.href='?page=editarobra&cd_Obra=" . $row->cd_Obra . "';\" class='btn btn-success'>Editar</button>
-                    <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarobra&acaoobra=excluirObra&cd_Obra=" . $row->cd_Obra . "';}else{false;}\" class='btn btn-danger'>Excluir</button>
+            <button onclick=\"location.href='?page=editarobra&cd_Obra=" . $row->cd_Obra . "';\" class='btn btn-success'>Editar</button>
+            <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarobra&acaoobra=excluirObra&cd_Obra=" . $row->cd_Obra . "';}else{false;}\" class='btn btn-danger'>Excluir</button>
 
-            </td>";
+    </td>";
+          }
+        
+
         print "</tr>";
     }
     print "</table>";
