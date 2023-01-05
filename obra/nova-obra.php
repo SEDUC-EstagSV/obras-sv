@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Nova obra</h1>
 
 <form action="?page=salvarobra" method="POST">

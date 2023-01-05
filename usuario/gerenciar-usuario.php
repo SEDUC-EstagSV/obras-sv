@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Gerenciamento de usuário</h1>
 
 <?php

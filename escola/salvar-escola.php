@@ -1,4 +1,7 @@
 <?php
+include_once('function-seduc.php');
+
+confereAutoridade();
 
 switch ($_REQUEST["acaoescola"]) {
 

@@ -1,5 +1,11 @@
 <?php
 
+
+include_once('function-seduc.php');
+
+confereAutoridade();
+
+
 switch ($_REQUEST["acaofornecedor"]) {
     case 'CadastrarFornecedor':
         $nm_Fornecedor = $_POST["nm_Fornecedor"];

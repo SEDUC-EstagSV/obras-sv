@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Nova Escola</h1>
 
 <form action="?page=salvarescola" method="POST">

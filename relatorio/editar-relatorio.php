@@ -1,3 +1,10 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
+
 <h1>Editar obra</h1>
 
 <?php

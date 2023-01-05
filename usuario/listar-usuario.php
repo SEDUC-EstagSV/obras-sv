@@ -1,7 +1,13 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Lista de Usuários</h1>
 
-<?php
 
+<?php
 require_once('function-seduc.php');
 
 $sql = "SELECT * FROM usuario";

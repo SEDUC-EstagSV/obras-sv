@@ -9,7 +9,11 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-light">
+<?php 
+  session_start();
+
+?>
+<nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Obras</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,11 +32,19 @@
           <li class="nav-item">
             <a class="nav-link" href="?page=listar_relatorio">Lista de Relatórios</a>
           </li>
+
+          <?php
+         
+          if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1])){
+              echo "<li class='nav-item'>
+              <a class='nav-link' href='?page=listar_escolas'>Lista de Escolas</a>
+            </li>";
+          }
+          
+
+          ?>
           <li class="nav-item">
-            <a class="nav-link" href="?page=listar_escolas">Lista de Escolas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">Logout</a>
+            <a class="nav-link" href="?page=logout" >Logout</a>
           </li>
         </ul>
       </div>
@@ -66,14 +78,19 @@
           case "editarrelatorio":
             include("relatorio/editar-relatorio.php");
             break;
+          case "logout":
+            include("usuario/logout-usuario.php");
+            header("location: index.php");
+            break;
           default:
-            print "<h1>Bem vindo!</h1>";
+            print "<h1>Bem vindo, {$_SESSION["user"][0]}!</h1>";
         }
         ?>
       </div>
     </div>
   </div>
   <script scr="js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 

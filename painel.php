@@ -9,6 +9,14 @@
 </head>
 
 <body>
+  <?php
+    session_start();
+
+    if(!isset($_SESSION['user'])){
+      header('location: index.php');
+    }
+
+  ?>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Obras</a>
@@ -20,44 +28,70 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="painel.php">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=novousuario">Registrar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=novaobra">Nova Obra</a>
-          </li>
+
+          <?php
+          //verifica autoridade
+          if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+          {
+            echo "<li class='nav-item'> <a class='nav-link' href='?page=novousuario'>Registrar</a></li>";
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=novaobra'>Nova Obra</a>
+                  </li>";
+          }
+          ?>
+
+
           <li class="nav-item">
             <a class="nav-link" href="?page=novorelatorio">Novo Relatório</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=novaescola">Nova Escola</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=novofornecedor">Novo Fornecedor</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=novocontrato">Novo Contrato</a>
-          </li>
+
+          <?php
+            if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+            {
+              echo "<li class='nav-item'>
+                      <a class='nav-link' href='?page=novaescola'>Nova Escola</a>
+                    </li>";
+              
+              echo  "<li class='nav-item'>
+                      <a class='nav-link' href='?page=novofornecedor'>Novo Fornecedor</a>
+                    </li>";
+
+              echo  "<li class='nav-item'>
+                      <a class='nav-link' href='?page=novocontrato'>Novo Contrato</a>
+                    </li>";
+              }
+              ?>
+
           <li class="nav-item">
             <a class="nav-link" href="?page=listaobra">Lista de Obras</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="?page=listar_relatorio">Lista de Relatórios</a>
           </li>
+
+          <?php
+          if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1])){
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=listar_escolas'>Lista de Escolas</a>
+                  </li>";
+          
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
+                  </li>";
+
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=listar_contratos'>Lista de Contratos</a>
+                  </li>";
+
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=listar_usuario'>Lista de Usuários</a>
+                  </li>";
+
+          }
+          ?>
+
           <li class="nav-item">
-            <a class="nav-link" href="?page=listar_escolas">Lista de Escolas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=listar_fornecedores">Lista de Fornecedores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=listar_contratos">Lista de Contratos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=listar_usuario">Lista de Usuários</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">Logout</a>
+            <a class="nav-link" href="?page=logout">Logout</a>
           </li>
         </ul>
       </div>
@@ -142,14 +176,19 @@
           case "gerenciarusuario":
             include("usuario/gerenciar-usuario.php");
             break;
-          default:
-            print "<h1>Bem vindo!</h1>";
+          case "logout":
+            include("usuario/logout-usuario.php");
+            header("location: index.php");
+            break;
+            default:
+              print "<h1>Bem vindo, {$_SESSION["user"][0]}!</h1>";
         }
         ?>
       </div>
     </div>
   </div>
   <script scr="js/bootstrap.bundle.min.js"></script>
+  <script scr="script.js"></script>
 
 </body>
 

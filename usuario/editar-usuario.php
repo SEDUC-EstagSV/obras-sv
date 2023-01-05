@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Editar usuário</h1>
 
 <?php

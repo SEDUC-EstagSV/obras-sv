@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Criar nova conta</h1>
 
 <form action="?page=salvarusuario" method="POST">

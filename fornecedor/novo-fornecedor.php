@@ -1,3 +1,9 @@
+<?php
+    include_once('function-seduc.php');
+
+    confereAutoridade();
+?>
+
 <h1>Novo Fornecedor</h1>
 
 <form action="?page=salvarfornecedor" method="POST">

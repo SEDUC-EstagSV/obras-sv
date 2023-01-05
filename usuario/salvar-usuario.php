@@ -158,7 +158,7 @@ switch ($_REQUEST["acaousuario"]) {
         loginval($user_Login, $user_Senha);
         $user_Senha = md5($user_Senha);
 
-        $sql = "SELECT user_Login, user_Senha, user_Autoridade FROM usuario";
+        $sql = "SELECT user_Login, user_Nome, user_Senha, user_Autoridade FROM usuario";
         $res = $conn->query($sql);
         $qtd = $res->num_rows;
         $erro = true;
@@ -166,6 +166,9 @@ switch ($_REQUEST["acaousuario"]) {
             while ($row = $res->fetch_object()) {
                 if ($user_Login == $row->user_Login && $user_Senha == $row->user_Senha) {
                     $autoridade = $row->user_Autoridade;
+                    $nome = $row->user_Nome;
+                    session_start();
+                    $_SESSION["user"] = [$nome, $autoridade];
                     loginAutoridade($autoridade);
                     $erro = false;
                 }

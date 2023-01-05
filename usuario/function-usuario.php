@@ -98,13 +98,12 @@ function loginAutoridade($autoridade)
 
             //Usuário subordianado
         case 2:
-            print "<script>alert('Logado');</script>";
-            print "<script>location.href='painelsimples.php';</script>";
+            print "<script>alert('Logado{$_SESSION["user"][0]}');</script>";
+            print "<script>location.href='painel.php';</script>";
             break;
 
             //Supervisão 
         case 3:
-
             print "<script>alert('Logado como Supervisor');</script>";
             print "<script>location.href='painel.php';</script>";
             break;

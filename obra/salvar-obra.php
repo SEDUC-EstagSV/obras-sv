@@ -1,5 +1,11 @@
 <?php
 
+
+include_once('function-seduc.php');
+
+confereAutoridade();
+
+
 switch ($_REQUEST["acaoobra"]) {
     case 'cadastrarObra':
         $cd_Escola = $_POST["cd_Escola"];
