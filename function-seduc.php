@@ -39,3 +39,9 @@ function confereAutoridade(){
         header("location: painel.php");
     }
 }
+
+function liberaFuncaoParaAutoridade($nivelAutoridade){
+    $libera = $_SESSION["user"][1] >= $nivelAutoridade && isset($_SESSION["user"][1]);
+
+    return $libera; 
+}

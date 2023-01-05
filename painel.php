@@ -10,6 +10,9 @@
 
 <body>
   <?php
+
+    include('function-seduc.php');
+
     session_start();
 
     if(!isset($_SESSION['user'])){
@@ -31,9 +34,14 @@
 
           <?php
           //verifica autoridade
-          if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+          if(liberaFuncaoParaAutoridade(3))
           {
-            echo "<li class='nav-item'> <a class='nav-link' href='?page=novousuario'>Registrar</a></li>";
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=novousuario'>Registrar</a>
+                  </li>";
+          }
+
+          if(liberaFuncaoParaAutoridade(3)){
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=novaobra'>Nova Obra</a>
                   </li>";
@@ -46,16 +54,20 @@
           </li>
 
           <?php
-            if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+            if(liberaFuncaoParaAutoridade(3))
             {
               echo "<li class='nav-item'>
                       <a class='nav-link' href='?page=novaescola'>Nova Escola</a>
                     </li>";
-              
+            }
+             
+            if(liberaFuncaoParaAutoridade(3)){
               echo  "<li class='nav-item'>
                       <a class='nav-link' href='?page=novofornecedor'>Novo Fornecedor</a>
                     </li>";
+            }
 
+            if(liberaFuncaoParaAutoridade(3)){
               echo  "<li class='nav-item'>
                       <a class='nav-link' href='?page=novocontrato'>Novo Contrato</a>
                     </li>";
@@ -70,23 +82,28 @@
           </li>
 
           <?php
-          if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1])){
+          if(liberaFuncaoParaAutoridade(3)){
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_escolas'>Lista de Escolas</a>
                   </li>";
+          }
           
+          if(liberaFuncaoParaAutoridade(3)){
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
                   </li>";
+          }
 
+          if(liberaFuncaoParaAutoridade(3)){
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_contratos'>Lista de Contratos</a>
                   </li>";
+          }
 
+          if(liberaFuncaoParaAutoridade(3)){
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_usuario'>Lista de Usuários</a>
                   </li>";
-
           }
           ?>
 
