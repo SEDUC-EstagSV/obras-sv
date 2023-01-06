@@ -16,7 +16,7 @@
     session_start();
 
     if(!isset($_SESSION['user'])){
-      header('location: index.php');
+      header("location:index.php");
     }
 
   ?>
@@ -198,6 +198,7 @@
             header("location: index.php");
             break;
             default:
+            if($_SESSION["user"][1] != null)
               print "<h1>Bem vindo, {$_SESSION["user"][0]}!</h1>";
         }
         ?>

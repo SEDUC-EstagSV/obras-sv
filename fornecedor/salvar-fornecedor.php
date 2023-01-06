@@ -3,7 +3,7 @@
 
 include_once('function-seduc.php');
 
-confereAutoridade();
+redirecionamentoPorAutoridade(3);
 
 
 switch ($_REQUEST["acaofornecedor"]) {

@@ -1,7 +1,7 @@
 <?php
     include_once('function-seduc.php');
 
-    confereAutoridade();
+    redirecionamentoPorAutoridade(3);
 ?>
 
 <h1>Editar fornecedor</h1>
