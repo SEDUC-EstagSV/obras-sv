@@ -8,9 +8,12 @@
 <h1>Editar obra</h1>
 
 <?php
-$sql = "SELECT * FROM relatorio WHERE cd_Relatorio=" . $_REQUEST["cd_Relatorio"];
+$cd_Relatorio = $_REQUEST["cd_Relatorio"];
+$sql = $conn->prepare("SELECT * FROM relatorio WHERE cd_Relatorio= ?");
+$sql->bind_param('i', $cd_Relatorio);
+$sql->execute();
+$res = $sql->get_result();
 
-$res = $conn->query($sql);
 $row = $res->fetch_object();
 ?>
 
