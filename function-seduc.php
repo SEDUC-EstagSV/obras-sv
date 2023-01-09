@@ -35,10 +35,11 @@ function formatarRelatorioSit($situacao)
 }
 
 function redirecionamentoPorAutoridade($nivelAutoridade){
+
+    if(!isset($_SESSION["user"][1])) header("location: index.php");
+        
     if($_SESSION["user"][1] < $nivelAutoridade && isset($_SESSION["user"][1])){
         header("location: painel.php");
-    } else {
-        header("location: index.php");
     }
 }
 
@@ -47,3 +48,4 @@ function liberaFuncaoParaAutoridade($nivelAutoridade){
 
     return $libera; 
 }
+
