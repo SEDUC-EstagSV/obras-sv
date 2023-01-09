@@ -10,7 +10,6 @@
 
 <body>
   <?php
-
     include('function-seduc.php');
 
     session_start();
@@ -18,7 +17,6 @@
     if(!isset($_SESSION['user'])){
       header("location:index.php");
     }
-
   ?>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
