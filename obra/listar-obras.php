@@ -28,7 +28,7 @@ if ($qtd > 0) {
     print "<th>Descrição da Atividade</th>";
     print "<th>Comentários</th>";
 
-    if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+    if(liberaFuncaoParaAutoridade(3))
     {
         print "<th>Ações</th>";
     }
@@ -54,7 +54,7 @@ if ($qtd > 0) {
         print "<td>" . $row->tp_AtivDescricao . "</td>";
         print "<td>" . $row->tp_Comentario . "</td>";
         
-        if($_SESSION["user"][1] > 3 && isset($_SESSION["user"][1]))
+        if(liberaFuncaoParaAutoridade(3))
           {
             print "<td>
 
