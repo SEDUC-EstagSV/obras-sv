@@ -7,11 +7,16 @@
 <h1>Lista de Fornecedores</h1>
 
 <?php
-$sql = "SELECT * FROM fornecedor";
-
-$res = $conn->query($sql);
-
-$qtd = $res->num_rows;
+try{
+    $sql = "SELECT * FROM fornecedor";
+    
+    $res = $conn->query($sql);
+    
+    $qtd = $res->num_rows;
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados de fornecedores');
+                    window.history.go(-1);</script>";
+}
 
 if ($qtd > 0) {
     print "<table class='table table-hover table-striped table-bordered'>";

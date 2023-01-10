@@ -9,12 +9,19 @@
 
 <?php
 $cd_Relatorio = $_REQUEST["cd_Relatorio"];
-$sql = $conn->prepare("SELECT * FROM relatorio WHERE cd_Relatorio= ?");
-$sql->bind_param('i', $cd_Relatorio);
-$sql->execute();
-$res = $sql->get_result();
 
-$row = $res->fetch_object();
+try{
+    $sql = $conn->prepare("SELECT * FROM relatorio WHERE cd_Relatorio= ?");
+    $sql->bind_param('i', $cd_Relatorio);
+    $sql->execute();
+    $res = $sql->get_result();
+    
+    $row = $res->fetch_object();
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
+                    window.history.go(-1);</script>";
+}
+
 ?>
 
 <form action="?page=salvarrelatorio" method="POST">

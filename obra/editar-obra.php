@@ -9,12 +9,17 @@
 <?php
 $cd_Obra = $_REQUEST["cd_Obra"];
 
-$sql = $conn->prepare("SELECT * FROM obra WHERE cd_Obra= ?");
-$sql->bind_param('i', $cd_Obra);
-$sql->execute();
-$res = $sql->get_result();
-
-$row = $res->fetch_object();
+try{
+    $sql = $conn->prepare("SELECT * FROM obra WHERE cd_Obra= ?");
+    $sql->bind_param('i', $cd_Obra);
+    $sql->execute();
+    $res = $sql->get_result();
+    
+    $row = $res->fetch_object();
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados da obra');
+                    window.history.go(-1);</script>";
+}
 ?>
 
 <form action="?page=salvarobra" method="POST">

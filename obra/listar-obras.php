@@ -3,11 +3,17 @@
 <?php
 
 require_once 'contrato/function-contrato.php';
-$sql = "SELECT ow.*, ob.st_Obra FROM obraview ow INNER JOIN obra ob ON ow.cd_Obra = ob.cd_Obra"; //view não possuia st_Obra e a falta do INNER JOIN duplicava os resultados
 
-$res = $conn->query($sql);
-
-$qtd = $res->num_rows;
+try{
+    $sql = "SELECT ow.*, ob.st_Obra FROM obraview ow INNER JOIN obra ob ON ow.cd_Obra = ob.cd_Obra"; //view não possuia st_Obra e a falta do INNER JOIN duplicava os resultados
+    
+    $res = $conn->query($sql);
+    
+    $qtd = $res->num_rows;
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados de obras');
+                    window.history.go(-1);</script>";
+}
 
 if ($qtd > 0) {
     print "<table class='table table-hover table-striped table-bordered'>";

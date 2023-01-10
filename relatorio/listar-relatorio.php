@@ -3,11 +3,16 @@
 
 require_once('function-seduc.php');
 
-$sql = "SELECT * FROM relatorioview";
-
-$res = $conn->query($sql);
-
-$qtd = $res->num_rows;
+try{
+    $sql = "SELECT * FROM relatorioview";
+    
+    $res = $conn->query($sql);
+    
+    $qtd = $res->num_rows;
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados dos relatórios');
+                    window.history.go(-1);</script>";
+}
 
 if ($qtd > 0) {
     print "<table class='table table-hover table-striped table-bordered'>";
