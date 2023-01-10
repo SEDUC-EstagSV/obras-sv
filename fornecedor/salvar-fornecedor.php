@@ -71,17 +71,23 @@ switch ($_REQUEST["acaofornecedor"]) {
 
     case 'excluirFornecedor':
         $cd_Fornecedor = $_REQUEST["cd_Fornecedor"];
-        $sql = $conn->prepare("DELETE FROM fornecedor WHERE cd_Fornecedor = ?");
-        $sql->bind_param('i', $cd_Fornecedor);
 
-        $res = $sql->execute();
-
-        if ($res == true) {
-            print "<script>alert('Excluido com sucesso');</script>";
-            print "<script>location.href='?page=listar_fornecedores';</script>";
-        } else {
-            print "<script>alert('Não foi possível excluir');</script>";
-            print "<script>location.href='?page=listar_fornecedores';</script>";
+        try{
+            $sql = $conn->prepare("DELETE FROM fornecedor WHERE cd_Fornecedor = ?");
+            $sql->bind_param('i', $cd_Fornecedor);
+    
+            $res = $sql->execute();
+    
+            if ($res == true) {
+                print "<script>alert('Excluido com sucesso');</script>";
+                print "<script>location.href='?page=listar_fornecedores';</script>";
+            } else {
+                print "<script>alert('Não foi possível excluir');</script>";
+                print "<script>location.href='?page=listar_fornecedores';</script>";
+            }
+        } catch(mysqli_sql_exception $e){
+            print "<script>alert('Ocorreu um erro interno ao tentar excluir fornecedor');
+            window.history.go(-1);</script>";
         }
         break;
 }
