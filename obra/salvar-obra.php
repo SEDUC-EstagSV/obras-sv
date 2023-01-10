@@ -100,7 +100,6 @@ switch ($_REQUEST["acaoobra"]) {
 
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro ao tentar excluir');</script>";
-            print "<script>window.history.go(-1);</script>";
         }
         break;
 }

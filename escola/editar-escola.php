@@ -7,10 +7,20 @@
 <h1>Editar obra</h1>
 
 <?php
-$sql = "SELECT * FROM escola WHERE cd_Escola=" . $_REQUEST["cd_Escola"];
+$cd_Escola = $_REQUEST["cd_Escola"];
 
-$res = $conn->query($sql);
-$row = $res->fetch_object();
+try{
+    $sql = $conn->prepare("SELECT * FROM escola WHERE cd_Escola = ?");
+    $sql->bind_param('i', $cd_Escola);
+    $sql->execute();
+    
+    $res = $sql->get_result();
+    $row = $res->fetch_object();
+
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados da escola');
+                    location.reload();</script>";
+}
 ?>
 
 <form action="?page=salvarescola" method="POST">

@@ -11,7 +11,7 @@ try{
     $qtd = $res->num_rows;
 } catch(mysqli_sql_exception $e){
     print "<script>alert('Ocorreu um erro interno ao buscar dados dos relatórios');
-                    window.history.go(-1);</script>";
+                    location.href='painel.php';</script>";
 }
 
 if ($qtd > 0) {

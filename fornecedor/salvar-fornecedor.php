@@ -86,8 +86,7 @@ switch ($_REQUEST["acaofornecedor"]) {
                 print "<script>location.href='?page=listar_fornecedores';</script>";
             }
         } catch(mysqli_sql_exception $e){
-            print "<script>alert('Ocorreu um erro interno ao tentar excluir fornecedor');
-            window.history.go(-1);</script>";
+            print "<script>alert('Ocorreu um erro interno ao tentar excluir fornecedor');</script>";
         }
         break;
 }
