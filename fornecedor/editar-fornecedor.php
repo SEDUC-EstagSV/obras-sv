@@ -8,12 +8,18 @@
 
 <?php
 $cd_Fornecedor = $_REQUEST["cd_Fornecedor"];
-$sql = $conn->prepare("SELECT * FROM fornecedor WHERE cd_Fornecedor = ?");
-$sql->bind_param('i', $cd_Fornecedor);
-$sql->execute();
+try{
+    $sql = $conn->prepare("SELECT * FROM fornecedor WHERE cd_Fornecedor = ?");
+    $sql->bind_param('i', $cd_Fornecedor);
+    $sql->execute();
 
-$res = $sql->get_result();
-$row = $res->fetch_object();
+    $res = $sql->get_result();
+    $row = $res->fetch_object();
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados do fornecedor');
+                    window.history.go(-1);</script>";
+}
+
 ?>
 
 <form action="?page=salvarfornecedor" method="POST">
