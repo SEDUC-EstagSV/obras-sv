@@ -7,9 +7,12 @@
 <h1>Editar fornecedor</h1>
 
 <?php
-$sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor=" . $_REQUEST["cd_Fornecedor"];
+$cd_Fornecedor = $_REQUEST["cd_Fornecedor"];
+$sql = $conn->prepare("SELECT * FROM fornecedor WHERE cd_Fornecedor = ?");
+$sql->bind_param('i', $cd_Fornecedor);
+$sql->execute();
 
-$res = $conn->query($sql);
+$res = $sql->get_result();
 $row = $res->fetch_object();
 ?>
 

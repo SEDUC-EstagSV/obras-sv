@@ -30,7 +30,8 @@ switch ($_REQUEST["acaorelatorio"]) {
         $sql->execute();
         $res = $sql->get_result();
         if($res->num_rows === 0) {
-            print "<script>alert('Obra não encontrada');window.location.href='painel.php';</script>";
+            print "<script>alert('Obra não encontrada');
+                    window.location.href='painel.php';</script>";
             exit();
         }
         $row = $res->fetch_object();
