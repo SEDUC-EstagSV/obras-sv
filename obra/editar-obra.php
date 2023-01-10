@@ -7,9 +7,13 @@
 <h1>Editar obra</h1>
 
 <?php
-$sql = "SELECT * FROM obra WHERE cd_Obra=" . $_REQUEST["cd_Obra"];
+$cd_Obra = $_REQUEST["cd_Obra"];
 
-$res = $conn->query($sql);
+$sql = $conn->prepare("SELECT * FROM obra WHERE cd_Obra= ?");
+$sql->bind_param('i', $cd_Obra);
+$sql->execute();
+$res = $sql->get_result();
+
 $row = $res->fetch_object();
 ?>
 
