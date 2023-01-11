@@ -16,6 +16,5 @@ esqueci minha senha por email ou sms
 
 o metodo de criptografia md5 NÃO é seguro, usar por conta em risco. https://www.md5online.org/md5-decrypt.html
 
-arrumar as interações com o banco de dados para evitar sql injection -> usuario
-
-tratar erros
+arrumar as interações com o banco de dados para evitar sql injection ✔️ 
+tratar erros sql ✔️ 

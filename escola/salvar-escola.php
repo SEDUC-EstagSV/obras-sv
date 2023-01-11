@@ -28,6 +28,7 @@ switch ($_REQUEST["acaoescola"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao registrar escola');
             window.history.go(-1);</script>";
+            criaLogErro($e);
         }
 
         break;
@@ -60,6 +61,7 @@ switch ($_REQUEST["acaoescola"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao editar escola');
             window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -83,6 +85,7 @@ switch ($_REQUEST["acaoescola"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir escola');
             window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         break;
 }

@@ -19,6 +19,7 @@ redirecionamentoPorAutoridade(3);
         } catch (mysqli_sql_exception $e) {
             print "<script>alert('Ocorreu um erro interno ao buscar dados de fornecedores');
                     location.href='painel.php';</script>";
+            criaLogErro($e);
         }
 
         print "<select class='form-select' name='cd_Fornecedor'>";

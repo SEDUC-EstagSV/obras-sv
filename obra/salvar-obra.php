@@ -34,6 +34,7 @@ switch ($_REQUEST["acaoobra"]) {
             } catch(mysqli_sql_exception $e){
                 print "<script>alert('Não foi possível cadastrar. Verifique se os dados estão corretos');</script>";
                 print "<script>window.history.go(-1);</script>";
+                criaLogErro($e);
             }
             
 
@@ -78,6 +79,7 @@ switch ($_REQUEST["acaoobra"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Não possível editar. Verifique se os dados estão corretos');</script>";
             print "<script>window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -100,6 +102,7 @@ switch ($_REQUEST["acaoobra"]) {
 
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro ao tentar excluir');</script>";
+            criaLogErro($e);
         }
         break;
 }

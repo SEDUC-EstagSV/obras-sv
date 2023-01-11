@@ -76,6 +76,7 @@ switch ($_REQUEST["acaocontrato"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir contrato');
                             location.reload();</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -99,6 +100,7 @@ switch ($_REQUEST["acaocontrato"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir contrato');
             location.reload();</script>";
+            criaLogErro($e);
         }
         break;
 }

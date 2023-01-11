@@ -31,6 +31,7 @@ switch ($_REQUEST["acaofornecedor"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao registrar fornecedor');
                     window.history.go(-1);</script>";
+            criaLogErro($e);
             exit();
         }
 
@@ -67,6 +68,7 @@ switch ($_REQUEST["acaofornecedor"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao editar fornecedor');
                     window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -88,6 +90,7 @@ switch ($_REQUEST["acaofornecedor"]) {
             }
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao tentar excluir fornecedor');</script>";
+            criaLogErro($e);
         }
         break;
 }

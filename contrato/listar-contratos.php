@@ -19,6 +19,7 @@ try{
 } catch(mysqli_sql_exception $e){
     print "<script>alert('Ocorreu um erro interno ao buscar dados dos contratos');
     location.href='painel.php';</script>";
+    criaLogErro($e);
 }
 
 

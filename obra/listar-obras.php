@@ -13,6 +13,7 @@ try{
 } catch(mysqli_sql_exception $e){
     print "<script>alert('Ocorreu um erro interno ao buscar dados de obras');
                     location.href='painel.php';</script>";
+    criaLogErro($e);
 }
 
 if ($qtd > 0) {

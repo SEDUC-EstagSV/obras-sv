@@ -19,6 +19,7 @@ try{
 } catch(mysqli_sql_exception $e){
     print "<script>alert('Ocorreu um erro interno ao buscar dados da obra');
                     window.history.go(-1);</script>";
+    criaLogErro($e);
 }
 ?>
 

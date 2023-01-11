@@ -40,6 +40,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao buscar dados da obra informada');
                     window.history.go(-1);</script>";
+            criaLogErro($e);
             exit();
         }
 
@@ -95,6 +96,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao criar relatório');
                     window.history.go(-1);</script>";
+            criaLogErro($e);
         }
 
         break;
@@ -117,6 +119,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir relatório');
                             location.reload();</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -186,6 +189,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao editar relatório');
                     window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         break;
 }

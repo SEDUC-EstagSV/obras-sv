@@ -46,6 +46,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao verificar existência do usuário');
                     window.history.go(-1);</script>";
+            criaLogErro($e);
             exit();
         }
 
@@ -72,6 +73,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao criar usuário');
                                     window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -119,6 +121,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao verificar dados de usuário');
                                     window.history.go(-1);</script>";
+            criaLogErro($e);
             exit();
         }
 
@@ -152,6 +155,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao editar usuário');
                             window.history.go(-1);</script>";
+            criaLogErro($e);
         }
         
         break;
@@ -189,6 +193,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir usuário');
                             location.reload();</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -224,6 +229,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir relatório');
                             location.reload();</script>";
+            criaLogErro($e);
         }
         break;
 
@@ -262,6 +268,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao verificar dados de usuário');
                             window.history.go(-1);</script>";
+            criaLogErro($e);
             exit();
         }
 
@@ -293,6 +300,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao editar dados de usuário');
                                     window.history.go(-1);</script>";
+                                    criaLogErro($e);
         }
         
         break;
@@ -340,6 +348,7 @@ switch ($_REQUEST["acaousuario"]) {
                 } catch (mysqli_sql_exception $e){
                     print "<script>alert('Ocorreu um erro interno ao atualizar dados do usuário');
                                     window.history.go(-1);</script>";
+                    criaLogErro($e);
                 }
             } else {
                 print "<script>alert('Usuário não encontrado');</script>";
@@ -349,6 +358,7 @@ switch ($_REQUEST["acaousuario"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao verificar dados de usuário');
                             window.history.go(-1);</script>";
+            criaLogErro($e);
         }
 
         break;

@@ -49,6 +49,24 @@ function liberaFuncaoParaAutoridade($nivelAutoridade){
     return $libera; 
 }
 
+function verificaPasta($dirpath, $mode=0777) {
+    return is_dir($dirpath) || mkdir($dirpath, $mode, true);
+}
+
+function criaLogErro($erro){
+    $caminho = "./Log/";
+    $dayFile = (new DateTime())->setTimezone(new DateTimeZone('America/Sao_Paulo'))->format('Y-m-d');
+    $hourFile = (new DateTime())->setTimezone(new DateTimeZone('America/Sao_Paulo'))->format('H-i-s');
+    $content = $erro;
+
+    if(verificaPasta($caminho . $dayFile)) {
+        $fp = fopen($caminho . $dayFile . "/{$hourFile}.txt","w");
+    }
+
+    fwrite($fp,$content);
+    fclose($fp);
+}
+
 /*
 function geraEmail(){
     //tem que gerar um numero aleatorio
