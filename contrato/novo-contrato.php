@@ -1,7 +1,7 @@
 <?php
-    include_once('function-seduc.php');
+include_once('function-seduc.php');
 
-    redirecionamentoPorAutoridade(3);
+redirecionamentoPorAutoridade(3);
 ?>
 
 <h1>Novo Contrato</h1>
@@ -10,7 +10,32 @@
     <input type="hidden" name="acaocontrato" value="CadastrarContrato">
     <div class="mb-3">
         <label>Fornecedor</label>
-        <input type="number" name="cd_Fornecedor" class="form-control">
+
+        <?php
+        try {
+            $sql = "SELECT * FROM fornecedor";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de fornecedores');
+                    location.href='painel.php';</script>";
+        }
+
+        print "<select class='form-select' name='cd_Fornecedor'>";
+        print "<datalist>";
+        print "<option value='' disabled selected>Selecione o fornecedor</option>";
+
+
+        while ($row = $res->fetch_object()) {
+
+            print "<option>" . $row->cd_Fornecedor . " - " . $row->nm_Fornecedor . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
+
+
     </div>
     <div class="mb-3">
         <label>Data do Contrato</label>

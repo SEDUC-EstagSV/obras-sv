@@ -10,11 +10,16 @@
 
 require_once 'function-contrato.php';
 
-$sql = "SELECT * FROM contratoview";
-
-$res = $conn->query($sql);
-
-$qtd = $res->num_rows;
+try{
+    $sql = "SELECT * FROM contratoview";
+    
+    $res = $conn->query($sql);
+    
+    $qtd = $res->num_rows;
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados dos contratos');
+    location.href='painel.php';</script>";
+}
 
 
 

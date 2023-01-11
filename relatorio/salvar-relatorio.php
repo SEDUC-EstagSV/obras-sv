@@ -114,7 +114,8 @@ switch ($_REQUEST["acaorelatorio"]) {
                 print "<script>location.href='?page=listar_relatorio';</script>";
             }
         } catch(mysqli_sql_exception $e){
-            print "<script>alert('Ocorreu um erro interno ao excluir relatório');</script>";
+            print "<script>alert('Ocorreu um erro interno ao excluir relatório');
+                            location.reload();</script>";
         }
         break;
 

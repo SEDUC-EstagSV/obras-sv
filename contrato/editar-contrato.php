@@ -7,10 +7,18 @@
 <h1>Editar Contrato</h1>
 
 <?php
-$sql = "SELECT * FROM contrato WHERE cd_Contrato=" . $_REQUEST["cd_Contrato"];
+try{
+    $cd_Contrato = $_REQUEST["cd_Contrato"];
+    $sql = $conn->prepare("SELECT * FROM contrato WHERE cd_Contrato = ?");
+    $sql->bind_param('i', $cd_Contrato);
+    $sql->execute();
+    $res = $sql->get_result();
+    $row = $res->fetch_object();
 
-$res = $conn->query($sql);
-$row = $res->fetch_object();
+} catch(mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados do contrato');
+                    location.reload();</script>";
+}   
 ?>
 
 <form action="?page=salvarcontrato" method="POST">

@@ -1,4 +1,4 @@
-<h1>Nova Relatório</h1>
+<h1>Novo Relatório</h1>
 
 <form action="?page=salvarrelatorio" method="POST">
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
