@@ -10,11 +10,17 @@
 <?php
 require_once('function-seduc.php');
 
-$sql = "SELECT * FROM usuario";
+try{
+    $sql = "SELECT * FROM usuario";
+    
+    $res = $conn->query($sql);
+    
+    $qtd = $res->num_rows;
 
-$res = $conn->query($sql);
-
-$qtd = $res->num_rows;
+} catch (mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados dos usuários');
+                    location.href='painel.php';</script>";
+}
 
 
 if ($qtd > 0) {

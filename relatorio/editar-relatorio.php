@@ -19,7 +19,7 @@ try{
     $row = $res->fetch_object();
 } catch(mysqli_sql_exception $e){
     print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
-                    location.reload();</script>";
+                    window.history.go(-1);</script>";
 }
 
 ?>

@@ -31,6 +31,7 @@ switch ($_REQUEST["acaofornecedor"]) {
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao registrar fornecedor');
                     window.history.go(-1);</script>";
+            exit();
         }
 
         break;

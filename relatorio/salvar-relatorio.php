@@ -40,6 +40,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao buscar dados da obra informada');
                     window.history.go(-1);</script>";
+            exit();
         }
 
 
@@ -92,7 +93,7 @@ switch ($_REQUEST["acaorelatorio"]) {
                 print "<script>location.href='?page=listar_relatorio';</script>";
             }
         } catch(mysqli_sql_exception $e){
-            print "<script>alert('Ocorreu um erro interno ao buscar ao criar relatório');
+            print "<script>alert('Ocorreu um erro interno ao criar relatório');
                     window.history.go(-1);</script>";
         }
 

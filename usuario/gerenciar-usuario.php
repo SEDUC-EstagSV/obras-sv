@@ -8,10 +8,21 @@
 
 <?php
 require_once('function-seduc.php');
-$sql = "SELECT * FROM usuario WHERE cd_Usuario=" . $_REQUEST["cd_Usuario"];
 
-$res = $conn->query($sql);
-$row = $res->fetch_object();
+$cd_Usuario = $_REQUEST["cd_Usuario"];
+
+try{
+    $sql = $conn->prepare("SELECT * FROM usuario WHERE cd_Usuario = ?");
+    $sql->bind_param('i', $cd_Usuario);
+    $sql->execute();
+    
+    $res = $sql->get_result();
+    $row = $res->fetch_object();
+
+} catch (mysqli_sql_exception $e){
+    print "<script>alert('Ocorreu um erro interno ao buscar dados do usuário');
+                    window.history.go(-1);</script>";
+}
 ?>
 
 <form action="?page=salvarusuario" method="POST">
