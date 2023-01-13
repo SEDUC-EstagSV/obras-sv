@@ -10,13 +10,13 @@
 
 <body>
   <?php
-    include('function-seduc.php');
+  include('function-seduc.php');
 
-    session_start();
+  session_start();
 
-    if(!isset($_SESSION['user'])){
-      header("location:index.php");
-    }
+  if (!isset($_SESSION['user'])) {
+    header("location:index.php");
+  }
 
   ?>
   <nav class="navbar navbar-expand-lg bg-light">
@@ -33,73 +33,81 @@
 
           <?php
           //verifica autoridade
-          if(liberaFuncaoParaAutoridade(3))
-          {
+          if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=novousuario'>Registrar</a>
                   </li>";
           }
 
-          if(liberaFuncaoParaAutoridade(3)){
+          if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=novaobra'>Nova Obra</a>
                   </li>";
           }
-          ?>
+          
 
+          if (liberaFuncaoParaAutoridade(2)) {
+            echo  "<li class='nav-item'>
+                <a class='nav-link' href='?page=novorelatorio'>Novo Relatório</a>
+              </li>";
+          }
 
-          <li class="nav-item">
-            <a class="nav-link" href="?page=novorelatorio">Novo Relatório</a>
-          </li>
-
-          <?php
-            if(liberaFuncaoParaAutoridade(3))
-            {
-              echo "<li class='nav-item'>
+        
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='nav-item'>
                       <a class='nav-link' href='?page=novaescola'>Nova Escola</a>
                     </li>";
-            }
-             
-            if(liberaFuncaoParaAutoridade(3)){
-              echo  "<li class='nav-item'>
+          }
+
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo  "<li class='nav-item'>
                       <a class='nav-link' href='?page=novofornecedor'>Novo Fornecedor</a>
                     </li>";
-            }
+          }
 
-            if(liberaFuncaoParaAutoridade(3)){
-              echo  "<li class='nav-item'>
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo  "<li class='nav-item'>
                       <a class='nav-link' href='?page=novocontrato'>Novo Contrato</a>
                     </li>";
-              }
-              ?>
+          }
+          
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='nav-item'>
+              <a class='nav-link' href='?page=listaobra'>Lista de Obras</a>
+            </li>";
+          }
 
-          <li class="nav-item">
-            <a class="nav-link" href="?page=listaobra">Lista de Obras</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=listar_relatorio">Lista de Relatórios</a>
-          </li>
-
-          <?php
-          if(liberaFuncaoParaAutoridade(3)){
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='nav-item'>
+                <a class='nav-link' href='?page=listar_relatorio'>Lista de Relatórios</a>
+              </li>";
+          }
+          
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo  "<li class='nav-item'>
+                <a class='nav-link' href='?page=ver_relatorio'>Ver Relatório</a>
+              </li>";
+          }
+          
+          if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_escolas'>Lista de Escolas</a>
                   </li>";
           }
-          
-          if(liberaFuncaoParaAutoridade(3)){
+
+          if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
                   </li>";
           }
 
-          if(liberaFuncaoParaAutoridade(3)){
+          if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_contratos'>Lista de Contratos</a>
                   </li>";
           }
 
-          if(liberaFuncaoParaAutoridade(3)){
+          if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
                     <a class='nav-link' href='?page=listar_usuario'>Lista de Usuários</a>
                   </li>";
@@ -126,6 +134,9 @@
           case "novorelatorio":
             include("relatorio/novo-relatorio.php");
             break;
+            case "novorelatorio":
+              include("relatorio/novo-relatorio2.php");
+              break;
           case "novaescola":
             include("escola/nova-escola.php");
             break;
@@ -146,6 +157,9 @@
             break;
           case "listar_relatorio":
             include("relatorio/listar-relatorio.php");
+            break;
+          case "ver_relatorio":
+            include("relatorio/ver-relatorio.php");
             break;
           case "listar_fornecedores":
             include("fornecedor/listar-fornecedores.php");
@@ -196,8 +210,8 @@
             include("usuario/logout-usuario.php");
             header("location: index.php");
             break;
-            default:
-            if($_SESSION["user"][1] != null)
+          default:
+            if ($_SESSION["user"][1] != null)
               print "<h1>Bem vindo, {$_SESSION["user"][0]}!</h1>";
         }
         ?>

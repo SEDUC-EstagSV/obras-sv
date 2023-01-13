@@ -51,16 +51,12 @@ switch ($_REQUEST["acaousuario"]) {
         }
 
         try{
-            $sql = "INSERT INTO usuario (user_Login,user_Senha,user_Nome, user_CPF,user_Email,user_Telefone,user_Autoridade) 
-                VALUES('{$user_Login}', 
-                       '{$user_Senha}',
-                       '{$user_Nome}', 
-                       '{$user_CPF}', 
-                       '{$user_Email}', 
-                       '{$user_Telefone}',
-                       '{$user_Autoridade}')";
-    
-            $res = $conn->query($sql);
+            $sql = $conn->prepare("INSERT INTO usuario (user_Login,user_Senha,user_Nome, user_CPF,user_Email,user_Telefone,user_Autoridade) 
+                VALUES(?,?,?,?,?,?,?)");
+
+            $sql->bind_param('ssssssi', $user_Login, $user_Senha, $user_Nome, $user_CPF, $user_Email, $user_Telefone, $user_Autoridade);
+            
+            $res = $sql->execute();
     
             if ($res == true) {
                 print "<script>alert('Usuário cadastrado com sucesso');</script>";

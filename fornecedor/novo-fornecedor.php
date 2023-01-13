@@ -9,7 +9,7 @@
 <form action="?page=salvarfornecedor" method="POST">
     <input type="hidden" name="acaofornecedor" value="CadastrarFornecedor">
     <div class="mb-3">
-        <label>Nome forncedor</label>
+        <label>Nome fornecedor</label>
         <input type="nome" name="nm_Fornecedor" class="form-control">
     </div>
     <div class="mb-3">

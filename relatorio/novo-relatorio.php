@@ -7,6 +7,7 @@
         <input type="number" name="cd_Obra" class="form-control">
     </div>
     <div class="mb-3">
+    <!-- Buscar número de relatórios p/ esta obra e acrescentar +1-->
         <label>N° do Relatório nessa obra</label>
         <input type="number" name="num_Relatorio" class="form-control">
     </div>

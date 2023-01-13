@@ -67,6 +67,8 @@ function criaLogErro($erro){
     fclose($fp);
 }
 
+
+
 /*
 function geraEmail(){
     //tem que gerar um numero aleatorio

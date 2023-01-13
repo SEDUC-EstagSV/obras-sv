@@ -18,3 +18,4 @@ o metodo de criptografia md5 NÃO é seguro, usar por conta em risco. https://ww
 
 arrumar as interações com o banco de dados para evitar sql injection ✔️ 
 tratar erros sql ✔️ 
+função para gerar log de erros ✔️ 

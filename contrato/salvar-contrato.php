@@ -11,7 +11,7 @@ require_once 'function-contrato.php';
 switch ($_REQUEST["acaocontrato"]) {
     case 'CadastrarContrato':
         $cd_Fornecedor = $_POST["cd_Fornecedor"];
-        $cd_Fornecedor = substr($cd_Fornecedor, 0, strpos($cd_Fornecedor, "-"));
+        //$cd_Fornecedor = substr($cd_Fornecedor, 0, strpos($cd_Fornecedor, "-"));
         $dt_AnoContrato = $_POST["dt_AnoContrato"];
         $dt_Inicial = $_POST["dt_Inicial"];
         $dt_Final = $_POST["dt_Final"];
@@ -26,20 +26,7 @@ switch ($_REQUEST["acaocontrato"]) {
             
             $res = $sql->execute();
     
-            if ($res == true) {
-                print "<script>alert('Contrato cadastrado com sucesso');</script>";
-                print "<script>location.href='?page=listar_contratos';</script>";
-            } else {
-                print "<script>alert('Não foi possível cadastrar');</script>";
-                print "<script>location.href='?page=listar_contratos';</script>";
-            }
-
-        } catch(mysqli_sql_exception){
-            print "<script>alert('Ocorreu um erro interno ao buscar ao criar contrato');
-            window.history.go(-1);</script>";
-        }
-
-        break;
+           
 
     case 'editarcontrato':
         $cd_Contrato = $_REQUEST["cd_Contrato"];

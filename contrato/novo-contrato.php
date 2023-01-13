@@ -9,6 +9,11 @@ redirecionamentoPorAutoridade(3);
 <form action="?page=salvarcontrato" method="POST">
     <input type="hidden" name="acaocontrato" value="CadastrarContrato">
     <div class="mb-3">
+        <!-- enviar e tratar sql -->
+        <label>Número do Contrato</label>
+        <input type="text" name="cd_Contrato" class="form-control">
+    </div>
+    <div class="mb-3">
         <label>Fornecedor</label>
 
         <?php
@@ -29,7 +34,7 @@ redirecionamentoPorAutoridade(3);
 
         while ($row = $res->fetch_object()) {
 
-            print "<option>" . $row->cd_Fornecedor . " - " . $row->nm_Fornecedor . "</option>";
+            print "<option value={$row->cd_Fornecedor}>" . $row->nm_Fornecedor . "</option>";
 
         }
         print "</datalist>";
@@ -39,7 +44,7 @@ redirecionamentoPorAutoridade(3);
 
     </div>
     <div class="mb-3">
-        <label>Data do Contrato</label>
+        <label>Ano do Contrato</label>
         <input type="number" name="dt_AnoContrato" class="form-control">
     </div>
     <div class="mb-3">
@@ -51,11 +56,11 @@ redirecionamentoPorAutoridade(3);
         <input type="text" name="tp_Servico" class="form-control">
     </div>
     <div class="mb-3">
-        <label>Data inicial da Obra</label>
+        <label>Data inicial do Contrato</label>
         <input type="date" name="dt_Inicial" class="form-control">
     </div>
     <div class="mb-3">
-        <label>Data de conclusão da Obra</label>
+        <label>Data de conclusão do Contrato</label>
         <input type="date" name="dt_Final" class="form-control">
     </div>
     <div class="mb-3">
