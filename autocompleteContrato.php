@@ -9,7 +9,7 @@ if(!empty($cd_contrato)){
   
   $pesq_contrato = $cd_contrato;
   
-  $query_contrato= $conn->prepare("SELECT cd_Contrato
+  $query_contrato= $conn->prepare("SELECT cd_Contrato, dt_AnoContrato
   FROM contrato
   WHERE cd_Contrato LIKE ? LIMIT 10");
   $query_contrato->bind_param('i', $pesq_contrato);
@@ -20,7 +20,8 @@ if(!empty($cd_contrato)){
   if(($result_contrato->num_rows > 0)){
       while($row_contrato = $result_contrato->fetch_assoc()){
             $dados[] = [
-                'cd' => $row_contrato['cd_Contrato']
+                'cd' => $row_contrato['cd_Contrato'],
+                'ano' => $row_contrato['dt_AnoContrato']
             ];
         }
 

@@ -16,11 +16,9 @@ async function loadContratos(val) {
             "<li class='list-group-item list-group-item-action' onclick='get_container(" +
             JSON.stringify(resposta['dados'][i].cd) +
             ',' +
-            JSON.stringify(resposta['dados'][i].tipo) +
-            ',' +
-            JSON.stringify(resposta['dados'][i].categoria) +
+            JSON.stringify(resposta['dados'][i].ano) +
             ")'>" +
-            resposta['dados'][i].cd +
+            resposta['dados'][i].cd + '/' + resposta['dados'][i].ano +
             '</li>'
         }
       }
