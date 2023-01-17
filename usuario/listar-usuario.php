@@ -11,7 +11,7 @@
 require_once('function-seduc.php');
 
 try{
-    $sql = "SELECT * FROM usuario";
+    $sql = "SELECT u.*, f.nm_Fornecedor FROM usuario u INNER JOIN fornecedor f ON u.cd_Fornecedor = f.cd_Fornecedor";
     
     $res = $conn->query($sql);
     
@@ -28,6 +28,7 @@ if ($qtd > 0) {
     print "<table class='table table-hover table-striped table-bordered'>";
     print "<tr>";
     print "<th>#Usuário</th>";
+    print "<th>Fornecedor</th>";
     print "<th>User</th>";
     print "<th>Nome</th>";
     print "<th>E-mail</th>";
@@ -41,6 +42,7 @@ if ($qtd > 0) {
 
         print "<tr>";
         print "<td>" . $row->cd_Usuario . "</td>";
+        print "<td>" . $row->nm_Fornecedor . "</td>";
         print "<td>" . $row->user_Login . "</td>";
         print "<td>" . $row->user_Nome . "</td>";
         print "<td>" . $row->user_Email . "</td>";

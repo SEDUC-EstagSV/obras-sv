@@ -223,8 +223,8 @@ switch ($_REQUEST["acaousuario"]) {
             }
 
         } catch(mysqli_sql_exception $e){
-            print "<script>alert('Ocorreu um erro interno ao excluir relatório');
-                            location.reload();</script>";
+            print "<script>alert('Ocorreu um erro interno ao tentar logar usuário');
+                            window.history.go(-1);</script>"; 
             criaLogErro($e);
         }
         break;

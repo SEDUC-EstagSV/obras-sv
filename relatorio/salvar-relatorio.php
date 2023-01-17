@@ -4,7 +4,6 @@ require_once 'contrato/function-contrato.php';
 switch ($_REQUEST["acaorelatorio"]) {
     case 'cadastrarRelatorio':
         $cd_Obra = $_POST["cd_Obra"];
-        $num_Relatorio = $_POST["num_Relatorio"];
         $nm_TecResponsavel = $_POST["nm_TecResponsavel"];
         $ds_Email = $_POST["ds_Email"];
         $nm_LocResponsavel = $_POST["nm_LocResponsavel"];
@@ -24,6 +23,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         $qt_MaoDireta = $_POST["qt_MaoDireta"];
         $pt_Conclusao = $_POST["pt_Conclusao"];
         $tp_RelaComentario = $_POST["tp_RelaComentario"];
+        $num_Relatorio = $_POST["num_Relatorio"];
 
         try{
             $sql = $conn->prepare("SELECT c.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
@@ -32,7 +32,7 @@ switch ($_REQUEST["acaorelatorio"]) {
             $res = $sql->get_result();
             if($res->num_rows === 0) {
                 print "<script>alert('Obra não encontrada');
-                        window.history.go(-1);</script>";
+                window.history.go(-1);</script>";
                 exit();
             }
             $row = $res->fetch_object();
@@ -53,7 +53,6 @@ switch ($_REQUEST["acaorelatorio"]) {
 
         try{
             $sql = $conn->prepare("INSERT INTO relatorio (cd_Obra,
-                                                num_Relatorio,
                                                 nm_TecResponsavel, 
                                                 ds_Email, 
                                                 nm_LocResponsavel, 
@@ -74,15 +73,16 @@ switch ($_REQUEST["acaorelatorio"]) {
                                                 tp_AtivRealizada,
                                                 tp_RelaComentario, 
                                                 pr_Decorrido,
-                                                pr_Vencer) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                                                pr_Vencer,
+                                                num_Relatorio) 
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,(SELECT COUNT(*) AS num_relatorios FROM relatorio WHERE cd_obra = ?) + 1)");
     
             $sql->bind_param('iissssissssiiiiiiiissss', 
-                    $cd_Obra,$num_Relatorio,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
+                    $cd_Obra,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
                     $dt_Carimbo,$tp_RelaSituacao,$nm_Dia,$tp_Periodo,$tp_Tempo,$tp_Condicao,
                     $qt_TotalMaodeObra,$qt_Ajudantes,$qt_Eletricistas,$qt_Mestres,$qt_Pedreiros,
                     $qt_Serventes,$qt_MaoDireta,$pt_Conclusao,$tp_AtivRealizada,$tp_RelaComentario,
-                    $pr_Decorrido,$pr_Vencer);
+                    $pr_Decorrido,$pr_Vencer, $cd_Obra);
     
             $res = $sql->execute();
     

@@ -27,7 +27,6 @@ if ($qtd > 0) {
     print "<th>Email</th>";
     print "<th>Endereço</th>";
     print "<th>CNPJ</th>";
-    print "<th>Situação atual</th>";
     print "<th>Ações</th>";
     print "</tr>";
     while ($row = $res->fetch_object()) {
@@ -37,7 +36,6 @@ if ($qtd > 0) {
         print "<td>" . $row->ds_Email . "</td>";
         print "<td>" . $row->ds_Endereco . "</td>";
         print "<td>" . $row->num_CNPJ . "</td>";
-        print "<td>" . $row->st_Fornecedor . "</td>";
         print "<td>
 
                     <button onclick=\"location.href='?page=editarfornecedor&cd_Fornecedor=" . $row->cd_Fornecedor . "';\" class='btn btn-success'>Editar</button>

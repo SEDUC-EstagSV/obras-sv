@@ -34,7 +34,37 @@
     </div>
     <div class="mb-3">
         <label>Celular / Telefone</label>
-        <input type="text" name="user_Telefone" class="form-control">
+        <input type="tel" name="user_Telefone" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Fornecedor</label>
+
+        <?php
+        try {
+            $sql = "SELECT * FROM fornecedor";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de fornecedores');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+        print "<select class='form-select' name='cd_Fornecedor'>";
+        print "<datalist>";
+        print "<option value='' disabled selected>Selecione o fornecedor</option>";
+
+
+        while ($row = $res->fetch_object()) {
+
+            print "<option value=$row->cd_Fornecedor>" . $row->nm_Fornecedor . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
+
+
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>

@@ -54,7 +54,7 @@ if ($qtd > 0) {
         print "<td>" . dataDecorrida($dt_Inicial, $dt_Final) . "</td>";
         print "<td>" . dataVencer($dt_Final) . "</td>";
         print "<td>" . $row->tp_Servico . "</td>";
-        print "<td>" . $row->st_Contrato . "</td>";
+        print "<td>" . $row->nm_situacao . "</td>";
         print "<td>
 
                     <button onclick=\"location.href='?page=editarcontrato&cd_Contrato=" . $row->cd_Contrato . "';\" class='btn btn-success'>Editar</button>

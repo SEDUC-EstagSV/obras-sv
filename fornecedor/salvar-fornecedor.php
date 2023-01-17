@@ -15,9 +15,9 @@ switch ($_REQUEST["acaofornecedor"]) {
         $st_Fornecedor = $_POST["st_Fornecedor"];
 
         try{
-            $sql = $conn->prepare("INSERT INTO fornecedor (nm_Fornecedor, num_CNPJ, ds_Email, ds_Endereco, st_Fornecedor) 
-                VALUES(?,?,?,?,?)");
-            $sql->bind_param('sssss', $nm_Fornecedor, $num_CNPJ, $ds_Email, $ds_Endereco, $st_Fornecedor);
+            $sql = $conn->prepare("INSERT INTO fornecedor (nm_Fornecedor, num_CNPJ, ds_Email, ds_Endereco) 
+                VALUES(?,?,?,?)");
+            $sql->bind_param('ssss', $nm_Fornecedor, $num_CNPJ, $ds_Email, $ds_Endereco);
     
             $res = $sql->execute();
     

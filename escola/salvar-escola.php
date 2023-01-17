@@ -11,7 +11,7 @@ switch ($_REQUEST["acaoescola"]) {
         $st_Escola = $_POST["st_Escola"];
 
         try{
-            $sql = $conn->prepare("INSERT INTO escola (nm_Escola, ds_Local,st_Escola) 
+            $sql = $conn->prepare("INSERT INTO escola (nm_Escola, ds_Local, cd_statusEscola) 
                 VALUES(?, ?, ?)");
             $sql->bind_param('sss', $nm_Escola, $ds_Local, $st_Escola);
             

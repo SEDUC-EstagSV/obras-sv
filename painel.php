@@ -209,6 +209,8 @@
           case "logout":
             include("usuario/logout-usuario.php");
             header("location: index.php");
+          case "formvalues":
+            include("formvalues.php");
             break;
           default:
             if ($_SESSION["user"][1] != null)

@@ -9,7 +9,11 @@
 
 <?php
 try{
-    $sql = "SELECT * FROM escola";
+    $sql = "SELECT e.cd_Escola, e.nm_Escola, e.ds_Local, 
+                    ste.cd_statusEscola, ste.nm_statusEscola
+            FROM escola e
+            INNER JOIN status_escola ste 
+            ON e.cd_statusEscola = ste.cd_statusEscola;";
     
     $res = $conn->query($sql);
     
@@ -35,7 +39,7 @@ if ($qtd > 0) {
         print "<td>" . $row->cd_Escola . "</td>";
         print "<td>" . $row->nm_Escola . "</td>";
         print "<td>" . $row->ds_Local . "</td>";
-        print "<td>" . $row->st_Escola . "</td>";
+        print "<td>" . $row->nm_statusEscola . "</td>";
         print "<td>
 
                 <button onclick=\"location.href='?page=editarescola&cd_Escola=" . $row->cd_Escola . "';\" class='btn btn-success'>Editar</button>

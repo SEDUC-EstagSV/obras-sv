@@ -8,20 +8,20 @@ redirecionamentoPorAutoridade(3);
 
 switch ($_REQUEST["acaoobra"]) {
     case 'cadastrarObra':
-        $cd_Escola = $_POST["cd_Escola"];
-        $nm_Obra = $_POST["nm_Obra"];
-        $cd_Contrato = $_POST["cd_Contrato"];
-        $nm_Contratante = $_POST["nm_Contratante"];
-        $tp_AtivDescricao = $_POST["tp_AtivDescricao"];
         $st_Obra = $_POST["st_Obra"];
-        $tp_Comentario = $_POST["tp_Comentario"];
+        $cd_Escola = $_POST["nm_Escola"];
+        //$nm_Contratante = $_POST["nm_Contratante"];
+        $tp_AtivDescricao = $_POST["tp_AtivDescricao"];
+        $valueContrato = explode('/', $_POST["num_contrato"]);
+        $numContrato = $valueContrato[0];
+        $anoContrato = $valueContrato[1];
         
             try{
-                $sql = $conn->prepare("INSERT INTO obra (cd_Escola,nm_obra,cd_Contrato, nm_Contratante,tp_AtivDescricao,tp_Comentario,st_Obra) 
-                    VALUES(?,?,?,?,?,?,?)");
-                $sql->bind_param('isissss',
-                $cd_Escola,$nm_Obra,$cd_Contrato,$nm_Contratante,
-                $tp_AtivDescricao,$tp_Comentario,$st_Obra);
+                $sql = $conn->prepare("INSERT INTO obra (cd_Escola,tp_AtividadeDescricao,dt_AnoContrato,cd_situacaoObra, cd_Contrato) 
+                    VALUES(?,?,?,?,(SELECT cd_Contrato FROM contrato WHERE num_contrato = ? AND dt_AnoContrato = ?))");
+                $sql->bind_param('ississ',
+                $cd_Escola,$tp_AtivDescricao,
+                $anoContrato,$st_Obra, $numContrato, $anoContrato);
 
                 $res = $sql->execute();
                 if ($res == true) {

@@ -25,10 +25,6 @@
         <input type="text" name="ds_Endereco" class="form-control">
     </div>
     <div class="mb-3">
-        <label>Situação do Fornecedor</label>
-        <input type="text" name="st_Fornecedor" class="form-control">
-    </div>
-    <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </form>

@@ -9,9 +9,8 @@ redirecionamentoPorAutoridade(3);
 <form action="?page=salvarcontrato" method="POST">
     <input type="hidden" name="acaocontrato" value="CadastrarContrato">
     <div class="mb-3">
-        <!-- enviar e tratar sql -->
         <label>Número do Contrato</label>
-        <input type="text" name="cd_Contrato" class="form-control">
+        <input type="text" name="num_contrato" class="form-control">
     </div>
     <div class="mb-3">
         <label>Fornecedor</label>
@@ -34,7 +33,7 @@ redirecionamentoPorAutoridade(3);
 
         while ($row = $res->fetch_object()) {
 
-            print "<option value={$row->cd_Fornecedor}>" . $row->nm_Fornecedor . "</option>";
+            print "<option value=$row->cd_Fornecedor>" . $row->nm_Fornecedor . "</option>";
 
         }
         print "</datalist>";
@@ -49,11 +48,35 @@ redirecionamentoPorAutoridade(3);
     </div>
     <div class="mb-3">
         <label>Situação do Contrato</label>
-        <input type="text" name="st_Contrato" class="form-control">
+        <?php
+        try {
+            $sql = "SELECT * FROM situacao_contrato";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de fornecedores');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+        print "<select class='form-select' name='st_Contrato'>";
+        print "<datalist>";
+        print "<option value='' disabled selected>Selecione a situação do contrato</option>";
+
+
+        while ($row = $res->fetch_object()) {
+
+            print "<option value={$row->cd_situacao}>" . $row->nm_situacao . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
+    
     </div>
     <div class="mb-3">
         <label>Serviço</label>
-        <input type="text" name="tp_Servico" class="form-control">
+        <input type="text" name="tp_Servico" class="form-control" placeholder="(Objeto do contrato)">
     </div>
     <div class="mb-3">
         <label>Data inicial do Contrato</label>

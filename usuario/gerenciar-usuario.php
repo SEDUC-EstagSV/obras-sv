@@ -29,13 +29,24 @@ try{
     <input type="hidden" name="acaousuario" value="gerenciarusuario">
     <input type="hidden" name="cd_Usuario" value="<?php print $row->cd_Usuario; ?>">
     <div class="mb-3">
-        <label>Usuario</label>
+        <label>Usuário</label>
         <input type="nome" name="user_Login" value="<?php print $row->user_Login; ?>" class="form-control">
     </div>
     <div class="mb-3">
         <label>Nome</label>
         <input type="nome" name="user_Nome" value="<?php print $row->user_Nome; ?>" class="form-control">
     </div>
+    
+    <div class="mb-3">
+        <label>Fornecedor</label>
+        <input type="nome" name="cd_Fornecedor" value="<?php print $row->cd_Fornecedor; ?>" class="form-control">
+    </div>
+
+
+
+
+
+    
     <div class="mb-3">
         <label>E-mail</label>
         <input type="text" name="user_Email" value="<?php print $row->user_Email; ?>" class="form-control">

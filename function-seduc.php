@@ -83,7 +83,7 @@ function geraEmail(){
     ini_set("sendmail_from","pmsvtec@gmail.com");
     ini_set("sendmail_path", "C:/xampp/sendmail/sendmail.exe -t");
 
-    $to = "ga.ferreira.desouza@gmail.com";
+    $to = "";
     $subject = "Recuperação de senha";
     $message = "Seu código para definir uma nova senha é {$codigo}";
 

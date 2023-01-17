@@ -1,15 +1,10 @@
 <h1>Novo Relatório</h1>
 
-<form action="?page=salvarrelatorio" method="POST">
+<form action="?page=salvarrelatorio" id="relatorio_form" method="POST" >
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
     <div class="mb-3">
         <label>Código da Obra</label>
         <input type="number" name="cd_Obra" class="form-control">
-    </div>
-    <div class="mb-3">
-    <!-- Buscar número de relatórios p/ esta obra e acrescentar +1-->
-        <label>N° do Relatório nessa obra</label>
-        <input type="number" name="num_Relatorio" class="form-control">
     </div>
     <div class="mb-3">
         <label>Nome do Técnico Responsável</label>
@@ -33,7 +28,30 @@
     </div>
     <div class="mb-3">
         <label>Período trabalho</label>
-        <input type="text" name="tp_Periodo" class="form-control">
+
+        <?php
+
+        try {
+            $sql = "SELECT * FROM tipo_periodo";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+
+        while ($row = $res->fetch_object()) {
+            print "
+            <div>
+                <input type='checkbox' name='periodo_$row->cd_tipoPeriodo'>
+                <label for='periodo_$row->cd_tipoPeriodo'>$row->nm_tipoPeriodo</label>
+            </div>";
+
+        }
+
+        ?>
     </div>
     <div class="mb-3">
         <label>Clima</label>
@@ -80,6 +98,42 @@
         <input type="text" name="tp_RelaComentario" class="form-control">
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" id="checkBtn" class="btn btn-primary">Enviar</button>
     </div>
 </form>
+
+<script>
+const form = document.querySelector('#relatorio_form');
+
+function validateCheckboxes(){
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+
+    var empty = [].filter.call(checkboxes, function( el ) {
+        return !el.checked
+    });
+
+    if (checkboxes.length == empty.length) {
+        alert("É necessário informar pelo menos um período de trabalho");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+form.addEventListener('submit', function (e) {
+    // prevent the form from submitting
+    e.preventDefault();
+
+    // validate fields
+    const checkboxes = validateCheckboxes();
+
+    isFormValid = checkboxes;
+
+    // submit to the server if the form is valid
+    if (isFormValid) {
+        form.submit();
+    }
+});
+
+</script>

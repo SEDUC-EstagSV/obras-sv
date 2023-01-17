@@ -10,8 +10,10 @@ try{
     
     $qtd = $res->num_rows;
 } catch(mysqli_sql_exception $e){
+    /*
     print "<script>alert('Ocorreu um erro interno ao buscar dados dos relatórios');
                     location.href='painel.php';</script>";
+    */
     criaLogErro($e);
 }
 
@@ -59,7 +61,7 @@ if ($qtd > 0) {
         print "<td>" . $row->cd_Relatorio . "</td>";
         print "<td>" . $row->num_Relatorio . "</td>";
         print "<td>" . $row->cd_Obra . "</td>";
-        print "<td>" . $row->nm_Obra . "</td>";
+        print "<td>" . $row->tp_AtivRealizada . "</td>";
         print "<td>" . $row->cd_Escola . "</td>";
         print "<td>" . $row->nm_Escola . "</td>";
         print "<td>" . $row->ds_Local . "</td>";
@@ -74,12 +76,12 @@ if ($qtd > 0) {
         print "<td>" . $row->nm_TecResponsavel . "</td>";
         print "<td>" . $row->ds_Email . "</td>";
         print "<td>" . $row->nm_LocResponsavel . "</td>";
-        $tp_RelaSituacao = formatarRelatorioSit($row->tp_RelaSituacao);
-        print "<td>" . $tp_RelaSituacao . "</td>";
-        print "<td>" . $row->tp_Periodo . "</td>";
-        print "<td>" . $row->tp_Tempo . "</td>";
-        print "<td>" . $row->tp_Condicao . "</td>";
-        print "<td>" . $row->qt_TotalMaodeObra . "</td>";
+        //$tp_RelaSituacao = formatarRelatorioSit($row->tp_RelaSituacao);
+        print "<td>" . $row->nm_situacaoRelatorio . "</td>";
+        print "<td>" . $row->Periodo . "</td>";
+        print "<td>" . $row->nm_tipoTempo . "</td>";
+        print "<td>" . $row->nm_tipoCondicao . "</td>";
+        print "<td>" . $row->qt_totalMaoDeObra . "</td>";
         print "<td>" . $row->qt_Ajudantes . "</td>";
         print "<td>" . $row->qt_Eletricistas . "</td>";
         print "<td>" . $row->qt_Mestres . "</td>";
@@ -87,8 +89,8 @@ if ($qtd > 0) {
         print "<td>" . $row->qt_Serventes . "</td>";
         print "<td>" . $row->qt_MaoDireta . "</td>";
         print "<td>" . $row->pt_Conclusao . "</td>";
-        print "<td>" . $row->st_Obra . "</td>";
-        print "<td>" . $row->tp_RelaComentario . "</td>";
+        print "<td>" . $row->nm_situacaoObra . "</td>";
+        print "<td>" . $row->tp_Comentario . "</td>";
         print "<td>" . $row->dt_Carimbo . "</td>";
         print "<td>" . $row->nm_Dia . "</td>";
         print "<td>

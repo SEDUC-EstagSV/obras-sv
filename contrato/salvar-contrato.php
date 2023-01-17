@@ -10,23 +10,37 @@ require_once 'function-contrato.php';
 
 switch ($_REQUEST["acaocontrato"]) {
     case 'CadastrarContrato':
+        $st_Contrato = $_POST["st_Contrato"];
         $cd_Fornecedor = $_POST["cd_Fornecedor"];
-        //$cd_Fornecedor = substr($cd_Fornecedor, 0, strpos($cd_Fornecedor, "-"));
         $dt_AnoContrato = $_POST["dt_AnoContrato"];
+        $tp_Servico = $_POST["tp_Servico"];
         $dt_Inicial = $_POST["dt_Inicial"];
         $dt_Final = $_POST["dt_Final"];
+        $num_contrato = $_POST["num_contrato"];
         $pr_Total = dataTotal($dt_Inicial, $dt_Final);
-        $tp_Servico = $_POST["tp_Servico"];
-        $st_Contrato = $_POST["st_Contrato"];
 
         try{
-            $sql = $conn->prepare("INSERT INTO contrato (cd_Fornecedor, dt_AnoContrato, dt_Inicial, dt_Final, pr_Total, tp_Servico, st_Contrato) 
-                VALUES(?,?,?,?,?,?,?)");
-            $sql->bind_param('iisssss', $cd_Fornecedor, $dt_AnoContrato, $dt_Inicial, $dt_Final, $pr_Total, $tp_Servico, $st_Contrato);
+            $sql = $conn->prepare("INSERT INTO contrato (cd_Fornecedor, dt_AnoContrato, dt_Inicial, dt_Final, pr_Total, tp_Servico, cd_situacao, num_contrato) 
+                VALUES(?,?,?,?,?,?,?,?)");
+            $sql->bind_param('iissssss', $cd_Fornecedor, $dt_AnoContrato, $dt_Inicial, $dt_Final, $pr_Total, $tp_Servico, $st_Contrato, $num_contrato);
             
             $res = $sql->execute();
     
-           
+            if ($res == true) {
+                print "<script>alert('Contrato cadastrado com sucesso');</script>";
+                print "<script>location.href='?page=listar_contratos';</script>";
+            } else {
+                print "<script>alert('Não foi possível cadastrar contrato');</script>";
+                print "<script>location.href='?page=listar_contratos';</script>";
+            }
+
+        } catch(mysqli_sql_exception $e){
+            print "<script>alert('Ocorreu um erro interno ao criar contrato');
+            window.history.go(-1);</script>";
+            criaLogErro($e);
+        }
+
+        break;
 
     case 'editarcontrato':
         $cd_Contrato = $_REQUEST["cd_Contrato"];

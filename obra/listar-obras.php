@@ -5,14 +5,16 @@
 require_once 'contrato/function-contrato.php';
 
 try{
-    $sql = "SELECT ow.*, ob.st_Obra FROM obraview ow INNER JOIN obra ob ON ow.cd_Obra = ob.cd_Obra"; //view não possuia st_Obra e a falta do INNER JOIN duplicava os resultados
+    $sql = "SELECT * FROM obraview"; //view não possuia st_Obra e a falta do INNER JOIN duplicava os resultados
     
     $res = $conn->query($sql);
     
     $qtd = $res->num_rows;
 } catch(mysqli_sql_exception $e){
+    /*
     print "<script>alert('Ocorreu um erro interno ao buscar dados de obras');
                     location.href='painel.php';</script>";
+                    */
     criaLogErro($e);
 }
 
@@ -32,7 +34,7 @@ if ($qtd > 0) {
     print "<th>Prazo a vencer</th>";
     print "<th>Situação da Obra</th>";
     print "<th>Descrição da Atividade</th>";
-    print "<th>Comentários</th>";
+    //print "<th>Comentários</th>";
 
     if(liberaFuncaoParaAutoridade(3))
     {
@@ -43,10 +45,10 @@ if ($qtd > 0) {
     while ($row = $res->fetch_object()) {
         print "<tr>";
         print "<td>" . $row->cd_Obra . "</td>";
-        print "<td>" . $row->nm_Obra . "</td>";
+        print "<td>" . $row->tp_Servico . "</td>";
         print "<td>" . $row->nm_Escola . "</td>";
         print "<td>" . $row->ds_Local . "</td>";
-        print "<td>" . $row->cd_Contrato . "</td>";
+        print "<td>" . $row->num_contrato . "</td>";
         print "<td>" . $row->nm_Fornecedor . "</td>";
         print "<td>" . $row->dt_Inicial . "</td>";
         print "<td>" . $row->dt_Final . "</td>";
@@ -55,9 +57,9 @@ if ($qtd > 0) {
         $dt_Final = $row->dt_Final;
         print "<td>" . dataDecorrida($dt_Inicial, $dt_Final) . "</td>";
         print "<td>" . dataVencer($dt_Final) . "</td>";
-        print "<td>" . $row->st_Obra . "</td>";
-        print "<td>" . $row->tp_AtivDescricao . "</td>";
-        print "<td>" . $row->tp_Comentario . "</td>";
+        print "<td>" . $row->nm_situacaoObra . "</td>";
+        print "<td>" . $row->tp_AtividadeDescricao . "</td>";
+        //print "<td>" . $row->tp_Comentario . "</td>";
         
         if(liberaFuncaoParaAutoridade(3))
           {
