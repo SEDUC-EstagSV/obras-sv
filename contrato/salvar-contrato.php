@@ -53,13 +53,14 @@ switch ($_REQUEST["acaocontrato"]) {
         $st_Contrato = $_POST["st_Contrato"];
 
         try{
-            $sql = $conn->prepare("UPDATE contrato SET cd_Fornecedor = ?,
+            $sql = $conn->prepare("UPDATE contrato SET 
+                                        cd_Fornecedor = ?,
                                         dt_AnoContrato = ?,
                                         dt_Inicial = ?,
                                         dt_Final = ?,
                                         pr_Total = ?,
                                         tp_Servico = ?,
-                                        st_Contrato = ?
+                                        cd_situacao = ?
                             WHERE
                                 cd_Contrato = ?");
             $sql->bind_param('iisssssi', $cd_Fornecedor, $dt_AnoContrato, $dt_Inicial, $dt_Final, $pr_Total, $tp_Servico, $st_Contrato, $cd_Contrato);
@@ -75,7 +76,7 @@ switch ($_REQUEST["acaocontrato"]) {
             }
 
         } catch(mysqli_sql_exception $e){
-            print "<script>alert('Ocorreu um erro interno ao excluir contrato');
+            print "<script>alert('Ocorreu um erro interno ao editar contrato');
                             location.reload();</script>";
             criaLogErro($e);
         }

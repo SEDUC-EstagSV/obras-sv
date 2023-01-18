@@ -24,6 +24,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         $pt_Conclusao = $_POST["pt_Conclusao"];
         $tp_RelaComentario = $_POST["tp_RelaComentario"];
         $num_Relatorio = $_POST["num_Relatorio"];
+        $cd_Usuario = $_SESSION['user'][2];
 
         try{
             $sql = $conn->prepare("SELECT c.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
@@ -52,41 +53,58 @@ switch ($_REQUEST["acaorelatorio"]) {
         $pr_Vencer = dataVencer($dt_Final);
 
         try{
-            $sql = $conn->prepare("INSERT INTO relatorio (cd_Obra,
-                                                nm_TecResponsavel, 
-                                                ds_Email, 
-                                                nm_LocResponsavel, 
-                                                dt_Carimbo, 
-                                                tp_RelaSituacao, 
-                                                nm_Dia, 
-                                                tp_Periodo, 
-                                                tp_Tempo, 
-                                                tp_Condicao, 
-                                                qt_TotalMaodeObra, 
-                                                qt_Ajudantes, 
-                                                qt_Eletricistas, 
-                                                qt_Mestres, 
-                                                qt_Pedreiros, 
-                                                qt_Serventes, 
-                                                qt_MaoDireta, 
-                                                pt_Conclusao, 
-                                                tp_AtivRealizada,
-                                                tp_RelaComentario, 
-                                                pr_Decorrido,
-                                                pr_Vencer,
-                                                num_Relatorio) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,(SELECT COUNT(*) AS num_relatorios FROM relatorio WHERE cd_obra = ?) + 1)");
+            $sql = $conn->prepare("INSERT INTO relatorio (
+                cd_Obra,
+                nm_TecResponsavel, 
+                ds_Email_TecResponsavel, 
+                nm_LocResponsavel, 
+                dt_Carimbo, 
+                cd_situacaoRelatorio, 
+                nm_Dia, 
+                cd_tipoTempo, 
+                cd_tipoCondicao, 
+                qt_TotalMaodeObra, 
+                qt_Ajudantes, 
+                qt_Eletricistas, 
+                qt_Mestres, 
+                qt_Pedreiros, 
+                qt_Serventes, 
+                qt_MaoDireta, 
+                pt_Conclusao, 
+                tp_AtivRealizada,
+                tp_Comentario, 
+                pr_Decorrido,
+                pr_Vencer,
+                cd_Usuario,
+                num_Relatorio) 
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+                     (SELECT COUNT(*) AS num_relatorios 
+                     FROM relatorio rnum WHERE (rnum.cd_obra LIKE ?) + 1))");
     
-            $sql->bind_param('iissssissssiiiiiiiissss', 
+            $sql->bind_param('iissssssssiiiiiiiisssii', 
                     $cd_Obra,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
-                    $dt_Carimbo,$tp_RelaSituacao,$nm_Dia,$tp_Periodo,$tp_Tempo,$tp_Condicao,
+                    $dt_Carimbo,$tp_RelaSituacao,$nm_Dia,$tp_Tempo,$tp_Condicao,
                     $qt_TotalMaodeObra,$qt_Ajudantes,$qt_Eletricistas,$qt_Mestres,$qt_Pedreiros,
                     $qt_Serventes,$qt_MaoDireta,$pt_Conclusao,$tp_AtivRealizada,$tp_RelaComentario,
-                    $pr_Decorrido,$pr_Vencer, $cd_Obra);
+                    $pr_Decorrido,$pr_Vencer, $cd_Usuario, $cd_Obra);
     
             $res = $sql->execute();
     
             if ($res == true) {
+
+                try{
+                    $sqlJunctionTable = $conn->prepare("INSERT INTO relatorio_has_tipo_periodo (cd_Relatorio, cd_tipoPeriodo) VALUES (?, ?)");
+                    $cd_Relatorio = $conn->insert_id;
+                    foreach($tp_Periodo as $periodo){
+                        $sqlJunctionTable->bind_param('ii', $cd_Relatorio, $periodo);
+                        $resJunctionTable = $sqlJunctionTable->execute();
+                    }
+                } catch (mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro interno na criação do relatório');
+                            window.history.go(-1);</script>";
+                    criaLogErro($e);
+                }
+
                 print "<script>alert('Relatório criado com sucesso');</script>";
                 print "<script>location.href='?page=listar_relatorio';</script>";
             } else {
@@ -133,7 +151,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         $dt_Carimbo = date("Y/m/d");
         $tp_AtivRealizada = $_POST["tp_AtivRealizada"];
         $tp_RelaSituacao = $_POST["tp_RelaSituacao"];
-        $nm_Dia = $_POST["nm_Dia"];
+        $nm_Dia = date("l");
         $tp_Periodo = $_POST["tp_Periodo"];
         $tp_Tempo = $_POST["tp_Tempo"];
         $tp_Condicao = $_POST["tp_Condicao"];
@@ -151,15 +169,14 @@ switch ($_REQUEST["acaorelatorio"]) {
             $sql = $conn->prepare("UPDATE relatorio SET cd_Obra = ?,
                                                         num_Relatorio = ?,
                                                         nm_TecResponsavel = ?, 
-                                                        ds_Email = ?, 
+                                                        ds_Email_TecResponsavel = ?, 
                                                         nm_LocResponsavel = ?, 
                                                         dt_Carimbo = ?,
                                                         tp_AtivRealizada = ?,
-                                                        tp_RelaSituacao= ?,
+                                                        cd_situacaoRelatorio= ?,
                                                         nm_Dia = ?, 
-                                                        tp_Periodo= ?, 
-                                                        tp_Tempo= ?,
-                                                        tp_Condicao= ?,
+                                                        cd_tipoTempo= ?,
+                                                        cd_tipoCondicao= ?,
                                                         qt_TotalMaodeObra = ?,
                                                         qt_Ajudantes = ?, 
                                                         qt_Eletricistas = ?, 
@@ -168,18 +185,37 @@ switch ($_REQUEST["acaorelatorio"]) {
                                                         qt_Serventes = ?, 
                                                         qt_MaoDireta = ?, 
                                                         pt_Conclusao = ?, 
-                                                        tp_RelaComentario = ?
+                                                        tp_Comentario = ?
                                     WHERE
                                         cd_Relatorio = ?" );
-            $sql->bind_param('iissssssssssiiiiiiiisi', 
+            $sql->bind_param('iisssssssssiiiiiiiisi', 
                     $cd_Obra,$num_Relatorio,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
-                    $dt_Carimbo,$tp_AtivRealizada,$tp_RelaSituacao,$nm_Dia,$tp_Periodo,$tp_Tempo,
+                    $dt_Carimbo,$tp_AtivRealizada,$tp_RelaSituacao,$nm_Dia,$tp_Tempo,
                     $tp_Condicao,$qt_TotalMaodeObra,$qt_Ajudantes,$qt_Eletricistas,$qt_Mestres,
                     $qt_Pedreiros,$qt_Serventes,$qt_MaoDireta,$pt_Conclusao,$tp_RelaComentario, $cd_Relatorio);
     
             $res = $sql->execute();
     
             if ($res == true) {
+
+                try{
+                    $sql = $conn->prepare("DELETE FROM relatorio_has_tipo_periodo WHERE cd_Relatorio = ?");
+                    $sql->bind_param('i', $cd_Relatorio);
+                    $resDelHist = $sql->execute();
+
+                    if($resDelHist){
+                        $sqlJunctionTable = $conn->prepare("INSERT INTO relatorio_has_tipo_periodo (cd_Relatorio, cd_tipoPeriodo) VALUES (?, ?)");
+                        foreach($tp_Periodo as $periodo){
+                            $sqlJunctionTable->bind_param('ii', $cd_Relatorio, $periodo);
+                            $resJunctionTable = $sqlJunctionTable->execute();
+                        }
+                    }
+                } catch (mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro interno na criação do relatório');
+                            window.history.go(-1);</script>";
+                    criaLogErro($e);
+                }
+
                 print "<script>alert('Relatório editado com sucesso');</script>";
                 print "<script>location.href='?page=listar_relatorio';</script>";
             } else {

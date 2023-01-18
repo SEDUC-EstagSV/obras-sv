@@ -36,7 +36,7 @@ if ($qtd > 0) {
     print "<th>Tempo decorrido</th>";
     print "<th>Prazo restante</th>";
     print "<th>Técnico Responsável</th>";
-    print "<th>Email</th>";
+    print "<th>Email do Responsável</th>";
     print "<th>Responsável pelo local</th>";
     print "<th>Situação do Relatório</th>";
     print "<th>Período do dia</th>";
@@ -74,7 +74,7 @@ if ($qtd > 0) {
         print "<td>" . $row->pr_Decorrido . "</td>";
         print "<td>" . $row->pr_Vencer . "</td>";
         print "<td>" . $row->nm_TecResponsavel . "</td>";
-        print "<td>" . $row->ds_Email . "</td>";
+        print "<td>" . $row->ds_Email_TecResponsavel . "</td>";
         print "<td>" . $row->nm_LocResponsavel . "</td>";
         //$tp_RelaSituacao = formatarRelatorioSit($row->tp_RelaSituacao);
         print "<td>" . $row->nm_situacaoRelatorio . "</td>";

@@ -28,8 +28,10 @@ no input e fazer a pesquisa por num do contrato e ano) ✔️
 criar tabela usuario_has_fornecedor - com isso, apenas as obras do fornecedor aparecerão 
 ao user na criação de relatório✔️
 
-criar a opção de atribuir fornecedor ao usuario
+criar a opção de atribuir fornecedor ao usuario✔️
 
 criar opção de adicionar escola a um contrato -> formando o vinculo de escola e contrato
 
-falta terminar form relatorio
+falta terminar form relatorio✔️
+
+Permitir consulta de fornecedores no gerenciamento do usuário

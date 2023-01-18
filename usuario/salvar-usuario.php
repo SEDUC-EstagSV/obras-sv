@@ -12,6 +12,7 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Email = $_POST["user_Email"];
         $user_Telefone = $_POST["user_Telefone"];
         $user_Autoridade = 1;
+        $cd_fornecedor = $_POST["cd_Fornecedor"];
 
         cadastraval($user_Login, $user_Senha, $user_Senha2, $user_Nome, $user_precpf, $user_Email, $user_Telefone);
         confirmarsenha($user_Senha, $user_Senha2);
@@ -51,10 +52,10 @@ switch ($_REQUEST["acaousuario"]) {
         }
 
         try{
-            $sql = $conn->prepare("INSERT INTO usuario (user_Login,user_Senha,user_Nome, user_CPF,user_Email,user_Telefone,user_Autoridade) 
-                VALUES(?,?,?,?,?,?,?)");
+            $sql = $conn->prepare("INSERT INTO usuario (user_Login,user_Senha,user_Nome, user_CPF,user_Email,user_Telefone,user_Autoridade, cd_Fornecedor) 
+                VALUES(?,?,?,?,?,?,?,?)");
 
-            $sql->bind_param('ssssssi', $user_Login, $user_Senha, $user_Nome, $user_CPF, $user_Email, $user_Telefone, $user_Autoridade);
+            $sql->bind_param('ssssssii', $user_Login, $user_Senha, $user_Nome, $user_CPF, $user_Email, $user_Telefone, $user_Autoridade, $cd_fornecedor);
             
             $res = $sql->execute();
     
@@ -201,7 +202,7 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Senha = md5($user_Senha);
 
         try{
-            $sql = "SELECT user_Login, user_Nome, user_Senha, user_Autoridade FROM usuario";
+            $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, user_Autoridade FROM usuario";
             $res = $conn->query($sql);
             $qtd = $res->num_rows;
             $erro = true;
@@ -210,8 +211,9 @@ switch ($_REQUEST["acaousuario"]) {
                     if ($user_Login == $row->user_Login && $user_Senha == $row->user_Senha) {
                         $autoridade = $row->user_Autoridade;
                         $nome = $row->user_Nome;
+                        $id = $row->cd_Usuario;
                         session_start();
-                        $_SESSION["user"] = [$nome, $autoridade];
+                        $_SESSION["user"] = [$nome, $autoridade, $id];
                         loginAutoridade($autoridade);
                         $erro = false;
                     }

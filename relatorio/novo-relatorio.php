@@ -24,13 +24,39 @@
     </div>
     <div class="mb-3">
         <label>Situação do Relatório</label>
-        <input type="text" name="tp_RelaSituacao" class="form-control">
+        <?php
+
+
+        try {
+            $sql = "SELECT * FROM situacao_relatorio";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+
+        print "<select class='form-select situacao' name='tp_RelaSituacao' >";
+        print "<datalist>";
+        print "<option value='' disabled selected>Selecione a situação do relatório</option>";
+
+
+        while ($row = $res->fetch_object()) {
+
+            print "<option value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
+
+        }
+
+        print "</datalist>";
+        print "</select>";
+
+        ?>
     </div>
     <div class="mb-3">
         <label>Período trabalho</label>
-
         <?php
-
         try {
             $sql = "SELECT * FROM tipo_periodo";
 
@@ -45,21 +71,71 @@
         while ($row = $res->fetch_object()) {
             print "
             <div>
-                <input type='checkbox' name='periodo_$row->cd_tipoPeriodo'>
-                <label for='periodo_$row->cd_tipoPeriodo'>$row->nm_tipoPeriodo</label>
+                <input type='checkbox' name='tp_Periodo[]' value=$row->cd_tipoPeriodo>
+                <label for='tp_Periodo'>$row->nm_tipoPeriodo</label>
             </div>";
 
         }
-
         ?>
     </div>
     <div class="mb-3">
         <label>Clima</label>
-        <input type="text" name="tp_Tempo" class="form-control">
+
+        <?php
+        
+            try {
+                $sql = "SELECT * FROM tipo_tempo";
+
+                $res = $conn->query($sql);
+            } catch (mysqli_sql_exception $e) {
+                print "<script>alert('Ocorreu um erro interno ao buscar dados de formulario');
+                        location.href='painel.php';</script>";
+                criaLogErro($e);
+            }
+
+            print "<select class='form-select tempo' name='tp_Tempo' >";
+            print "<datalist>";
+            print "<option value='' disabled selected>Selecione a situação do clima</option>";
+
+
+            while ($row = $res->fetch_object()) {
+
+                print "<option value={$row->cd_tipoTempo}>" . $row->nm_tipoTempo . "</option>";
+
+            }
+
+            print "</datalist>";
+            print "</select>";
+        ?>
     </div>
     <div class="mb-3">
         <label>Condição para trabalho</label>
-        <input type="text" name="tp_Condicao" class="form-control">
+        <?php
+    
+            try {
+                $sql = "SELECT * FROM tipo_condicao";
+
+                $res = $conn->query($sql);
+            } catch (mysqli_sql_exception $e) {
+                print "<script>alert('Ocorreu um erro interno ao buscar dados de formulario');
+                        location.href='painel.php';</script>";
+                criaLogErro($e);
+            }
+
+            print "<select class='form-select condicao' name='tp_Condicao' >";
+            print "<datalist>";
+            print "<option value='' disabled selected>Selecione a condição do trabalho</option>";
+
+
+            while ($row = $res->fetch_object()) {
+
+                print "<option value={$row->cd_tipoCondicao}>" . $row->nm_tipoCondicao . "</option>";
+
+            }
+
+            print "</datalist>";
+            print "</select>";
+        ?>
     </div>
     <div class="mb-3">
         <label>Total de Mão de obra</label>
