@@ -11,7 +11,7 @@
 require_once('function-seduc.php');
 
 try{
-    $sql = "SELECT u.*, f.nm_Fornecedor FROM usuario u INNER JOIN fornecedor f ON u.cd_Fornecedor = f.cd_Fornecedor";
+    $sql = "SELECT u.*, f.nm_Fornecedor FROM usuario u LEFT JOIN fornecedor f ON u.cd_Fornecedor = f.cd_Fornecedor";
     
     $res = $conn->query($sql);
     
@@ -38,7 +38,7 @@ if ($qtd > 0) {
     print "</tr>";
     while ($row = $res->fetch_object()) {
 
-        $user_Autoridade = formatarAutoridade($row->user_Autoridade);
+        $user_Autoridade = formatarAutoridade($row->cd_nivelAutoridade);
 
         print "<tr>";
         print "<td>" . $row->cd_Usuario . "</td>";

@@ -61,10 +61,10 @@ switch ($_REQUEST["acaousuario"]) {
     
             if ($res == true) {
                 print "<script>alert('Usuário cadastrado com sucesso');</script>";
-                print "<script>location.href='index.php';</script>";
+                print "<script>location.href='painel.php';</script>";
             } else {
                 print "<script>alert('Não foi possível cadastrar');</script>";
-                print "<script>location.href='index.php';</script>";
+                print "<script>location.href='painel.php';</script>";
             }
 
         } catch (mysqli_sql_exception $e){
@@ -83,10 +83,10 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Nome = $_POST["user_Nome"];
         $user_Email = $_POST["user_Email"];
         $user_Telefone = $_POST["user_Telefone"];
-        $user_Autoridade = $_POST["user_Autoridade"];
+        $cd_Autoridade = $_POST["cd_Autoridade"];
         $user_SenhaAntiga = $_POST["user_SenhaAntiga"];
 
-        editarval($user_Login, $user_SenhaAntiga, $user_Senha, $user_Senha2, $user_Nome, $user_Autoridade, $user_Email, $user_Telefone);
+        editarval($user_Login, $user_SenhaAntiga, $user_Senha, $user_Senha2, $user_Nome, $cd_Autoridade, $user_Email, $user_Telefone);
         confirmarsenha($user_Senha, $user_Senha2);
 
         $user_Senha = md5($user_Senha);
@@ -134,11 +134,11 @@ switch ($_REQUEST["acaousuario"]) {
                                     user_Nome = ?, 
                                     user_Email = ?,
                                     user_Telefone = ?, 
-                                    user_Autoridade = ?
+                                    cd_nivelAutoridade = ?
                         WHERE
                             cd_Usuario = ?");
             
-            $sql->bind_param('sssssii', $user_Login, $user_Senha, $user_Nome, $user_Email, $user_Telefone, $user_Autoridade);
+            $sql->bind_param('sssssii', $user_Login, $user_Senha, $user_Nome, $user_Email, $user_Telefone, $cd_Autoridade, $cd_Usuario);
             
             $res = $sql->execute();
             if ($res == true) {
@@ -221,7 +221,7 @@ switch ($_REQUEST["acaousuario"]) {
             }
             if ($erro = true) {
                 print "<script>alert('Usuário ou senha inválidos!');</script>";
-                print "<script>location.href='index.php';</script>";
+                print "<script>location.href='painel.php';</script>";
             }
 
         } catch(mysqli_sql_exception $e){
@@ -239,6 +239,7 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Email = $_POST["user_Email"];
         $user_Telefone = $_POST["user_Telefone"];
         $user_Autoridade = $_POST["user_Autoridade"];
+        $cd_fornecedor = $_POST["cd_Fornecedor"];
 
         gerenciarval($user_Login, $user_Nome, $user_Autoridade, $user_Email, $user_Telefone);
 
@@ -277,14 +278,16 @@ switch ($_REQUEST["acaousuario"]) {
         try{
             $cd_Usuario = $_REQUEST["cd_Usuario"];
 
-            $sql = $conn->prepare("UPDATE usuario SET  user_Login = ?,
+            $sql = $conn->prepare("UPDATE usuario SET  
+                                        user_Login = ?,
                                         user_Nome = ?, 
                                         user_Email = ?,
                                         user_Telefone = ?, 
-                                        user_Autoridade = ?
+                                        cd_nivelAutoridade = ?,
+                                        cd_Fornecedor = ?
                             WHERE
                                 cd_Usuario = ?");
-            $sql->bind_param('ssssi', $user_Login, $user_Nome, $user_Email, $user_Telefone, $user_Autoridade);
+            $sql->bind_param('ssssiii', $user_Login, $user_Nome, $user_Email, $user_Telefone, $user_Autoridade, $cd_fornecedor, $cd_Usuario);
 
             $res = $sql->execute();
             if ($res == true) {
@@ -337,10 +340,10 @@ switch ($_REQUEST["acaousuario"]) {
                     $res = $sql->execute();
                     if ($res == true) {
                         print "<script>alert('Senha alterada com sucesso');</script>";
-                        print "<script>location.href='index.php';</script>";
+                        print "<script>location.href='painel.php';</script>";
                     } else {
                         print "<script>alert('Usuário não encontrado');</script>";
-                        print "<script>location.href='index.php';</script>";
+                        print "<script>location.href='painel.php';</script>";
                     }
 
                 } catch (mysqli_sql_exception $e){
@@ -350,7 +353,7 @@ switch ($_REQUEST["acaousuario"]) {
                 }
             } else {
                 print "<script>alert('Usuário não encontrado');</script>";
-                print "<script>location.href='index.php';</script>";
+                print "<script>location.href='painel.php';</script>";
             }
 
         } catch (mysqli_sql_exception $e){

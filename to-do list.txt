@@ -35,3 +35,7 @@ criar opção de adicionar escola a um contrato -> formando o vinculo de escola 
 falta terminar form relatorio✔️
 
 Permitir consulta de fornecedores no gerenciamento do usuário
+
+arrumar listagem de usuario
+
+criar view de usuario para diminuir queries

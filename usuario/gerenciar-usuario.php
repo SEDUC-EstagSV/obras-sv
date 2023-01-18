@@ -12,7 +12,10 @@ require_once('function-seduc.php');
 $cd_Usuario = $_REQUEST["cd_Usuario"];
 
 try {
-    $sql = $conn->prepare("SELECT u.*, f.nm_Fornecedor FROM usuario u INNER JOIN fornecedor f ON u.cd_Fornecedor = f.cd_Fornecedor WHERE u.cd_Usuario = ?");
+    $sql = $conn->prepare("SELECT u.*, f.nm_Fornecedor, na.nm_nivelAutoridade FROM usuario u 
+                            LEFT JOIN fornecedor f ON u.cd_Fornecedor = f.cd_Fornecedor
+                            INNER JOIN nivel_autoridade na ON u.cd_nivelAutoridade = na.cd_nivelAutoridade
+                            WHERE u.cd_Usuario = ?");
     $sql->bind_param('i', $cd_Usuario);
     $sql->execute();
 
@@ -37,20 +40,33 @@ try {
         <input type="nome" name="user_Nome" value="<?php print $row->user_Nome; ?>" class="form-control">
     </div>
 
-
-    <?php
-    $atualForn = $row->cd_Fornecedor;
-    ?>
-
     <div class="form-group mb-3">
-        <label>Fornecedor</label>
-        <select class="form-control" name="cd_Fornecedor">
-            <datalist>
-                <option disabled selected value=""><?php print "Atual: " . $atualForn = $row->nm_Fornecedor; ?></option>
+    <label>Fornecedor</label>
 
-                <option value="$row->cd_Fornecedor"><?php print "$row->nm_Fornecedor"; ?></option>
-            </datalist>
-        </select>
+        <?php
+        try {
+            $sql = "SELECT * FROM fornecedor";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de fornecedores');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+        print "<select class='form-select' name='cd_Fornecedor'>";
+        print "<datalist>";
+        print "<option value=$row->cd_Fornecedor readonly selected>$row->nm_Fornecedor</option>";
+
+
+        while ($rowFornecedores = $res->fetch_object()) {
+
+            print "<option value=$rowFornecedores->cd_Fornecedor>" . $rowFornecedores->nm_Fornecedor . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
     </div>
 
 
@@ -70,12 +86,31 @@ try {
 
     <div class="mb-3">
         <label>Permissão de usuário</label>
-        <select type="number" name="user_Autoridade" class="form-control">
-            <option disabled selected value="<?php print $aut; ?>"><?php print "Atual: " . $formataut; ?></option>
-            <option value="1">Pendente</option>
-            <option value="2">Subordinado</option>
-            <option value="3">Supervisor</option>
-        </select><br />
+
+        <?php
+        try {
+            $sql = "SELECT * FROM nivel_autoridade";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de usuário');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+        print "<select class='form-select' name='user_Autoridade'>";
+        print "<datalist>";
+        print "<option value=$row->cd_nivelAutoridade readonly selected>$row->nm_nivelAutoridade</option>";
+
+
+        while ($rowAutoridade = $res->fetch_object()) {
+
+            print "<option value=$rowAutoridade->cd_nivelAutoridade>" . $rowAutoridade->nm_nivelAutoridade . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
