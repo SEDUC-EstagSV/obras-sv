@@ -44,18 +44,21 @@ arrumar editar escola ✔️
 retorno de data em input data -> editar contrato ✔️
 
 vincular usuario a obra ✔️
-atenção para a query q mostra os usuários -> quais usuários ele poderá ver?
-todos menos admin?  
+
+situacao do relatorio na criacao do usuario poderá ser todas ou será sempre criada como pendente? ✔️
+
+agora não será possível excluir linhas de tabelas como as da tabela contrato, obra
+isso pq está tudo conectado no banco de dados, caso seja necessário ativar é preciso mudar
+o que acontecerá com a chave estrangeira quando deletar uma referencia  ✔️
 
 filtrar criação do relatorio pela obra q ele trabalha ✔️
-o usuario só poderá trabalhar na obra se tiver forncedor?
+o usuario só poderá trabalhar na obra se tiver forncedor? sim
+
+atenção para a query q mostra os usuários -> quais usuários ele poderá ver?
+todos menos admin e quem n tem fornecedor
 
 mensagem de erro ao logar (muito rápida)
 
 vizualizar senha ao logar / resgistrar
 
-situacao do relatorio na criacao do usuario poderá ser todas ou será sempre criada como pendente?
-
-agora não será possível excluir linhas de tabelas como as da tabela contrato, obra
-isso pq está tudo conectado no banco de dados, caso seja necessário ativar é preciso mudar
-o que acontecerá com a chave estrangeira quando deletar uma referencia
+validar dados de requisições tanto no front quanto no back

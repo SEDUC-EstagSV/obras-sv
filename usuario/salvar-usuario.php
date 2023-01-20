@@ -12,7 +12,11 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Email = $_POST["user_Email"];
         $user_Telefone = $_POST["user_Telefone"];
         $user_Autoridade = 1;
-        $cd_fornecedor = $_POST["cd_Fornecedor"];
+        if(isset($_POST["cd_Fornecedor"])){
+            $cd_fornecedor = $_POST["cd_Fornecedor"];
+        } else {
+            $cd_fornecedor = null;
+        }
 
         cadastraval($user_Login, $user_Senha, $user_Senha2, $user_Nome, $user_precpf, $user_Email, $user_Telefone);
         confirmarsenha($user_Senha, $user_Senha2);

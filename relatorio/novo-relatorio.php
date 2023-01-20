@@ -54,38 +54,6 @@
         <input type="text" name="tp_AtivRealizada" class="form-control">
     </div>
     <div class="mb-3">
-        <label>Situação do Relatório</label>
-        <?php
-
-
-        try {
-            $sql = "SELECT * FROM situacao_relatorio";
-
-            $res = $conn->query($sql);
-        } catch (mysqli_sql_exception $e) {
-            print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
-                    location.href='painel.php';</script>";
-            criaLogErro($e);
-        }
-
-
-        print "<select class='form-select situacao' name='tp_RelaSituacao' >";
-        print "<datalist>";
-        print "<option value='' disabled selected>Selecione a situação do relatório</option>";
-
-
-        while ($row = $res->fetch_object()) {
-
-            print "<option value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
-
-        }
-
-        print "</datalist>";
-        print "</select>";
-
-        ?>
-    </div>
-    <div class="mb-3">
         <label>Período trabalho</label>
         <?php
         try {
