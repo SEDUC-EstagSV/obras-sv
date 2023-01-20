@@ -1,30 +1,34 @@
 <?php
-    include_once('function-seduc.php');
+include_once('function-seduc.php');
 
-    redirecionamentoPorAutoridade(3);
+redirecionamentoPorAutoridade(3);
 ?>
 
 <h1>Editar Contrato</h1>
 
 <?php
-try{
+try {
     $cd_Contrato = $_REQUEST["cd_Contrato"];
-    $sql = $conn->prepare("SELECT * FROM contratoview c WHERE cd_Contrato = ?");
+    $sql = $conn->prepare("SELECT c.*, GROUP_CONCAT(ehc.cd_Escola SEPARATOR ', ') AS cd_Escolas 
+                            FROM contratoview c
+                            INNER JOIN escola_has_contrato ehc
+                            ON c.cd_Contrato = ehc.cd_Contrato
+                            WHERE c.cd_Contrato = ?
+                            GROUP BY c.cd_Contrato");
     $sql->bind_param('i', $cd_Contrato);
     $sql->execute();
     $res = $sql->get_result();
-    $rowRelatorio = $res->fetch_object();
-
-} catch(mysqli_sql_exception $e){
+    $rowContrato = $res->fetch_object();
+} catch (mysqli_sql_exception $e) {
     print "<script>alert('Ocorreu um erro interno ao buscar dados do contrato');
                     window.history.go(-1);</script>";
     criaLogErro($e);
-}   
+}
 ?>
 
 <form action="?page=salvarcontrato" method="POST">
     <input type="hidden" name="acaocontrato" value="editarcontrato">
-    <input type="hidden" name="cd_Contrato" value="<?php print $rowRelatorio->cd_Contrato; ?>">
+    <input type="hidden" name="cd_Contrato" value="<?php print $rowContrato->cd_Contrato; ?>">
     <div class="mb-3">
         <label>Fornecedor</label>
         <?php
@@ -40,13 +44,12 @@ try{
 
         print "<select class='form-select' name='cd_Fornecedor'>";
         print "<datalist>";
-        print "<option value=$rowRelatorio->cd_Fornecedor readonly selected>$rowRelatorio->nm_Fornecedor</option>";
+        print "<option value=$rowContrato->cd_Fornecedor readonly selected hidden>$rowContrato->nm_Fornecedor</option>";
 
 
         while ($row = $res->fetch_object()) {
 
             print "<option value=$row->cd_Fornecedor>" . $row->nm_Fornecedor . "</option>";
-
         }
         print "</datalist>";
         print "</select>";
@@ -54,11 +57,11 @@ try{
     </div>
     <div class="mb-3">
         <label>Ano do Contrato</label>
-        <input type="number" name="dt_AnoContrato" value="<?php print $rowRelatorio->dt_AnoContrato; ?>" class="form-control">
+        <input type="number" name="dt_AnoContrato" value="<?php print $rowContrato->dt_AnoContrato; ?>" class="form-control">
     </div>
     <div class="mb-3">
         <label>Tipo de serviço</label>
-        <input type="text" name="tp_Servico" value="<?php print $rowRelatorio->tp_Servico; ?>" class="form-control">
+        <input type="text" name="tp_Servico" value="<?php print $rowContrato->tp_Servico; ?>" class="form-control">
     </div>
     <div class="mb-3">
         <label>Situação do Contrato</label>
@@ -78,13 +81,12 @@ try{
 
         print "<select class='form-select situacao' name='st_Contrato' >";
         print "<datalist>";
-        print "<option value='$rowRelatorio->cd_situacao' readonly selected style='background-color:#C0C0C0;'>$rowRelatorio->nm_situacao</option>";
+        print "<option value='$rowContrato->cd_situacao' readonly selected hidden>$rowContrato->nm_situacao</option>";
 
 
         while ($row = $res->fetch_object()) {
 
             print "<option value={$row->cd_situacao}>" . $row->nm_situacao . "</option>";
-
         }
 
         print "</datalist>";
@@ -92,15 +94,73 @@ try{
 
         ?>
     </div>
+
+    <?php
+    //***Variável abaixo para receber valor da data e hora do Banco de Dados***
+    $dataParaMudarInicial = $rowContrato->dt_Inicial;
+    $dataParaMudarFinal = $rowContrato->dt_Final;
+
+    //***Variável abaixo para receber o valor e alterar para formatação brasileira***
+    $dataFormatadaInicial = DateTime::createFromFormat("Y-m-d H:i:s", $dataParaMudarInicial);
+    $dataFormatadaFinal = DateTime::createFromFormat("Y-m-d H:i:s", $dataParaMudarFinal);
+    ?>
+
+
     <div class="mb-3">
         <label>Data inicial da Obra</label>
-        <input type="date" name="dt_Inicial" value="<?php print $rowRelatorio->dt_Inicial; ?>" class="form-control">
+        <input type="date" name="dt_Inicial" value="<?php print $dataFormatadaInicial->format('Y-m-d'); ?>" class="form-control">
+
     </div>
+
     <div class="mb-3">
         <label>Data de conclusão da Obra</label>
-        <input type="date" name="dt_Final" value="<?php print $rowRelatorio->dt_Final; ?>" class="form-control">
+        <input type="date" name="dt_Final" value="<?php print $dataFormatadaFinal->format('Y-m-d'); ?>" class="form-control">
     </div>
+
+    <select class="selectpicker mb-3" id="select" name="escolas[]" multiple data-live-search="true" 
+    title="Selecione escolas vinculadas a este contrato" 
+    data-selected-text-format="count" data-width="auto"
+    data-count-selected-text="Escolas selecionadas: {0}"
+>
+        <datalist>
+            <?php
+            try {
+                $sql = "SELECT * FROM escola";
+
+                $res = $conn->query($sql);
+            } catch (mysqli_sql_exception $e) {
+                print "<script>alert('Ocorreu um erro interno ao buscar dados de escolas');
+                        location.href='painel.php';</script>";
+                criaLogErro($e);
+            }
+
+            $escolasNoContrato = explode(", ", $rowContrato->cd_Escolas);
+            while ($rowEscola = $res->fetch_object()) {
+                $escolaEstaNoContrato = false;
+
+                foreach ($escolasNoContrato as $cd_escolaNoContrato) {
+                    if ($rowEscola->cd_Escola == $cd_escolaNoContrato) {
+                        $escolaEstaNoContrato = true;
+                    }
+                }
+
+                if ($escolaEstaNoContrato) {
+                    print "<option value={$rowEscola->cd_Escola} selected>" . $rowEscola->nm_Escola . "</option>";
+                } else {
+                    print "<option value={$rowEscola->cd_Escola}>" . $rowEscola->nm_Escola . "</option>";
+                }
+            }
+            ?>
+        </datalist>
+    </select>
+
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </form>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

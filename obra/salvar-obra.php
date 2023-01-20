@@ -15,21 +15,46 @@ switch ($_REQUEST["acaoobra"]) {
         $valueContrato = explode('/', $_POST["num_contrato"]);
         $numContrato = $valueContrato[0];
         $anoContrato = $valueContrato[1];
-        
+        $usuarios = $_POST["usuarios"];
+
             try{
-                $sql = $conn->prepare("INSERT INTO obra (cd_Escola,tp_AtividadeDescricao,dt_AnoContrato,cd_situacaoObra, cd_Contrato) 
-                    VALUES(?,?,?,?,(SELECT cd_Contrato FROM contrato WHERE num_contrato = ? AND dt_AnoContrato = ?))");
-                $sql->bind_param('ississ',
+                $sql = $conn->prepare("INSERT INTO obra (cd_Escola,tp_AtividadeDescricao,cd_situacaoObra, cd_Contrato) 
+                    VALUES(?,?,?,(SELECT cd_Contrato FROM contrato WHERE num_contrato = ? AND dt_AnoContrato = ?))");
+                $sql->bind_param('isiss',
                 $cd_Escola,$tp_AtivDescricao,
-                $anoContrato,$st_Obra, $numContrato, $anoContrato);
+                $st_Obra, $numContrato, $anoContrato);
 
                 $res = $sql->execute();
                 if ($res == true) {
+                    $cd_Obra = $conn->insert_id;
+
+                    try{
+                        $sql = $conn->prepare("INSERT INTO obra_has_usuario (cd_Obra, cd_Usuario) VALUES (?,?)");
+                        foreach ($usuarios as $cd_Usuario){
+                            $sql->bind_param('ii', $cd_Obra, $cd_Usuario);
+                            $sql->execute();
+                        }
+    
+                    } catch (mysqli_sql_exception $e){
+                        try{
+                            $sql = "DELETE FROM obra ORDER BY cd_Obra DESC LIMIT 1";
+                            $conn->query($sql);
+                        } catch (mysqli_sql_exception $e){
+                            criaLogErro($e);
+                        }
+    
+                        print "<script>alert('Não foi possível cadastrar obra');</script>";
+                        print "<script>location.href='?page=listaobra';</script>";
+                        criaLogErro($e);
+                    }
+
+
                     print "<script>alert('Cadastro com sucesso');</script>";
                     print "<script>location.href='?page=listaobra';</script>";
                 } else {
                     print "<script>alert('Não foi possível cadastrar');</script>";
                     print "<script>location.href='?page=listaobra';</script>";
+                    criaLogErro($e);
                 }
             } catch(mysqli_sql_exception $e){
                 print "<script>alert('Não foi possível cadastrar. Verifique se os dados estão corretos');</script>";
@@ -42,39 +67,60 @@ switch ($_REQUEST["acaoobra"]) {
 
     case 'editarobra':
         $cd_Obra = $_REQUEST["cd_Obra"];
-        $cd_Escola = $_POST["cd_Escola"];
-        $nm_Obra = $_POST["nm_Obra"];
-        $cd_Contrato = $_POST["cd_Contrato"];
+        //$cd_Escola = $_POST["cd_Escola"];
+        //$cd_Contrato = $_POST["cd_Contrato"];
         $nm_Contratante = $_POST["nm_Contratante"];
         $tp_AtivDescricao = $_POST["tp_AtivDescricao"];
         $st_Obra = $_POST["st_Obra"];
-        $tp_Comentario = $_POST["tp_Comentario"];
+        //$tp_Comentario = $_POST["tp_Comentario"];
+        $usuarios = $_POST["usuarios"];
 
         try{
-            $sql = $conn->prepare("UPDATE obra SET cd_Escola = ?,
-                                        nm_Obra = ?,
-                                        cd_Contrato = ?,
+            $sql = $conn->prepare("UPDATE obra SET 
                                         nm_Contratante = ?, 
-                                        tp_AtivDescricao = ?,
-                                        st_Obra = ?, 
-                                        tp_Comentario = ?
+                                        tp_AtividadeDescricao = ?,
+                                        cd_situacaoObra = ? 
                             WHERE
                                 cd_Obra= ?");
 
-            $sql->bind_param('isiisssi', $cd_Escola,$nm_Obra,$cd_Contrato,$nm_Contratante,$tp_AtivDescricao,$st_Obra,$tp_Comentario,$cd_Obra);
+            $sql->bind_param('ssii',$nm_Contratante,$tp_AtivDescricao,$st_Obra,$cd_Obra);
             $res = $sql->execute();
 
-            if($sql->affected_rows === 0){
-                print "<script>alert('Ocorreu um erro ao buscar obra');</script>";
-                print "<script>window.history.go(-1);</script>";
-            }
-
             if ($res == true) {
+
+                try{
+                    $sql = $conn->prepare("DELETE FROM obra_has_usuario WHERE cd_Obra = ?");
+                    $sql->bind_param('i', $cd_Obra);
+                    $resDelete = $sql->execute();
+
+                    if($resDelete == true){
+
+                        try{
+                            $sqlInsert = $conn->prepare("INSERT INTO obra_has_usuario (cd_Obra, cd_Usuario) VALUES (?,?)");
+                            foreach ($usuarios as $cd_Usuario){
+                                $sqlInsert->bind_param('ii', $cd_Obra, $cd_Usuario);
+                                $sqlInsert->execute();
+                            }
+                        } catch (mysqli_sql_exception $e){
+                            print "<script>alert('Ocorreu um erro interno ao editar obra');
+                            window.history.go(-1);</script>";
+                            criaLogErro($e);
+                        }
+                    }
+                    
+                } catch (mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro interno ao editar obra');
+                    window.history.go(-1);</script>";
+                    criaLogErro($e);
+                }
+                
+                
                 print "<script>alert('Editado com sucesso');</script>";
                 print "<script>location.href='?page=listaobra';</script>";
             } else {
                 print "<script>alert('Não foi possível editar');</script>";
                 print "<script>location.href='?page=listaobra';</script>";
+                criaLogErro($e);
             }
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Não possível editar. Verifique se os dados estão corretos');</script>";
@@ -97,11 +143,12 @@ switch ($_REQUEST["acaoobra"]) {
                 print "<script>location.href='?page=listaobra';</script>";
             } else {
                 print "<script>alert('Não foi possível excluir');</script>";
-                print "<script>location.href='?page=listaobra';</script>";
+                print "<script>window.history.go(-1);</script>;</script>";
             }
-
+            
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro ao tentar excluir');</script>";
+            print "<script>window.history.go(-1);</script>;</script>";
             criaLogErro($e);
         }
         break;

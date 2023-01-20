@@ -42,10 +42,7 @@ try{
         <label>CNPJ</label>
         <input type="text" name="num_CNPJ" value="<?php print $row->num_CNPJ; ?>" class="form-control">
     </div>
-    <div class="mb-3">
-        <label>Situação atual</label>
-        <input type="text" name="st_Fornecedor" value="<?php print $row->st_Fornecedor; ?>" class="form-control">
-    </div>
+    
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>

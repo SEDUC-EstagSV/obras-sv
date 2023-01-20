@@ -23,7 +23,6 @@ switch ($_REQUEST["acaorelatorio"]) {
         $qt_MaoDireta = $_POST["qt_MaoDireta"];
         $pt_Conclusao = $_POST["pt_Conclusao"];
         $tp_RelaComentario = $_POST["tp_RelaComentario"];
-        $num_Relatorio = $_POST["num_Relatorio"];
         $cd_Usuario = $_SESSION['user'][2];
 
         try{
@@ -123,11 +122,19 @@ switch ($_REQUEST["acaorelatorio"]) {
         $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
         try{
-            $sql = $conn->prepare("DELETE FROM relatorio WHERE cd_Relatorio = ?");
+            $sql = $conn->prepare("DELETE FROM relatorio_has_tipo_periodo WHERE cd_Relatorio = ?");
             $sql->bind_param('i', $cd_Relatorio);
             $res = $sql->execute();
-    
+
             if ($res == true) {
+                try{
+                    $sql = $conn->prepare("DELETE FROM relatorio WHERE cd_Relatorio = ?");
+                    $sql->bind_param('i', $cd_Relatorio);
+                    $resDeleteRelatorio = $sql->execute();
+                } catch (mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro ao excluir');</script>";
+                print "<script>location.href='?page=listar_relatorio';</script>";
+                }
                 print "<script>alert('Excluido com sucesso');</script>";
                 print "<script>location.href='?page=listar_relatorio';</script>";
             } else {

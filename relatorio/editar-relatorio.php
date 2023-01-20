@@ -68,7 +68,7 @@ try{
 
         print "<select class='form-select situacao' name='tp_RelaSituacao' >";
         print "<datalist>";
-        print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected>$rowRelatorio->nm_situacaoRelatorio</option>";
+        print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden>$rowRelatorio->nm_situacaoRelatorio</option>";
 
 
         while ($row = $res->fetch_object()) {
@@ -128,7 +128,7 @@ try{
 
             print "<select class='form-select tempo' name='tp_Tempo' >";
             print "<datalist>";
-            print "<option value=$rowRelatorio->cd_tipoTempo readonly selected>$rowRelatorio->nm_tipoTempo</option>";
+            print "<option value=$rowRelatorio->cd_tipoTempo readonly selected hidden>$rowRelatorio->nm_tipoTempo</option>";
 
 
             while ($row = $res->fetch_object()) {
@@ -157,7 +157,7 @@ try{
 
             print "<select class='form-select condicao' name='tp_Condicao' >";
             print "<datalist>";
-            print "<option value=$rowRelatorio->cd_tipoCondicao readonly selected>$rowRelatorio->nm_tipoCondicao</option>";
+            print "<option value=$rowRelatorio->cd_tipoCondicao readonly selected hidden>$rowRelatorio->nm_tipoCondicao</option>";
 
 
             while ($row = $res->fetch_object()) {

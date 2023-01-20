@@ -52,7 +52,7 @@ switch ($_REQUEST["acaousuario"]) {
         }
 
         try{
-            $sql = $conn->prepare("INSERT INTO usuario (user_Login,user_Senha,user_Nome, user_CPF,user_Email,user_Telefone,user_Autoridade, cd_Fornecedor) 
+            $sql = $conn->prepare("INSERT INTO usuario (user_Login,user_Senha,user_Nome, user_CPF,user_Email,user_Telefone,cd_nivelAutoridade, cd_Fornecedor) 
                 VALUES(?,?,?,?,?,?,?,?)");
 
             $sql->bind_param('ssssssii', $user_Login, $user_Senha, $user_Nome, $user_CPF, $user_Email, $user_Telefone, $user_Autoridade, $cd_fornecedor);
@@ -161,37 +161,31 @@ switch ($_REQUEST["acaousuario"]) {
     case 'excluirusuario':
         $cd_Usuario = $_REQUEST["cd_Usuario"];
 
-        try{
-            $sql = $conn->prepare("SELECT user_Autoridade FROM usuario WHERE cd_Usuario = ?");
-            $sql->bind_param('i', $cd_Usuario);
-            $sql->execute();
+        $autoridade = $_SESSION['user'][1];
 
-            $res = $sql->get_result();
-            $row = $res->fetch_object();
-            $invalido = false;
-            $delautoridade = $row->user_Autoridade;
-    
-            if ($delautoridade < 2) {
-                print "<script>alert('Você não possui autoridade para excluir isso');</script>";
-            } else {
-                $sql = "DELETE FROM usuario WHERE cd_Usuario=" . $_REQUEST["cd_Usuario"];
-    
-                $res = $conn->query($sql);
-    
-                if ($res == true) {
-                    print "<script>alert('Excluido com sucesso');</script>";
-                    print "<script>location.href='?page=listar_usuario';</script>";
-                } else {
-                    print "<script>alert('Não foi possível excluir');</script>";
-                    print "<script>location.href='?page=listar_usuario';</script>";
-                }
-            }
-
-        } catch(mysqli_sql_exception $e){
-            print "<script>alert('Ocorreu um erro interno ao excluir usuário');
-                            location.reload();</script>";
-            criaLogErro($e);
+        if ($autoridade < 2) {
+            print "<script>alert('Você não possui autoridade para excluir isso');</script>";
         }
+
+        try{
+            $sql = $conn->prepare("DELETE FROM usuario WHERE cd_Usuario=?");
+            $sql->bind_param('i', $cd_Usuario);
+
+            $res = $sql->execute();
+
+            if ($res == true) {
+                print "<script>alert('Excluido com sucesso');</script>";
+                print "<script>location.href='?page=listar_usuario';</script>";
+            } else {
+                print "<script>alert('Não foi possível excluir');</script>";
+                print "<script>location.href='?page=listar_usuario';</script>";
+            }
+            
+            } catch(mysqli_sql_exception $e){
+                print "<script>alert('Ocorreu um erro interno ao excluir usuário');
+                                location.reload();</script>";
+                criaLogErro($e);
+            }
         break;
 
     case 'loginusuario':
@@ -202,14 +196,14 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Senha = md5($user_Senha);
 
         try{
-            $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, user_Autoridade FROM usuario";
+            $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, cd_nivelAutoridade FROM usuario";
             $res = $conn->query($sql);
             $qtd = $res->num_rows;
             $erro = true;
             if ($qtd > 0) {
                 while ($row = $res->fetch_object()) {
                     if ($user_Login == $row->user_Login && $user_Senha == $row->user_Senha) {
-                        $autoridade = $row->user_Autoridade;
+                        $autoridade = $row->cd_nivelAutoridade;
                         $nome = $row->user_Nome;
                         $id = $row->cd_Usuario;
                         session_start();

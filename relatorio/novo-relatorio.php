@@ -4,7 +4,38 @@
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
     <div class="mb-3">
         <label>Código da Obra</label>
-        <input type="number" name="cd_Obra" class="form-control">
+        <?php
+        try {
+            $sql = $conn->prepare("SELECT o.*, ohu.cd_Usuario AS cd_Usuarios
+            FROM obraview o 
+            LEFT JOIN obra_has_usuario ohu
+            ON o.cd_Obra = ohu.cd_Obra
+            WHERE ohu.cd_Usuario = ?
+            GROUP BY o.cd_Obra");
+
+            $sql->bind_param('i', $_SESSION['user'][2]);
+            $sql->execute();
+
+            $res = $sql->get_result();
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de situacao de obra');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+    
+        print "<select class='form-select obra' name='cd_Obra' >";
+        print "<datalist>";
+        print "<option value='' disabled selected>Selecione a situação da obra</option>";
+
+    
+        while ($row = $res->fetch_object()) {
+
+            print "<option value={$row->cd_Obra}>$row->tp_Servico: $row->tp_AtividadeDescricao / $row->nm_Escola</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
     </div>
     <div class="mb-3">
         <label>Nome do Técnico Responsável</label>

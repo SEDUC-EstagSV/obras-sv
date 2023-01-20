@@ -13,7 +13,7 @@ switch ($_REQUEST["acaoescola"]) {
         try{
             $sql = $conn->prepare("INSERT INTO escola (nm_Escola, ds_Local, cd_statusEscola) 
                 VALUES(?, ?, ?)");
-            $sql->bind_param('sss', $nm_Escola, $ds_Local, $st_Escola);
+            $sql->bind_param('ssi', $nm_Escola, $ds_Local, $st_Escola);
             
             $res = $sql->execute();
     
@@ -40,22 +40,23 @@ switch ($_REQUEST["acaoescola"]) {
         $st_Escola = $_POST["st_Escola"];
 
         try{
-            $sql = $conn->prepare("UPDATE escola SET   nm_Escola = ?,
+            $sql = $conn->prepare("UPDATE escola SET   
+                                            nm_Escola = ?,
                                             ds_Local = ?,
-                                            st_Escola = ?
+                                            cd_statusEscola = ?
                                     WHERE
                                         cd_Escola = ?");
 
-            $sql->bind_param('sssi', $nm_Escola, $ds_Local, $st_Escola, $cd_Escola);
+            $sql->bind_param('ssii', $nm_Escola, $ds_Local, $st_Escola, $cd_Escola);
     
             $res = $sql->execute();
     
             if ($res == true) {
                 print "<script>alert('Escola editada com sucesso');</script>";
-                print "<script>location.href='?page=listar_Escolas';</script>";
+                print "<script>location.href='?page=listar_escolas';</script>";
             } else {
                 print "<script>alert('Não foi possível editar a escola');</script>";
-                print "<script>location.href='?page=listar_Escolas';</script>";
+                print "<script>location.href='?page=listar_escolas';</script>";
             }
 
         } catch(mysqli_sql_exception $e){

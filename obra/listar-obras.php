@@ -3,9 +3,10 @@
 <?php
 
 require_once 'contrato/function-contrato.php';
+redirecionamentoPorAutoridade(3);
 
 try{
-    $sql = "SELECT * FROM obraview"; //view não possuia st_Obra e a falta do INNER JOIN duplicava os resultados
+    $sql = "SELECT * FROM obraview";
     
     $res = $conn->query($sql);
     

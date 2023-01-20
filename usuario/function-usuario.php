@@ -94,8 +94,9 @@ function loginAutoridade($autoridade)
             //esperando confirmação do cadastro
         case 1:
             print "<script>alert('Esperando liberação');</script>";
+            include("usuario/logout-usuario.php");
             print "<script>location.href='index.php';</script>";
-
+            break;
             //Usuário subordianado
         case 2:
             print "<script>alert('Logado{$_SESSION["user"][0]}');</script>";

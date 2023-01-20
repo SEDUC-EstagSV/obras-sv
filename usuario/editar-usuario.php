@@ -64,12 +64,30 @@ try{
 
     <div class="mb-3">
         <label>Permissão de usuário</label>
-        <select type="number" name="user_Autoridade" class="form-control">
-                <option value="<?php print $aut; ?>"><?php print "Atual: ".$formataut; ?></option>
-                <option value="1">Pendente</option>
-                <option value="2">Subordinado</option>
-                <option value="3">Supervisor</option>
-            </select><br />
+        <?php
+        try {
+            $sql = "SELECT * FROM nivel_autoridade";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de usuário');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+        print "<select class='form-select' name='user_Autoridade'>";
+        print "<datalist>";
+        print "<option value=$row->cd_nivelAutoridade readonly selected>$row->nm_nivelAutoridade</option>";
+
+
+        while ($rowAutoridade = $res->fetch_object()) {
+
+            print "<option value=$rowAutoridade->cd_nivelAutoridade>" . $rowAutoridade->nm_nivelAutoridade . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>

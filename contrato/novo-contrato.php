@@ -4,6 +4,7 @@ include_once('function-seduc.php');
 redirecionamentoPorAutoridade(3);
 ?>
 
+
 <h1>Novo Contrato</h1>
 
 <form action="?page=salvarcontrato" method="POST">
@@ -86,7 +87,43 @@ redirecionamentoPorAutoridade(3);
         <label>Data de conclusão do Contrato</label>
         <input type="date" name="dt_Final" class="form-control">
     </div>
+
+
+
+    <select class="selectpicker mb-3" id="select" name="escolas[]" 
+    multiple data-live-search="true" title="Selecione escolas vinculadas a este contrato"
+    data-selected-text-format="count" data-width="auto"
+    data-count-selected-text="Escolas selecionadas: {0}"
+    >
+        <datalist>
+            <?php
+                try{
+                    $sql = "SELECT * FROM escola";
+
+                    $res = $conn->query($sql);
+                } catch(mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro interno ao buscar dados de escolas');
+                        location.href='painel.php';</script>";
+                    criaLogErro($e);
+                }
+
+                while ($row = $res->fetch_object()) {
+
+                    print "<option value={$row->cd_Escola}>" . $row->nm_Escola . "</option>";
+        
+                }
+            ?>
+        </datalist>
+    </select>
+
+
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </form>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script type="text/javascript"></script>

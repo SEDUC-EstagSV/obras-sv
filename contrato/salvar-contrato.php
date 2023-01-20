@@ -17,6 +17,7 @@ switch ($_REQUEST["acaocontrato"]) {
         $dt_Inicial = $_POST["dt_Inicial"];
         $dt_Final = $_POST["dt_Final"];
         $num_contrato = $_POST["num_contrato"];
+        $escolas = $_POST["escolas"];
         $pr_Total = dataTotal($dt_Inicial, $dt_Final);
 
         try{
@@ -25,13 +26,34 @@ switch ($_REQUEST["acaocontrato"]) {
             $sql->bind_param('iissssss', $cd_Fornecedor, $dt_AnoContrato, $dt_Inicial, $dt_Final, $pr_Total, $tp_Servico, $st_Contrato, $num_contrato);
             
             $res = $sql->execute();
-    
             if ($res == true) {
+                $cd_Contrato = $conn->insert_id;
+                try{
+                    $sql = $conn->prepare("INSERT INTO escola_has_contrato (cd_Escola, cd_Contrato) VALUES (?,?)");
+                    foreach ($escolas as $cd_escola){
+                        $sql->bind_param('ii', $cd_escola, $cd_Contrato);
+                        $sql->execute();
+                    }
+
+                } catch (mysqli_sql_exception $e){
+                    try{
+                        $sql = "DELETE FROM contrato ORDER BY cd_Contrato DESC LIMIT 1";
+                        $conn->query($sql);
+                    } catch (mysqli_sql_exception $e){
+                        criaLogErro($e);
+                    }
+
+                    print "<script>alert('Não foi possível cadastrar contrato');</script>";
+                    print "<script>location.href='?page=listar_contratos';</script>";
+                    criaLogErro($e);
+                }
+                
                 print "<script>alert('Contrato cadastrado com sucesso');</script>";
                 print "<script>location.href='?page=listar_contratos';</script>";
             } else {
                 print "<script>alert('Não foi possível cadastrar contrato');</script>";
                 print "<script>location.href='?page=listar_contratos';</script>";
+                criaLogErro($e);
             }
 
         } catch(mysqli_sql_exception $e){
@@ -51,6 +73,7 @@ switch ($_REQUEST["acaocontrato"]) {
         $pr_Total = dataTotal($dt_Inicial, $dt_Final);
         $tp_Servico = $_POST["tp_Servico"];
         $st_Contrato = $_POST["st_Contrato"];
+        $escolas = $_POST["escolas"];
 
         try{
             $sql = $conn->prepare("UPDATE contrato SET 
@@ -68,6 +91,33 @@ switch ($_REQUEST["acaocontrato"]) {
             $res = $sql->execute();
     
             if ($res == true) {
+                try{
+                    $sql = $conn->prepare("DELETE FROM escola_has_contrato WHERE cd_Contrato = ?");
+                    $sql->bind_param('i', $cd_Contrato);
+                    $resDelete = $sql->execute();
+
+                    if($resDelete == true){
+
+                        try{
+                            $sqlInsert = $conn->prepare("INSERT INTO escola_has_contrato (cd_Escola, cd_Contrato) VALUES (?,?)");
+                            foreach ($escolas as $cd_escola){
+                                $sqlInsert->bind_param('ii', $cd_escola, $cd_Contrato);
+                                $sqlInsert->execute();
+                            }
+                        } catch (mysqli_sql_exception $e){
+                            print "<script>alert('Ocorreu um erro interno ao editar contrato');
+                            window.history.go(-1);</script>";
+                            criaLogErro($e);
+                        }
+                    }
+                    
+                } catch (mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro interno ao editar contrato');
+                    window.history.go(-1);</script>";
+                    criaLogErro($e);
+                }
+
+
                 print "<script>alert('Editado com sucesso');</script>";
                 print "<script>location.href='?page=listar_contratos';</script>";
             } else {
@@ -77,7 +127,7 @@ switch ($_REQUEST["acaocontrato"]) {
 
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao editar contrato');
-                            location.reload();</script>";
+            window.history.go(-1);</script>";
             criaLogErro($e);
         }
         break;
@@ -101,7 +151,7 @@ switch ($_REQUEST["acaocontrato"]) {
 
         } catch (mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao excluir contrato');
-            location.reload();</script>";
+            window.history.go(-1);</script>";
             criaLogErro($e);
         }
         break;

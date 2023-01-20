@@ -56,7 +56,7 @@ try {
 
         print "<select class='form-select' name='cd_Fornecedor'>";
         print "<datalist>";
-        print "<option value=$row->cd_Fornecedor readonly selected>$row->nm_Fornecedor</option>";
+        print "<option value=$row->cd_Fornecedor readonly selected hidden>$row->nm_Fornecedor</option>";
 
 
         while ($rowFornecedores = $res->fetch_object()) {
@@ -100,7 +100,7 @@ try {
 
         print "<select class='form-select' name='user_Autoridade'>";
         print "<datalist>";
-        print "<option value=$row->cd_nivelAutoridade readonly selected>$row->nm_nivelAutoridade</option>";
+        print "<option value=$row->cd_nivelAutoridade readonly selected hidden>$row->nm_nivelAutoridade</option>";
 
 
         while ($rowAutoridade = $res->fetch_object()) {

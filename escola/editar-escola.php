@@ -1,23 +1,22 @@
 <?php
-    include_once('function-seduc.php');
+include_once('function-seduc.php');
 
-    redirecionamentoPorAutoridade(3);
+redirecionamentoPorAutoridade(3);
 ?>
 
-<h1>Editar obra</h1>
+<h1>Editar escola</h1>
 
 <?php
 $cd_Escola = $_REQUEST["cd_Escola"];
 
-try{
-    $sql = $conn->prepare("SELECT * FROM escola WHERE cd_Escola = ?");
+try {
+    $sql = $conn->prepare("SELECT * FROM escolaview WHERE cd_Escola = ?");
     $sql->bind_param('i', $cd_Escola);
     $sql->execute();
-    
+
     $res = $sql->get_result();
     $row = $res->fetch_object();
-
-} catch(mysqli_sql_exception $e){
+} catch (mysqli_sql_exception $e) {
     print "<script>alert('Ocorreu um erro interno ao buscar dados da escola');
                         window.history.go(-1);</script>";
     criaLogErro($e);
@@ -37,11 +36,34 @@ try{
     </div>
     <div class="mb-3">
         <label>Situação</label>
-        <select name="st_Escola" value="<?php print $row->st_Escola; ?>" class="form-control">>
-            <option>Ativa</option>
-            <option>Desativada</option>
-        </select>
+
+        <?php
+        try {
+            $sql = "SELECT * FROM status_escola";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de usuário');
+                    location.href='painel.php';</script>";
+            criaLogErro($e);
+        }
+
+        print "<select class='form-select' name='st_Escola'>";
+        print "<datalist>";
+        print "<option value=$row->cd_statusEscola readonly hidden selected>$row->nm_statusEscola</option>";
+
+
+        while ($rowEscola = $res->fetch_object()) {
+
+            print "<option value=$rowEscola->cd_statusEscola>" . $rowEscola->nm_statusEscola . "</option>";
+
+        }
+        print "</datalist>";
+        print "</select>";
+        ?>
+
     </div>
+
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>

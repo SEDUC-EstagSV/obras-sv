@@ -9,11 +9,7 @@
 
 <?php
 try{
-    $sql = "SELECT e.cd_Escola, e.nm_Escola, e.ds_Local, 
-                    ste.cd_statusEscola, ste.nm_statusEscola
-            FROM escola e
-            INNER JOIN status_escola ste 
-            ON e.cd_statusEscola = ste.cd_statusEscola;";
+    $sql = "SELECT * FROM escolaview ORDER BY cd_Escola ASC";
     
     $res = $conn->query($sql);
     
