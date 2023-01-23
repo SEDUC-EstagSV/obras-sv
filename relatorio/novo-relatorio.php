@@ -1,6 +1,6 @@
 <h1>Novo Relatório</h1>
 
-<form action="?page=formvalues" id="relatorio_form" method="POST" >
+<form action="?page=formvalues" enctype='multipart/form-data' id="relatorio_form" method="POST" >
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
     <div class="mb-3">
         <label>Código da Obra</label>
