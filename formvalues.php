@@ -3,7 +3,8 @@
 if(isset($_FILES['foto'])){
     $a = rearrange($_FILES['foto']);
     foreach($a as $foto){
-        echo $foto['tmp_name'];
+        echo addslashes (file_get_contents($foto['tmp_name']));
+        echo $foto['name'];
     } 
 } else {
     echo 'teste2';

@@ -60,3 +60,6 @@ esqueci minha senha por email ou sms
 vizualizar senha ao logar / resgistrar
 
 --validar dados de requisições tanto no front quanto no back
+
+adicionar imagens no formulario e salvar no banco
+https://www.codexworld.com/upload-multiple-images-store-in-database-php-mysql/
