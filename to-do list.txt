@@ -22,21 +22,6 @@ Permitir consulta de fornecedores no gerenciamento do usuário✔️
 
 arrumar listagem de usuario✔️
 
-------------------------------------------------------------------------------------------------------------
-
-
-juntar front com back
-
-github 
-
-não poder excluir admin ou cargo acima, amarrar permissões de usuario com as funções do projeto (diego >> secretaria/prefeito (somente visualização))
-
-personalizar usuario (Ex: Editar meu perfil)
-
-esqueci minha senha por email ou sms
-
-o metodo de criptografia md5 NÃO é seguro, usar por conta em risco. https://www.md5online.org/md5-decrypt.html
-
 arrumar editar obras  ✔️
 
 arrumar editar escola ✔️
@@ -51,14 +36,27 @@ agora não será possível excluir linhas de tabelas como as da tabela contrato,
 isso pq está tudo conectado no banco de dados, caso seja necessário ativar é preciso mudar
 o que acontecerá com a chave estrangeira quando deletar uma referencia  ✔️
 
+mensagem de erro ao logar (muito rápida) ✔️
+
 filtrar criação do relatorio pela obra q ele trabalha ✔️
-o usuario só poderá trabalhar na obra se tiver forncedor? sim
 
-atenção para a query q mostra os usuários -> quais usuários ele poderá ver?
+não poder excluir admin ou cargo acima, amarrar permissões de usuario com as funções
+ do projeto (diego >> secretaria/prefeito (somente visualização)) ✔️
+ 
+--atenção para a query q mostra os usuários -> quais usuários ele poderá ver?
 todos menos admin e quem n tem fornecedor
+o usuario só poderá trabalhar na obra se tiver forncedor? sim ->filtrar select da obra ✔️
 
-mensagem de erro ao logar (muito rápida)
+------------------------------------------------------------------------------------------------------------
+
+--juntar front com back 
+
+--personalizar usuario (Ex: Editar meu perfil)
+
+esqueci minha senha por email ou sms
+
+--o metodo de criptografia md5 NÃO é seguro, usar por conta em risco. https://www.md5online.org/md5-decrypt.html
 
 vizualizar senha ao logar / resgistrar
 
-validar dados de requisições tanto no front quanto no back
+--validar dados de requisições tanto no front quanto no back

@@ -1,6 +1,6 @@
 <?php
 
-include_once "config.php";
+include_once "../config.php";
 
 $cd_contrato = filter_input(INPUT_GET, "cd");
 

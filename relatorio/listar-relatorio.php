@@ -95,11 +95,11 @@ if ($qtd > 0) {
         print "<td>" . $row->nm_Dia . "</td>";
         print "<td>
 
-                    <button onclick=\"location.href='?page=editarrelatorio&cd_Relatorio=" . $row->cd_Relatorio . "';\" class='btn btn-success mb-3'>Editar</button>
-                    <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarrelatorio&acaorelatorio=excluirRelatorio&cd_Relatorio=" . $row->cd_Relatorio . "';}else{false;}\" class='btn btn-danger mb-3'>Excluir</button>
-                    <button class='btn btn-warning mb-3'>Imprimir</button>
+                <button onclick=\"location.href='?page=editarrelatorio&cd_Relatorio=" . $row->cd_Relatorio . "';\" class='btn btn-success mb-3'>Editar</button>
+                <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarrelatorio&acaorelatorio=excluirRelatorio&cd_Relatorio=" . $row->cd_Relatorio . "';}else{false;}\" class='btn btn-danger mb-3'>Excluir</button>
+                <button onclick=\"location.href='?page=ver_relatorio&cd_Relatorio=" . $row->cd_Relatorio . "';\" class='btn btn-warning mb-3'>Imprimir</button>
 
-            </td>";
+                </td>";
         print "</tr>";
     }
     print "</table>";

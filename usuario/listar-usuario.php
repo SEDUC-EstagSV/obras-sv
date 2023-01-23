@@ -48,12 +48,13 @@ if ($qtd > 0) {
         print "<td>" . $row->user_Email . "</td>";
         print "<td>" . $row->user_Telefone . "</td>";
         print "<td>" . $user_Autoridade . "</td>";
-        print "<td>
-
-                    <button onclick=\"location.href='?page=gerenciarusuario&cd_Usuario=" . $row->cd_Usuario . "';\" class='btn btn-success'>Editar</button>
-                    <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarusuario&acaousuario=excluirusuario&cd_Usuario=" . $row->cd_Usuario . "';}else{false;}\" class='btn btn-danger'>Excluir</button>
-
-            </td>";
+        print "<td>";
+        
+        if($_SESSION['user'][1] > $row->cd_nivelAutoridade || $_SESSION['user'][1] == 10){
+            print "<button onclick=\"location.href='?page=gerenciarusuario&cd_Usuario=$row->cd_Usuario';\" class='btn btn-success'>Editar</button>
+             <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarusuario&acaousuario=excluirusuario&cd_Usuario=" . $row->cd_Usuario . "';}else{false;}\" class='btn btn-danger'>Excluir</button>";
+        }
+        print "</td>";
         print "</tr>";
     }
     print "</table>";

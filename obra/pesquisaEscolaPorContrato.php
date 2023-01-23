@@ -1,11 +1,11 @@
 <?php
-include 'function-seduc.php';
+include '../function-seduc.php';
     if (isset($_POST['pesquisa'])) {
         $value = explode('/', $_POST['pesquisa']);
         $num_contrato = $value[0];
         $ano_contrato = $value[1];
 
-        require_once 'config.php';
+        require_once '../config.php';
         try{
             $sql = $conn->prepare("SELECT * FROM escola WHERE cd_Escola IN 
                                     (SELECT cd_Escola FROM escola_has_contrato 

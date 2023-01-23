@@ -77,9 +77,11 @@
         <datalist>
             <?php
                 try{
-                    $sql = "SELECT * FROM usuario";
-
-                    $res = $conn->query($sql);
+                    $sql = $conn->prepare("SELECT cd_Usuario, user_Login, user_Nome, user_CPF FROM usuario WHERE cd_nivelAutoridade NOT LIKE ? AND cd_Fornecedor IS NOT NULL;");
+                    $nivel = 10;
+                    $sql->bind_param('i', $nivel);
+                    $sql->execute();
+                    $res = $sql->get_result();
                 } catch(mysqli_sql_exception $e){
                     print "<script>alert('Ocorreu um erro interno ao buscar dados do formulário');
                         location.href='painel.php';</script>";
@@ -104,11 +106,6 @@
 
 </form>
 
-
-<script>
-
-
-</script>
 <script type="text/javascript" src="./js/utils.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />

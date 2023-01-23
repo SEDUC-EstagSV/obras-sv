@@ -1,6 +1,6 @@
 <h1>Novo Relatório</h1>
 
-<form action="?page=salvarrelatorio" id="relatorio_form" method="POST" >
+<form action="?page=formvalues" id="relatorio_form" method="POST" >
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
     <div class="mb-3">
         <label>Código da Obra</label>
@@ -173,11 +173,17 @@
         <input type="text" name="tp_RelaComentario" class="form-control">
     </div>
     <div class="mb-3">
+        <label>Fotos</label>
+        <input type="file" name="foto[]" class="form-control" multiple>
+    </div>  
+
+    <div class="mb-3">
         <button type="submit" id="checkBtn" class="btn btn-primary">Enviar</button>
     </div>
 </form>
 
 <script>
+//validação formulário
 const form = document.querySelector('#relatorio_form');
 
 function validateCheckboxes(){

@@ -1,6 +1,5 @@
 /Log
 *.mwb
 *.bak
-/teste
+/teste/*
 1.sql
-formvalues.php
