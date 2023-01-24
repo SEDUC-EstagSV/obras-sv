@@ -1,6 +1,6 @@
 <h1>Novo Relatório</h1>
 
-<form action="?page=formvalues" enctype='multipart/form-data' id="relatorio_form" method="POST" >
+<form action="?page=salvarrelatorio" enctype='multipart/form-data' id="relatorio_form" method="POST" >
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
     <div class="mb-3">
         <label>Código da Obra</label>
@@ -164,18 +164,23 @@
         <label>Total de Mão Direta</label>
         <input type="number" name="qt_MaoDireta" class="form-control">
     </div>
+    
     <div class="mb-3">
-        <label>Porcentagem concluida</label>
-        <input type="number" name="pt_Conclusao" class="form-control">
+        <label id="valorAndamento" class="form-label">Porcentagem concluida</label>
+        <div class="slidecontainer">
+        <input type="range" name="pt_Conclusao" class="form-range" min='0' max='100' step='5' id='sliderAndamento' value='0'>
+        </div>
     </div>
+
     <div class="mb-3">
         <label>Comentário</label>
         <input type="text" name="tp_RelaComentario" class="form-control">
     </div>
     <div class="mb-3">
-        <label>Fotos</label>
-        <input type="file" name="foto[]" class="form-control" multiple>
+        <label for='formFile' class='form-label'>Fotos</label>
+        <input id='formFile' type="file" name="foto[]" class="form-control" multiple>
     </div>  
+
 
     <div class="mb-3">
         <button type="submit" id="checkBtn" class="btn btn-primary">Enviar</button>
@@ -216,5 +221,16 @@ form.addEventListener('submit', function (e) {
         form.submit();
     }
 });
+
+
+//Código Javascript para atualização de valor do Slider(Andamento da obra)
+var slider = document.getElementById('sliderAndamento');
+var output = document.getElementById('valorAndamento');
+output.innerHTML = slider.value + "%";
+
+slider.oninput = function() {
+  output.innerHTML = this.value + "%";
+}
+
 
 </script>

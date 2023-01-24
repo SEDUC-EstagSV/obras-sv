@@ -47,6 +47,8 @@ não poder excluir admin ou cargo acima, amarrar permissões de usuario com as f
 todos menos admin e quem n tem fornecedor
 o usuario só poderá trabalhar na obra se tiver forncedor? sim ->filtrar select da obra ✔️
 
+Renê: (Alterado input de Porcentagem concluida do relatorio - para utilização de slider) ✔️
+
 ------------------------------------------------------------------------------------------------------------
 
 --juntar front com back 
@@ -61,5 +63,18 @@ vizualizar senha ao logar / resgistrar
 
 --validar dados de requisições tanto no front quanto no back
 
-adicionar imagens no formulario e salvar no banco
+
+adicionar imagens no formulario e salvar no banco ✔️
 https://www.codexworld.com/upload-multiple-images-store-in-database-php-mysql/
+
+Renê (Alterei o img_foto de VARCHAR para LONGBLOB)
+Renê ( Meu input de foto estava assim:
+        <div class='mb-3'>
+        <label for='formFile' class='form-label'>Adicione foto 01: </label>
+        <input class='form-control' type='file' id='formFile' name='newFoto01''>
+    </div>
+    )
+PS: Engraçado, não consegui inserir imagem "manualmente" no Heidi... mas no PhpMyAdmin dava
+
+-- ideia: Havendo relatórios no status "pendente", a quantidade aparece na bolinha vermelha" - clicando nele, a lista de relatório traz apenas os pendentes
+com um COUNT assim: (SELECT COUNT(*) FROM relatorio WHERE cd_situacaoRelatorio = 1)

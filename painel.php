@@ -21,6 +21,7 @@
 
 <body>
   <?php
+  include('config.php');
   include('function-seduc.php');
 
   session_start();
@@ -29,6 +30,7 @@
     header("location:index.php");
   }
 
+  
   ?>
   <nav class="navbar navbar-expand-lg bg-light no-print">
     <div class="container-fluid">
@@ -41,6 +43,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="painel.php">Home</a>
           </li>
+
 
           <?php
           //verifica autoridade
@@ -88,12 +91,31 @@
                   </li>";
           }
 
-          if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='nav-item'>
-                    <a class='nav-link' href='?page=listar_relatorio'>Lista de Relatórios</a>
-                  </li>";
+          try {
+            $sql = $conn->prepare("SELECT COUNT(cd_Relatorio) AS qtdPendente FROM relatorioview
+                                    WHERE nm_situacaoRelatorio = ?");
+            $situacao = "Pendente";
+            $sql->bind_param('s', $situacao);
+            $sql->execute();
+            $res = $sql->get_result();
+            $row = $res->fetch_object();
+          } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
+                          window.history.go(-1);</script>";
+            criaLogErro($e);
           }
 
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='?page=listar_relatorio'>
+                      Lista de Relatórios 
+                      <span title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill'>
+                      $row->qtdPendente
+                      </span>
+                    </a>
+                  
+                  </li>";
+          }
 
           if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='nav-item'>
@@ -132,7 +154,6 @@
     <div class="row">
       <div class="col mt-5">
         <?php
-        include("config.php");
         switch (@$_REQUEST["page"]) {
           case "novaobra":
             include("obra/nova-obra.php");

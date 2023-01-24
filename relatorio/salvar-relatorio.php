@@ -25,6 +25,37 @@ switch ($_REQUEST["acaorelatorio"]) {
         $tp_RelaComentario = $_POST["tp_RelaComentario"];
         $cd_Usuario = $_SESSION['user'][2];
 
+        //verificação e validação de arquivos de foto
+        function rearrange( $arr ){
+            foreach( $arr as $key => $all ){
+                foreach( $all as $i => $val ){
+                    $new[$i][$key] = $val;    
+                }    
+            }
+            return $new;
+        }
+
+        if(isset($_FILES['foto'])){
+            $allowTypes = array('jpg','png','jpeg'); 
+        
+            $arquivosDeFoto = rearrange($_FILES['foto']);
+            $i = 0;
+            foreach($arquivosDeFoto as $foto){
+                if(in_array($foto['type'], $foto)){
+                    $fotos = $arquivosDeFoto;
+                    $fotos[$i]['tmp_name'] = file_get_contents($foto['tmp_name']);
+                    $i++;
+                } else {
+                    print "<script>alert('Existe uma imagem em formato incorreto, formatos permitidos: 
+                                    jpg, png, jpeg');
+                                    window.history.go(-1);</script>";
+                }
+            } 
+        } else {
+            $fotos = NULL;
+        }
+        
+
         try{
             $sql = $conn->prepare("SELECT c.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
             $sql->bind_param("i", $cd_Obra);
@@ -80,7 +111,7 @@ switch ($_REQUEST["acaorelatorio"]) {
                      (SELECT COUNT(*) AS num_relatorios 
                      FROM relatorio rnum WHERE (rnum.cd_obra LIKE ?) + 1))");
     
-            $sql->bind_param('iissssssssiiiiiiiisssii', 
+            $sql->bind_param('issssisiiiiiiiiiissssii', 
                     $cd_Obra,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
                     $dt_Carimbo,$tp_RelaSituacao,$nm_Dia,$tp_Tempo,$tp_Condicao,
                     $qt_TotalMaodeObra,$qt_Ajudantes,$qt_Eletricistas,$qt_Mestres,$qt_Pedreiros,
@@ -92,8 +123,22 @@ switch ($_REQUEST["acaorelatorio"]) {
             if ($res == true) {
 
                 try{
-                    $sqlJunctionTable = $conn->prepare("INSERT INTO relatorio_has_tipo_periodo (cd_Relatorio, cd_tipoPeriodo) VALUES (?, ?)");
+                    $sqlFoto = $conn->prepare("INSERT INTO foto (cd_Relatorio, img_foto, ds_foto) VALUES (?, ?, ?)");
                     $cd_Relatorio = $conn->insert_id;
+                    foreach($fotos as $a){
+                        $img = $a['tmp_name'];
+                        $descricao = $a['name'];
+                        $sqlFoto->bind_param('iss', $cd_Relatorio, $img, $descricao);
+                        $resFoto = $sqlFoto->execute();
+                    }
+                } catch (mysqli_sql_exception $e){
+                    print "<script>alert('Ocorreu um erro interno na criação do relatório');
+                            window.history.go(-1);</script>";
+                    criaLogErro($e);
+                }
+
+                try{
+                    $sqlJunctionTable = $conn->prepare("INSERT INTO relatorio_has_tipo_periodo (cd_Relatorio, cd_tipoPeriodo) VALUES (?, ?)");
                     foreach($tp_Periodo as $periodo){
                         $sqlJunctionTable->bind_param('ii', $cd_Relatorio, $periodo);
                         $resJunctionTable = $sqlJunctionTable->execute();

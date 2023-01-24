@@ -4,7 +4,8 @@
 require_once('function-seduc.php');
 redirecionamentoPorAutoridade(3);
 try{
-    $sql = "SELECT * FROM relatorioview";
+    $sql = "SELECT * FROM relatorioview r 
+            ORDER BY nm_situacaoRelatorio <> 'Pendente'";
     
     $res = $conn->query($sql);
     

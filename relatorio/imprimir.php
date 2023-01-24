@@ -14,6 +14,10 @@ require_once('function-seduc.php');
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="sv.ico">
 
+<?php
+header('Access-Control-Allow-Origin: *');
+?>
+  
   <style>
      @import url(https://allfont.net/allfont.css?fonts=english-111-vivace-bt);
     h1 {
@@ -29,11 +33,13 @@ require_once('function-seduc.php');
     .btn-imprimir{
       position: absolute;
     }
-
+    
     @media print
     {    
         .form-impressao
         {
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
             position: absolute !important;
             top: 0;
         }
@@ -386,6 +392,38 @@ require_once('function-seduc.php');
         <div class="col border border-top-0 border-dark border-1">
           <?php
             echo $rowRelatorio->tp_Comentario;
+          ?>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" 
+            style="font-weight: bold">
+          Fotos
+        </div>
+      </div>
+
+      <?php
+        try {
+          $sql = $conn->prepare("SELECT * FROM foto WHERE cd_Relatorio = ?");
+          $sql->bind_param('i', $cd_Relatorio);
+          $sql->execute();
+          $res = $sql->get_result();
+        } catch (mysqli_sql_exception $e) {
+          print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
+                        window.history.go(-1);</script>";
+          criaLogErro($e);
+        }
+
+      ?>
+
+      <div class="row mb-3">
+        <div class="col border border-top-0 border-dark border-1">
+          <?php
+            while($rowFotos = $res->fetch_object()){
+              echo '<img src="data:image/png;base64,'.base64_encode($rowFotos->img_foto).'" height=380px />';
+            }
           ?>
         </div>
       </div>

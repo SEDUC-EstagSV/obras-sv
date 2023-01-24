@@ -1,14 +1,19 @@
 <?php
 
 if(isset($_FILES['foto'])){
+    $allowTypes = array('jpg','png','jpeg','gif'); 
+
     $a = rearrange($_FILES['foto']);
     foreach($a as $foto){
-        echo addslashes (file_get_contents($foto['tmp_name']));
-        echo $foto['name'];
+        if(in_array($foto['type'], $foto)){
+            $novaFoto = addslashes (file_get_contents($foto['tmp_name']));
+
+        } else {
+            echo "nao";
+        }
     } 
 } else {
     echo 'teste2';
-    
 }
 
 function rearrange( $arr ){
