@@ -3,12 +3,18 @@
 
 require_once('function-seduc.php');
 redirecionamentoPorAutoridade(3);
+
+
+
 try{
-    $sql = "SELECT * FROM relatorioview r 
-            ORDER BY nm_situacaoRelatorio <> 'Pendente'";
-    
+    if(isset($_REQUEST['pendente'])){
+        $sql = "SELECT * FROM relatorioview r 
+                WHERE nm_situacaoRelatorio LIKE 'Pendente'";
+    } else {
+        $sql = "SELECT * FROM relatorioview r 
+                ORDER BY nm_situacaoRelatorio <> 'Pendente'";
+    }
     $res = $conn->query($sql);
-    
     $qtd = $res->num_rows;
 } catch(mysqli_sql_exception $e){
     /*
@@ -18,6 +24,21 @@ try{
     criaLogErro($e);
 }
 
+/*
+    //Query para usar para pesquisa com filtros
+    $sqlPesquisa = "SELECT * FROM relatorioview r WHERE 1=1";
+
+    if($inputField estiver com valor){
+        $sqlPesquisa .= "AND >coluna deseja< LIKE ?";
+    }
+
+*/
+
+?>
+
+
+
+<?php
 if ($qtd > 0) {
     print "<table class='table table-hover table-striped table-bordered'>";
     print "<tr>";

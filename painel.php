@@ -106,12 +106,12 @@
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='nav-item'>
+            echo "<li class='nav-item' style='display: flex;'>
                     <a class='nav-link' href='?page=listar_relatorio'>
                       Lista de Relatórios 
-                      <span title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill'>
-                      $row->qtdPendente
-                      </span>
+                    </a>
+                    <a style='margin: auto; position: absolute; transform: translate(320%, 190%);' title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill' href='?page=listar_relatorio&pendente'>
+                    $row->qtdPendente
                     </a>
                   
                   </li>";
@@ -249,6 +249,11 @@
   </div>
   <script scr="js/bootstrap.bundle.min.js"></script>
   <script scr="script.js"></script>
+  <script>
+    function getPendentes(){
+      location.href = "/teste";
+    }
+  </script>
 
 </body>
 

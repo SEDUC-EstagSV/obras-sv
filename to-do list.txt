@@ -63,7 +63,6 @@ vizualizar senha ao logar / resgistrar
 
 --validar dados de requisições tanto no front quanto no back
 
-
 adicionar imagens no formulario e salvar no banco ✔️
 https://www.codexworld.com/upload-multiple-images-store-in-database-php-mysql/
 
@@ -77,4 +76,4 @@ Renê ( Meu input de foto estava assim:
 PS: Engraçado, não consegui inserir imagem "manualmente" no Heidi... mas no PhpMyAdmin dava
 
 -- ideia: Havendo relatórios no status "pendente", a quantidade aparece na bolinha vermelha" - clicando nele, a lista de relatório traz apenas os pendentes
-com um COUNT assim: (SELECT COUNT(*) FROM relatorio WHERE cd_situacaoRelatorio = 1)
+com um COUNT assim: (SELECT COUNT(*) FROM relatorio WHERE cd_situacaoRelatorio = 1) ✔️
