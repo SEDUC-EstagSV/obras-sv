@@ -147,3 +147,7 @@ function recuperarval($login, $senha1, $senha2)
         exit;
     }
 }
+
+function encryptSenha($senha){
+    return password_hash($senha, PASSWORD_BCRYPT);
+}

@@ -80,7 +80,7 @@ try {
     </div>
 
     <?php
-    $aut = $row->user_Autoridade;
+    $aut = $row->cd_nivelAutoridade;
     $formataut = formatarAutoridade($aut);
     ?>
 

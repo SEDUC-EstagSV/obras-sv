@@ -45,7 +45,7 @@ redirecionamentoPorAutoridade(3);
     </div>
     <div class="mb-3">
         <label>Ano do Contrato</label>
-        <input type="number" name="dt_AnoContrato" class="form-control">
+        <input type="text" placeholder="Ex.: 2020" maxlength="4" pattern="\d{4}" name="dt_AnoContrato" class="form-control" required>
     </div>
     <div class="mb-3">
         <label>Situação do Contrato</label>
@@ -89,34 +89,36 @@ redirecionamentoPorAutoridade(3);
     </div>
 
 
-
-    <select class="selectpicker mb-3" id="select" name="escolas[]" 
-    multiple data-live-search="true" title="Selecione escolas vinculadas a este contrato"
-    data-selected-text-format="count" data-width="auto"
-    data-count-selected-text="Escolas selecionadas: {0}"
-    >
-        <datalist>
-            <?php
-                try{
-                    $sql = "SELECT * FROM escola";
-
-                    $res = $conn->query($sql);
-                } catch(mysqli_sql_exception $e){
-                    print "<script>alert('Ocorreu um erro interno ao buscar dados de escolas');
+    <div style="display: flex; flex-direction: column;">
+        <label>Selecione as escolas incluídas no contrato</label>
+            <select class="selectpicker mb-3" id="select" name="escolas[]" 
+            multiple data-live-search="true" title="Selecione escolas vinculadas a este contrato"
+            data-selected-text-format="count" data-width="auto"
+            data-count-selected-text="Escolas selecionadas: {0}"
+            >
+            <datalist>
+                <?php
+                    try{
+                        $sql = "SELECT * FROM escola";
+                        
+                        $res = $conn->query($sql);
+                    } catch(mysqli_sql_exception $e){
+                        print "<script>alert('Ocorreu um erro interno ao buscar dados de escolas');
                         location.href='painel.php';</script>";
-                    criaLogErro($e);
-                }
-
-                while ($row = $res->fetch_object()) {
-
-                    print "<option value={$row->cd_Escola}>" . $row->nm_Escola . "</option>";
-        
-                }
-            ?>
-        </datalist>
-    </select>
-
-
+                        criaLogErro($e);
+                    }
+                    
+                    while ($row = $res->fetch_object()) {
+                        
+                        print "<option value={$row->cd_Escola}>" . $row->nm_Escola . "</option>";
+                        
+                    }
+                    ?>
+            </datalist>
+        </select>
+    </div>
+    
+    
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>

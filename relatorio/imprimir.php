@@ -30,9 +30,6 @@ header('Access-Control-Allow-Origin: *');
       orphans: 3;
     }
 
-    .btn-imprimir{
-      position: absolute;
-    }
     
     @media print
     {    
@@ -52,7 +49,60 @@ header('Access-Control-Allow-Origin: *');
     }
   </style>
 
-<button onclick=window.print() class='btn btn-warning mb-3 btn-imprimir no-print'>Imprimir</button>
+<?php
+  $cd_Relatorio = $_REQUEST["cd_Relatorio"];
+
+  try {
+    $sql = $conn->prepare("SELECT * FROM relatorioview WHERE cd_Relatorio = ?");
+    $sql->bind_param('i', $cd_Relatorio);
+    $sql->execute();
+    $res = $sql->get_result();
+
+    $rowRelatorio = $res->fetch_object();
+  } catch (mysqli_sql_exception $e) {
+    print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
+                  window.history.go(-1);</script>";
+    criaLogErro($e);
+  }
+  print '<form action="?page=salvarrelatorio" method="POST" style="position: absolute">
+        <input type="hidden" name="acaorelatorio" value="editarrelatorio">
+        <input type="text" name="cd_Relatorio" hidden value='.$cd_Relatorio.'>';
+  print "<button type='submit' class='btn btn-success mb-3 no-print'>Alterar situação</button>
+  <div class='mb-3 no-print' >
+  <label>Situação do Relatório</label>";
+  
+  try {
+      $sql = "SELECT * FROM situacao_relatorio";
+
+      $res = $conn->query($sql);
+  } catch (mysqli_sql_exception $e) {
+      print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
+              location.href='painel.php';</script>";
+      criaLogErro($e);
+  }
+
+
+  print "<select class='form-select situacao ' name='tp_RelaSituacao' >";
+  print "<datalist>";
+  print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden>$rowRelatorio->nm_situacaoRelatorio</option>";
+
+
+  while ($row = $res->fetch_object()) {
+
+      print "<option value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
+
+  }
+
+  print "</datalist>";
+  print "</select>
+  </div>
+  </form>
+
+  <div style='display: flex; flex-direction: row-reverse; margin: 0 100px'>
+          <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarrelatorio&acaorelatorio=excluirRelatorio&cd_Relatorio=" . $cd_Relatorio . "';}else{false;}\" class='btn btn-danger mb-3 no-print'>Excluir</button>
+          <button onclick=window.print() class='btn btn-warning mb-3 no-print'>Imprimir</button>
+  </div>";
+?>
 
 </head>
 
@@ -77,22 +127,7 @@ header('Access-Control-Allow-Origin: *');
 
 
   <main>
-      <?php
-      $cd_Relatorio = $_REQUEST["cd_Relatorio"];
-
-      try {
-        $sql = $conn->prepare("SELECT * FROM relatorioview WHERE cd_Relatorio = ?");
-        $sql->bind_param('i', $cd_Relatorio);
-        $sql->execute();
-        $res = $sql->get_result();
-
-        $rowRelatorio = $res->fetch_object();
-      } catch (mysqli_sql_exception $e) {
-        print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
-                      window.history.go(-1);</script>";
-        criaLogErro($e);
-      }
-  ?>
+  
     <div class="container mt-3 text-center">
       <div class="row border border-dark border-1 mb-3">
         <div class="col bg-secondary bg-opacity-50" 

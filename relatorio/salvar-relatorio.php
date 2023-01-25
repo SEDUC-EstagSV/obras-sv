@@ -195,6 +195,31 @@ switch ($_REQUEST["acaorelatorio"]) {
 
     case 'editarrelatorio':
         $cd_Relatorio = $_REQUEST["cd_Relatorio"];
+        $tp_RelaSituacao = $_POST["tp_RelaSituacao"];
+
+        try{
+            $sql = $conn->prepare("UPDATE relatorio SET cd_situacaoRelatorio= ?
+                                    WHERE cd_Relatorio = ?" );
+            $sql->bind_param('ii', $tp_RelaSituacao, $cd_Relatorio);
+    
+            $res = $sql->execute();
+    
+            if ($res == true) {
+                print "<script>alert('Relatório editado com sucesso');</script>";
+                print "<script>location.href='?page=listar_relatorio';</script>";
+            } else {
+                print "<script>alert('Não foi possível editar');</script>";
+                print "<script>location.href='?page=listar_relatorio';</script>";
+            }
+        } catch(mysqli_sql_exception $e){
+            print "<script>alert('Ocorreu um erro interno ao editar relatório');
+                    window.history.go(-1);</script>";
+            criaLogErro($e);
+        }
+        break;
+
+    case 'editarrelatorioADM':
+        $cd_Relatorio = $_REQUEST["cd_Relatorio"];
         $cd_Obra = $_POST["cd_Obra"];
         $num_Relatorio = $_POST["num_Relatorio"];
         $nm_TecResponsavel = $_POST["nm_TecResponsavel"];

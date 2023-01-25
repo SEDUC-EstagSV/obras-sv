@@ -8,7 +8,7 @@
 
 <?php
 try{
-    $sql = "SELECT * FROM fornecedor";
+    $sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor <> -1";
     
     $res = $conn->query($sql);
     

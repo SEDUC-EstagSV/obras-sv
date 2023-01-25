@@ -3,7 +3,7 @@
 <form action="?page=salvarrelatorio" enctype='multipart/form-data' id="relatorio_form" method="POST" >
     <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
     <div class="mb-3">
-        <label>Código da Obra</label>
+        <label>Referência da Obra</label>
         <?php
         try {
             $sql = $conn->prepare("SELECT o.*, ohu.cd_Usuario AS cd_Usuarios
@@ -25,7 +25,7 @@
     
         print "<select class='form-select obra' name='cd_Obra' >";
         print "<datalist>";
-        print "<option value='' disabled selected>Selecione a situação da obra</option>";
+        print "<option value='' disabled selected>Selecione o contrato / obra de referência / local</option>";
 
     
         while ($row = $res->fetch_object()) {

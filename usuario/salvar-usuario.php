@@ -8,7 +8,7 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Senha = ($_POST["user_Senha"]);
         $user_Senha2 = ($_POST["user_Senha2"]);
         $user_Nome = $_POST["user_Nome"];
-        $user_precpf = $_POST["user_CPF"]; //md5?
+        $user_precpf = $_POST["user_CPF"]; 
         $user_Email = $_POST["user_Email"];
         $user_Telefone = $_POST["user_Telefone"];
         $user_Autoridade = 1;
@@ -22,8 +22,7 @@ switch ($_REQUEST["acaousuario"]) {
         confirmarsenha($user_Senha, $user_Senha2);
         $user_CPF = validaCPF($user_precpf);
 
-        $user_Senha = md5($user_Senha);
-        $user_Senha2 = md5($user_Senha2);
+        $user_Senha = encryptSenha($user_Senha);
 
         try{
             $sql = "SELECT user_Login, user_CPF, user_Email FROM usuario";
@@ -93,9 +92,8 @@ switch ($_REQUEST["acaousuario"]) {
         editarval($user_Login, $user_SenhaAntiga, $user_Senha, $user_Senha2, $user_Nome, $cd_Autoridade, $user_Email, $user_Telefone);
         confirmarsenha($user_Senha, $user_Senha2);
 
-        $user_Senha = md5($user_Senha);
-        $user_Senha2 = md5($user_Senha2);
-        $user_SenhaAntiga = md5($user_SenhaAntiga);
+        $user_Senha = encryptSenha($user_Senha);
+        $user_SenhaAntiga = encryptSenha($user_SenhaAntiga);
         $cd_Usuario = $_REQUEST["cd_Usuario"];
 
         try{
@@ -107,7 +105,7 @@ switch ($_REQUEST["acaousuario"]) {
     
             if ($qtd > 0) {
                 while ($row = $res->fetch_object()) {
-                    if ($cd_Usuario == $row->cd_Usuario && trim($user_SenhaAntiga) == $row->user_Senha) {
+                    if ($cd_Usuario == $row->cd_Usuario && password_verify($user_SenhaAntiga, $row->user_Senha)) {
                         $erropass = false;
                     } else if ($cd_Usuario != $row->cd_Usuario && trim($user_Login) == $row->user_Login) {
                         print "<p class='alert alert-danger'>Usuário já existe!</p>";
@@ -197,7 +195,7 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Login = trim($_POST["user_Login"]);
         $user_Senha = trim($_POST["user_Senha"]);
         loginval($user_Login, $user_Senha);
-        $user_Senha = md5($user_Senha);
+        $user_Senha = encryptSenha($user_Senha);
 
         try{
             $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, cd_nivelAutoridade FROM usuario";
@@ -206,7 +204,7 @@ switch ($_REQUEST["acaousuario"]) {
             $erro = true;
             if ($qtd > 0) {
                 while ($row = $res->fetch_object()) {
-                    if ($user_Login == $row->user_Login && $user_Senha == $row->user_Senha) {
+                    if ($user_Login == $row->user_Login && password_verify($user_Senha, $row->user_Senha)) {
                         $autoridade = $row->cd_nivelAutoridade;
                         $nome = $row->user_Nome;
                         $id = $row->cd_Usuario;
@@ -313,7 +311,7 @@ switch ($_REQUEST["acaousuario"]) {
         recuperarval($user_Login, $user_Senha1, $user_Senha2);
         confirmarsenha($user_Senha1, $user_Senha2);
 
-        $user_Senha = md5($user_Senha1);
+        $user_Senha = encryptSenha($user_Senha1);
 
         try{
             $sql = "SELECT user_Login FROM usuario";
