@@ -50,27 +50,6 @@
     </div>
   </div>
   <script scr="js/bootstrap.bundle.min.js"></script>
-
-  <script>
-        const viewSenha = document.querySelector("#viewSenha");
-        const senha = document.querySelector("#senha");
-
-        viewSenha.addEventListener("click", function () {
-            // Alterar o atributo "type"
-            const type = senha.getAttribute("type") === "password" ? "text" : "password";
-            senha.setAttribute("type", type);
-            
-            // Alterar ícone
-            this.classList.toggle("bi-eye");
-        });
-
-        // prevent form submit
-        const form = document.querySelector("form");
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-        });
-    </script>
-
 </body>
 
 </html>

@@ -195,7 +195,6 @@ switch ($_REQUEST["acaousuario"]) {
         $user_Login = trim($_POST["user_Login"]);
         $user_Senha = trim($_POST["user_Senha"]);
         loginval($user_Login, $user_Senha);
-        $user_Senha = encryptSenha($user_Senha);
 
         try{
             $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, cd_nivelAutoridade FROM usuario";

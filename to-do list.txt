@@ -67,9 +67,9 @@ ADICIONAR OPÇÃO EM BRANCO PARA FORNECEDOR✔️
 ADICIONAR LABEL ESCOLA NO CONTRATO✔️
 ------------------------------------------------------------------------------------------------------------
 
---validar dados de requisições tanto no front quanto no back
-
 definir o que cada cargo pode ver e fazer
+
+--validar dados de requisições tanto no front quanto no back
 
 diminuir tabelas para mostrar apenas o necessario
 
