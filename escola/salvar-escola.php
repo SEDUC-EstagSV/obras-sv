@@ -1,14 +1,15 @@
 <?php
 include_once('function-seduc.php');
+require('validator.php');
 
 redirecionamentoPorAutoridade(3);
 
 switch ($_REQUEST["acaoescola"]) {
 
     case 'cadastrarEscola':
-        $nm_Escola = $_POST["nm_Escola"];
-        $ds_Local = $_POST["ds_Local"];
-        $st_Escola = $_POST["st_Escola"];
+        $nm_Escola = validateInput($_POST["nm_Escola"]);
+        $ds_Local = validateInput($_POST["ds_Local"]);
+        $st_Escola = validateInput($_POST["st_Escola"]);
 
         try{
             $sql = $conn->prepare("INSERT INTO escola (nm_Escola, ds_Local, cd_statusEscola) 
@@ -34,10 +35,10 @@ switch ($_REQUEST["acaoescola"]) {
         break;
 
     case 'editarescola':
-        $cd_Escola = $_REQUEST["cd_Escola"];
-        $nm_Escola = $_POST["nm_Escola"];
-        $ds_Local = $_POST["ds_Local"];
-        $st_Escola = $_POST["st_Escola"];
+        $cd_Escola = validateInput($_REQUEST["cd_Escola"]);
+        $nm_Escola = validateInput($_POST["nm_Escola"]);
+        $ds_Local = validateInput($_POST["ds_Local"]);
+        $st_Escola = validateInput($_POST["st_Escola"]);
 
         try{
             $sql = $conn->prepare("UPDATE escola SET   

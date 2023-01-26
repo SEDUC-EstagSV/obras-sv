@@ -76,9 +76,10 @@ definir o que cada cargo pode ver e fazer
 
 --validar dados de requisições tanto no front quanto no back
     -- front
-        relatorio✔️ (criada funções de validação em /js/validators.js 
+        relatorio✔️ (criada funções de validação de input em /js/validators.js 
                                     e funções para validação do próprio relatório em /relatorio/validarRelatorio)
     -- back
+        escola✔️ (criada função de validação de input em validator.php e implementada em salvar-escola.php)
 
 diminuir tabelas para mostrar apenas o necessario
 
