@@ -14,7 +14,10 @@
     </div>
     <div class="mb-3">
         <label>Senha</label>
-        <input type="password" name="user_Senha" class="form-control">
+        <div class="input-group">
+            <input type="password" name="user_Senha" class="form-control" id="senha" autocomplete="off">
+            <i class="input-group-text bi bi-eye-slash" id="viewSenha"></i>
+        </div>
     </div>
     <div class="mb-3">
         <label>Confirmar Senha</label>
@@ -51,10 +54,9 @@
         }
 
         print "<select class='form-select' name='cd_Fornecedor'>";
-        print "<datalist>";
         print "<option value='' disabled selected>Selecione o fornecedor</option>";
-
-
+        print "<datalist>";
+        
         while ($row = $res->fetch_object()) {
 
             print "<option value=$row->cd_Fornecedor>" . $row->nm_Fornecedor . "</option>";

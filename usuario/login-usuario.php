@@ -8,7 +8,10 @@
     </div>
     <div class="mb-3">
         <label>Senha</label>
-        <input type="password" name="user_Senha" class="form-control">
+        <div class="input-group">
+            <input type="password" name="user_Senha" class="form-control" id="senha" autocomplete="off">
+            <i class="input-group-text bi bi-eye-slash" id="viewSenha"></i>
+        </div>
         <a href="?page=recuperarusuario">Esqueci minha senha</a>
     </div>
     <div class="mb-3">
@@ -16,3 +19,16 @@
     </div>
     <a href="?page=novousuario">Não tem uma conta?</a>
 </form>
+<script>
+        const viewSenha = document.querySelector("#viewSenha");
+        const senha = document.querySelector("#senha");
+
+        viewSenha.addEventListener("click", function () {
+            // Alterar o atributo "type"
+            const type = senha.getAttribute("type") === "password" ? "text" : "password";
+            senha.setAttribute("type", type);
+            
+            // Alterar ícone
+            this.classList.toggle("bi-eye");
+        });
+  </script>

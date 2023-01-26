@@ -187,42 +187,10 @@
     </div>
 </form>
 
+<script type="module" src="relatorio/validarRelatorio.js"></script>
+
 <script>
-//validação formulário
-const form = document.querySelector('#relatorio_form');
-
-function validateCheckboxes(){
-    const checkboxes = document.querySelectorAll('input[type=checkbox]');
-
-    var empty = [].filter.call(checkboxes, function( el ) {
-        return !el.checked
-    });
-
-    if (checkboxes.length == empty.length) {
-        alert("É necessário informar pelo menos um período de trabalho");
-        return false;
-    } else {
-        return true;
-    }
-}
-
-
-form.addEventListener('submit', function (e) {
-    // prevent the form from submitting
-    e.preventDefault();
-
-    // validate fields
-    const checkboxes = validateCheckboxes();
-
-    isFormValid = checkboxes;
-
-    // submit to the server if the form is valid
-    if (isFormValid) {
-        form.submit();
-    }
-});
-
-
+    
 //Código Javascript para atualização de valor do Slider(Andamento da obra)
 var slider = document.getElementById('sliderAndamento');
 var output = document.getElementById('valorAndamento');
@@ -231,6 +199,5 @@ output.innerHTML = slider.value + "%";
 slider.oninput = function() {
   output.innerHTML = this.value + "%";
 }
-
 
 </script>

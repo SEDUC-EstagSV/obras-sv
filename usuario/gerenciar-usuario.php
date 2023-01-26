@@ -79,11 +79,6 @@ try {
         <input type="tel" name="user_Telefone" value="<?php print $row->user_Telefone; ?>" class="form-control">
     </div>
 
-    <?php
-    $aut = $row->cd_nivelAutoridade;
-    $formataut = formatarAutoridade($aut);
-    ?>
-
     <div class="mb-3">
         <label>Permissão de usuário</label>
 

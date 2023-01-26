@@ -65,15 +65,24 @@ GERENCIAMENTO DO USUARIO TA QUEBRADO✔️
 ADICIONAR OPÇÃO EM BRANCO PARA FORNECEDOR✔️
 
 ADICIONAR LABEL ESCOLA NO CONTRATO✔️
+
+VISUALIZAR SENHA AO LOGAR / REGISTRAR ✔️
+
+ALTERAR COR DE FUNDO DE ACORDO COM A SITUAÇÃO DO RELATÓRIO NA IMPRESSÃO ✔️
+
 ------------------------------------------------------------------------------------------------------------
 
 definir o que cada cargo pode ver e fazer
 
 --validar dados de requisições tanto no front quanto no back
+    -- front
+        relatorio✔️ (criada funções de validação em /js/validators.js 
+                                    e funções para validação do próprio relatório em /relatorio/validarRelatorio)
+    -- back
 
 diminuir tabelas para mostrar apenas o necessario
 
-vizualizar senha ao logar / resgistrar
+-- Lista de Fornecedores tem uma célula vazia - Aparecendo na lista de opções para escolha
 
 --juntar front com back 
 

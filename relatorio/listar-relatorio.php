@@ -100,7 +100,6 @@ if ($qtd > 0) {
         print "<td>" . $row->nm_TecResponsavel . "</td>";
         //print "<td>" . $row->ds_Email_TecResponsavel . "</td>";
         //print "<td>" . $row->nm_LocResponsavel . "</td>";
-        //$tp_RelaSituacao = formatarRelatorioSit($row->tp_RelaSituacao);
         print "<td>" . $row->nm_situacaoRelatorio . "</td>";
         //print "<td>" . $row->Periodo . "</td>";
         //print "<td>" . $row->nm_tipoTempo . "</td>";
@@ -118,7 +117,7 @@ if ($qtd > 0) {
         print "<td>" . $row->dt_Carimbo . "</td>";
         print "<td>" . $row->nm_Dia . "</td>";
         print "<td>
-                <button onclick=\"location.href='?page=ver_relatorio&cd_Relatorio=" . $row->cd_Relatorio . "';\" class='btn btn-warning mb-3'>Imprimir</button>
+                <button onclick=\"location.href='?page=ver_relatorio&cd_Relatorio=" . $row->cd_Relatorio . "';\" class='btn btn-warning mb-3'>Abrir</button>
                 </td>";
         print "</tr>";
     }

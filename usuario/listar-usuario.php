@@ -11,7 +11,11 @@
 require_once('function-seduc.php');
 
 try{
-    $sql = "SELECT u.*, f.nm_Fornecedor FROM usuario u LEFT JOIN fornecedor f ON u.cd_Fornecedor = f.cd_Fornecedor";
+    $sql = "SELECT u.*, f.nm_Fornecedor, na.cd_nivelAutoridade, na.nm_nivelAutoridade FROM usuario u 
+                LEFT JOIN fornecedor f 
+                ON u.cd_Fornecedor = f.cd_Fornecedor
+                INNER JOIN nivel_autoridade na
+                ON u.cd_nivelAutoridade = na.cd_nivelAutoridade";
     
     $res = $conn->query($sql);
     
@@ -38,8 +42,6 @@ if ($qtd > 0) {
     print "</tr>";
     while ($row = $res->fetch_object()) {
 
-        $user_Autoridade = formatarAutoridade($row->cd_nivelAutoridade);
-
         print "<tr>";
         print "<td>" . $row->cd_Usuario . "</td>";
         print "<td>" . $row->nm_Fornecedor . "</td>";
@@ -47,7 +49,7 @@ if ($qtd > 0) {
         print "<td>" . $row->user_Nome . "</td>";
         print "<td>" . $row->user_Email . "</td>";
         print "<td>" . $row->user_Telefone . "</td>";
-        print "<td>" . $user_Autoridade . "</td>";
+        print "<td>" . $row->nm_nivelAutoridade . "</td>";
         print "<td>";
         
         if($_SESSION['user'][1] > $row->cd_nivelAutoridade || $_SESSION['user'][1] == 10){

@@ -83,13 +83,13 @@ header('Access-Control-Allow-Origin: *');
 
 
   print "<select class='form-select situacao ' name='tp_RelaSituacao' >";
+  
+  print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden class='text-center'>$rowRelatorio->nm_situacaoRelatorio</option>";
+  
   print "<datalist>";
-  print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden>$rowRelatorio->nm_situacaoRelatorio</option>";
+    while ($row = $res->fetch_object()) {
 
-
-  while ($row = $res->fetch_object()) {
-
-      print "<option value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
+      print "<option class='text-center' value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
 
   }
 
@@ -137,9 +137,27 @@ header('Access-Control-Allow-Origin: *');
       </div>
 
       <div class="row mb-3">
-        <div id="fst" class="col-3 border border-dark border-1 bg-warning">
-          Pendente
-        </div>
+  <?php
+
+    if ($rowRelatorio->nm_situacaoRelatorio === 'Pendente')
+    {
+      print '<div id="fst" class="col-3 border border-dark border-1 bg-warning">'; 
+    }
+
+
+    if ($rowRelatorio->nm_situacaoRelatorio === 'Aprovado')
+    {
+        print '<div id="fst" class="col-3 border border-dark border-1 bg-success">'; 
+    }
+    
+    if ($rowRelatorio->nm_situacaoRelatorio === 'Recusado')
+    {
+      print '<div id="fst" class="col-3 border border-dark border-1 bg-danger">'; 
+    }
+ 
+  print $rowRelatorio->nm_situacaoRelatorio;
+  ?>    
+      </div>
 
         <div class="col-4"></div>
 
