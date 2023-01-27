@@ -3,26 +3,30 @@ require_once 'contrato/function-contrato.php';
 
 switch ($_REQUEST["acaorelatorio"]) {
     case 'cadastrarRelatorio':
-        $cd_Obra = $_POST["cd_Obra"];
-        $nm_TecResponsavel = $_POST["nm_TecResponsavel"];
-        $ds_Email = $_POST["ds_Email"];
-        $nm_LocResponsavel = $_POST["nm_LocResponsavel"];
+        $cd_Obra = validateInput($_POST["cd_Obra"]);
+        $nm_TecResponsavel = validateInput($_POST["nm_TecResponsavel"]);
+        $ds_Email = validateInput($_POST["ds_Email"]);
+        $nm_LocResponsavel = validateInput($_POST["nm_LocResponsavel"]);
         $dt_Carimbo = date("Y/m/d");
-        $tp_AtivRealizada = $_POST["tp_AtivRealizada"];
+        $tp_AtivRealizada = validateInput($_POST["tp_AtivRealizada"]);
         $tp_RelaSituacao = 1;
         $nm_Dia = date("l");
-        $tp_Periodo = $_POST["tp_Periodo"];
-        $tp_Tempo = $_POST["tp_Tempo"];
-        $tp_Condicao = $_POST["tp_Condicao"];
-        $qt_TotalMaodeObra = $_POST["qt_TotalMaodeObra"];
-        $qt_Ajudantes = $_POST["qt_Ajudantes"];
-        $qt_Eletricistas = $_POST["qt_Eletricistas"];
-        $qt_Mestres = $_POST["qt_Mestres"];
-        $qt_Pedreiros = $_POST["qt_Pedreiros"];
-        $qt_Serventes = $_POST["qt_Serventes"];
-        $qt_MaoDireta = $_POST["qt_MaoDireta"];
-        $pt_Conclusao = $_POST["pt_Conclusao"];
-        $tp_RelaComentario = $_POST["tp_RelaComentario"];
+        if(isset($_POST["tp_Periodo"])){
+            $tp_Periodo = validateArray($_POST["tp_Periodo"]);
+        } else {
+            $tp_Periodo = null;
+        }
+        $tp_Tempo = validateInput($_POST["tp_Tempo"]);
+        $tp_Condicao = validateInput($_POST["tp_Condicao"]);
+        $qt_TotalMaodeObra = validateInput($_POST["qt_TotalMaodeObra"]);
+        $qt_Ajudantes = validateInput($_POST["qt_Ajudantes"]);
+        $qt_Eletricistas = validateInput($_POST["qt_Eletricistas"]);
+        $qt_Mestres = validateInput($_POST["qt_Mestres"]);
+        $qt_Pedreiros = validateInput($_POST["qt_Pedreiros"]);
+        $qt_Serventes = validateInput($_POST["qt_Serventes"]);
+        $qt_MaoDireta = validateInput($_POST["qt_MaoDireta"]);
+        $pt_Conclusao = validateInput($_POST["pt_Conclusao"]);
+        $tp_RelaComentario = validateInput($_POST["tp_RelaComentario"]);
         $cd_Usuario = $_SESSION['user'][2];
 
         //verificação e validação de arquivos de foto
@@ -137,16 +141,18 @@ switch ($_REQUEST["acaorelatorio"]) {
                     criaLogErro($e);
                 }
 
-                try{
-                    $sqlJunctionTable = $conn->prepare("INSERT INTO relatorio_has_tipo_periodo (cd_Relatorio, cd_tipoPeriodo) VALUES (?, ?)");
-                    foreach($tp_Periodo as $periodo){
-                        $sqlJunctionTable->bind_param('ii', $cd_Relatorio, $periodo);
-                        $resJunctionTable = $sqlJunctionTable->execute();
+                if($tp_Periodo != null){
+                    try{
+                        $sqlJunctionTable = $conn->prepare("INSERT INTO relatorio_has_tipo_periodo (cd_Relatorio, cd_tipoPeriodo) VALUES (?, ?)");
+                        foreach($tp_Periodo as $periodo){
+                            $sqlJunctionTable->bind_param('ii', $cd_Relatorio, $periodo);
+                            $resJunctionTable = $sqlJunctionTable->execute();
+                        }
+                    } catch (mysqli_sql_exception $e){
+                        print "<script>alert('Ocorreu um erro interno na criação do relatório');
+                        window.history.go(-1);</script>";
+                        criaLogErro($e);
                     }
-                } catch (mysqli_sql_exception $e){
-                    print "<script>alert('Ocorreu um erro interno na criação do relatório');
-                            window.history.go(-1);</script>";
-                    criaLogErro($e);
                 }
 
                 print "<script>alert('Relatório criado com sucesso');</script>";
@@ -194,8 +200,8 @@ switch ($_REQUEST["acaorelatorio"]) {
         break;
 
     case 'editarrelatorio':
-        $cd_Relatorio = $_REQUEST["cd_Relatorio"];
-        $tp_RelaSituacao = $_POST["tp_RelaSituacao"];
+        $cd_Relatorio = validateInput($_REQUEST["cd_Relatorio"]);
+        $tp_RelaSituacao = validateInput($_POST["tp_RelaSituacao"]);
 
         try{
             $sql = $conn->prepare("UPDATE relatorio SET cd_situacaoRelatorio= ?
@@ -218,6 +224,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         }
         break;
 
+/*
     case 'editarrelatorioADM':
         $cd_Relatorio = $_REQUEST["cd_Relatorio"];
         $cd_Obra = $_POST["cd_Obra"];
@@ -305,4 +312,5 @@ switch ($_REQUEST["acaorelatorio"]) {
             criaLogErro($e);
         }
         break;
+*/
 }

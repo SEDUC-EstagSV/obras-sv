@@ -3,21 +3,27 @@
 
 include_once('function-seduc.php');
 
+
 redirecionamentoPorAutoridade(3);
 
 
+require_once('validator.php');
 require_once 'function-contrato.php';
 
 switch ($_REQUEST["acaocontrato"]) {
     case 'CadastrarContrato':
-        $st_Contrato = $_POST["st_Contrato"];
-        $cd_Fornecedor = $_POST["cd_Fornecedor"];
-        $dt_AnoContrato = $_POST["dt_AnoContrato"];
-        $tp_Servico = $_POST["tp_Servico"];
-        $dt_Inicial = $_POST["dt_Inicial"];
-        $dt_Final = $_POST["dt_Final"];
-        $num_contrato = $_POST["num_contrato"];
-        $escolas = $_POST["escolas"];
+        $st_Contrato = validateInput($_POST["st_Contrato"]);
+        $cd_Fornecedor = validateInput($_POST["cd_Fornecedor"]);
+        $dt_AnoContrato = validateInput($_POST["dt_AnoContrato"]);
+        $tp_Servico = validateInput($_POST["tp_Servico"]);
+        $dt_Inicial = validateInput($_POST["dt_Inicial"]);
+        $dt_Final = validateInput($_POST["dt_Final"]);
+        $num_contrato = validateInput($_POST["num_contrato"]);
+        if(isset($_POST["escolas"])){
+            $escolas = validateArray($_POST["escolas"]);
+        } else {
+            $escolas = null;
+        }
         $pr_Total = dataTotal($dt_Inicial, $dt_Final);
 
         try{
@@ -27,25 +33,28 @@ switch ($_REQUEST["acaocontrato"]) {
             
             $res = $sql->execute();
             if ($res == true) {
-                $cd_Contrato = $conn->insert_id;
-                try{
-                    $sql = $conn->prepare("INSERT INTO escola_has_contrato (cd_Escola, cd_Contrato) VALUES (?,?)");
-                    foreach ($escolas as $cd_escola){
-                        $sql->bind_param('ii', $cd_escola, $cd_Contrato);
-                        $sql->execute();
-                    }
 
-                } catch (mysqli_sql_exception $e){
+                if($escolas != null){
+                    $cd_Contrato = $conn->insert_id;
                     try{
-                        $sql = "DELETE FROM contrato ORDER BY cd_Contrato DESC LIMIT 1";
-                        $conn->query($sql);
+                        $sql = $conn->prepare("INSERT INTO escola_has_contrato (cd_Escola, cd_Contrato) VALUES (?,?)");
+                        foreach ($escolas as $cd_escola){
+                            $sql->bind_param('ii', $cd_escola, $cd_Contrato);
+                            $sql->execute();
+                        }
+    
                     } catch (mysqli_sql_exception $e){
+                        try{
+                            $sql = "DELETE FROM contrato ORDER BY cd_Contrato DESC LIMIT 1";
+                            $conn->query($sql);
+                        } catch (mysqli_sql_exception $e){
+                            criaLogErro($e);
+                        }
+    
+                        print "<script>alert('Não foi possível cadastrar contrato');</script>";
+                        print "<script>location.href='?page=listar_contratos';</script>";
                         criaLogErro($e);
                     }
-
-                    print "<script>alert('Não foi possível cadastrar contrato');</script>";
-                    print "<script>location.href='?page=listar_contratos';</script>";
-                    criaLogErro($e);
                 }
                 
                 print "<script>alert('Contrato cadastrado com sucesso');</script>";
@@ -61,19 +70,23 @@ switch ($_REQUEST["acaocontrato"]) {
             window.history.go(-1);</script>";
             criaLogErro($e);
         }
-
+  
         break;
 
     case 'editarcontrato':
-        $cd_Contrato = $_REQUEST["cd_Contrato"];
-        $cd_Fornecedor = $_POST["cd_Fornecedor"];
-        $dt_AnoContrato = $_POST["dt_AnoContrato"];
-        $dt_Inicial = $_POST["dt_Inicial"];
-        $dt_Final = $_POST["dt_Final"];
+        $cd_Contrato = validateInput($_REQUEST["cd_Contrato"]);
+        $cd_Fornecedor = validateInput($_POST["cd_Fornecedor"]);
+        $dt_AnoContrato = validateInput($_POST["dt_AnoContrato"]);
+        $dt_Inicial = validateInput($_POST["dt_Inicial"]);
+        $dt_Final = validateInput($_POST["dt_Final"]);
         $pr_Total = dataTotal($dt_Inicial, $dt_Final);
-        $tp_Servico = $_POST["tp_Servico"];
-        $st_Contrato = $_POST["st_Contrato"];
-        $escolas = $_POST["escolas"];
+        $tp_Servico = validateInput($_POST["tp_Servico"]);
+        $st_Contrato = validateInput($_POST["st_Contrato"]);
+        if(isset($_POST["escolas"])){
+            $escolas = validateArray($_POST["escolas"]);
+        } else {
+            $escolas = null;
+        }
 
         try{
             $sql = $conn->prepare("UPDATE contrato SET 
@@ -97,17 +110,18 @@ switch ($_REQUEST["acaocontrato"]) {
                     $resDelete = $sql->execute();
 
                     if($resDelete == true){
-
-                        try{
-                            $sqlInsert = $conn->prepare("INSERT INTO escola_has_contrato (cd_Escola, cd_Contrato) VALUES (?,?)");
-                            foreach ($escolas as $cd_escola){
-                                $sqlInsert->bind_param('ii', $cd_escola, $cd_Contrato);
-                                $sqlInsert->execute();
+                        if($escolas != null){
+                            try{
+                                $sqlInsert = $conn->prepare("INSERT INTO escola_has_contrato (cd_Escola, cd_Contrato) VALUES (?,?)");
+                                foreach ($escolas as $cd_escola){
+                                    $sqlInsert->bind_param('ii', $cd_escola, $cd_Contrato);
+                                    $sqlInsert->execute();
+                                }
+                            } catch (mysqli_sql_exception $e){
+                                print "<script>alert('Ocorreu um erro interno ao editar contrato');
+                                window.history.go(-1);</script>";
+                                criaLogErro($e);
                             }
-                        } catch (mysqli_sql_exception $e){
-                            print "<script>alert('Ocorreu um erro interno ao editar contrato');
-                            window.history.go(-1);</script>";
-                            criaLogErro($e);
                         }
                     }
                     

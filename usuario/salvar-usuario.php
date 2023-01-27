@@ -4,16 +4,16 @@ require_once('function-usuario.php');
 switch ($_REQUEST["acaousuario"]) {
 
     case 'cadastrarUsuario':
-        $user_Login = $_POST["user_Login"];
-        $user_Senha = ($_POST["user_Senha"]);
-        $user_Senha2 = ($_POST["user_Senha2"]);
-        $user_Nome = $_POST["user_Nome"];
-        $user_precpf = $_POST["user_CPF"]; 
-        $user_Email = $_POST["user_Email"];
-        $user_Telefone = $_POST["user_Telefone"];
+        $user_Login = validateInput($_POST["user_Login"]);
+        $user_Senha = validateInput($_POST["user_Senha"]);
+        $user_Senha2 = validateInput($_POST["user_Senha2"]);
+        $user_Nome = validateInput($_POST["user_Nome"]);
+        $user_precpf = validateInput($_POST["user_CPF"]); 
+        $user_Email = validateInput($_POST["user_Email"]);
+        $user_Telefone = validateInput($_POST["user_Telefone"]);
         $user_Autoridade = 1;
         if(isset($_POST["cd_Fornecedor"])){
-            $cd_fornecedor = $_POST["cd_Fornecedor"];
+            $cd_fornecedor = validateInput($_POST["cd_Fornecedor"]);
         } else {
             $cd_fornecedor = null;
         }
@@ -80,21 +80,21 @@ switch ($_REQUEST["acaousuario"]) {
 
     case 'editarusuario':
 
-        $user_Login = $_POST["user_Login"];
-        $user_Senha = $_POST["user_Senha"];
-        $user_Senha2 = $_POST["user_Senha2"];
-        $user_Nome = $_POST["user_Nome"];
-        $user_Email = $_POST["user_Email"];
-        $user_Telefone = $_POST["user_Telefone"];
-        $cd_Autoridade = $_POST["cd_Autoridade"];
-        $user_SenhaAntiga = $_POST["user_SenhaAntiga"];
+        $user_Login = validateInput($_POST["user_Login"]);
+        $user_Senha = validateInput($_POST["user_Senha"]);
+        $user_Senha2 = validateInput($_POST["user_Senha2"]);
+        $user_Nome = validateInput($_POST["user_Nome"]);
+        $user_Email = validateInput($_POST["user_Email"]);
+        $user_Telefone = validateInput($_POST["user_Telefone"]);
+        $cd_Autoridade = validateInput($_POST["cd_Autoridade"]);
+        $user_SenhaAntiga = validateInput($_POST["user_SenhaAntiga"]);
 
         editarval($user_Login, $user_SenhaAntiga, $user_Senha, $user_Senha2, $user_Nome, $cd_Autoridade, $user_Email, $user_Telefone);
         confirmarsenha($user_Senha, $user_Senha2);
 
         $user_Senha = encryptSenha($user_Senha);
         $user_SenhaAntiga = encryptSenha($user_SenhaAntiga);
-        $cd_Usuario = $_REQUEST["cd_Usuario"];
+        $cd_Usuario = validateInput($_REQUEST["cd_Usuario"]);
 
         try{
             $sql = "SELECT cd_Usuario, user_Senha, user_Login, user_Email FROM usuario";
@@ -129,8 +129,6 @@ switch ($_REQUEST["acaousuario"]) {
         }
 
         try{
-            $cd_Usuario = $_REQUEST["cd_Usuario"];
-
             $sql = $conn->prepare("UPDATE usuario SET user_Login = ?,
                                     user_Senha = ?,
                                     user_Nome = ?, 
@@ -161,7 +159,7 @@ switch ($_REQUEST["acaousuario"]) {
 
 
     case 'excluirusuario':
-        $cd_Usuario = $_REQUEST["cd_Usuario"];
+        $cd_Usuario = validateInput($_REQUEST["cd_Usuario"]);
 
         $autoridade = $_SESSION['user'][1];
 
@@ -192,8 +190,8 @@ switch ($_REQUEST["acaousuario"]) {
 
     case 'loginusuario':
 
-        $user_Login = trim($_POST["user_Login"]);
-        $user_Senha = trim($_POST["user_Senha"]);
+        $user_Login = validateInput($_POST["user_Login"]);
+        $user_Senha = validateInput($_POST["user_Senha"]);
         loginval($user_Login, $user_Senha);
 
         try{
@@ -229,16 +227,16 @@ switch ($_REQUEST["acaousuario"]) {
 
     case 'gerenciarusuario':
 
-        $user_Login = $_POST["user_Login"];
-        $user_Nome = $_POST["user_Nome"];
-        $user_Email = $_POST["user_Email"];
-        $user_Telefone = $_POST["user_Telefone"];
-        $user_Autoridade = $_POST["user_Autoridade"];
-        $cd_fornecedor = $_POST["cd_Fornecedor"];
+        $user_Login = validateInput($_POST["user_Login"]);
+        $user_Nome = validateInput($_POST["user_Nome"]);
+        $user_Email = validateInput($_POST["user_Email"]);
+        $user_Telefone = validateInput($_POST["user_Telefone"]);
+        $user_Autoridade = validateInput($_POST["user_Autoridade"]);
+        $cd_fornecedor = validateInput($_POST["cd_Fornecedor"]);
 
         gerenciarval($user_Login, $user_Nome, $user_Autoridade, $user_Email, $user_Telefone);
 
-        $cd_Usuario = $_REQUEST["cd_Usuario"];
+        $cd_Usuario = validateInput($_REQUEST["cd_Usuario"]);
 
         try{
             $sql = "SELECT cd_Usuario, user_Login, user_Email FROM usuario";
@@ -271,7 +269,7 @@ switch ($_REQUEST["acaousuario"]) {
         } 
 
         try{
-            $cd_Usuario = $_REQUEST["cd_Usuario"];
+            $cd_Usuario = validateInput($_REQUEST["cd_Usuario"]);
 
             $sql = $conn->prepare("UPDATE usuario SET  
                                         user_Login = ?,
@@ -303,9 +301,9 @@ switch ($_REQUEST["acaousuario"]) {
 
     case 'recuperarusuario':
 
-        $user_Login = trim($_POST["user_Login"]);
-        $user_Senha1 = $_POST["user_Senha1"];
-        $user_Senha2 = $_POST["user_Senha2"];
+        $user_Login = validateInput($_POST["user_Login"]);
+        $user_Senha1 = validateInput($_POST["user_Senha1"]);
+        $user_Senha2 = validateInput($_POST["user_Senha2"]);
 
         recuperarval($user_Login, $user_Senha1, $user_Senha2);
         confirmarsenha($user_Senha1, $user_Senha2);

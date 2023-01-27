@@ -8,11 +8,11 @@ redirecionamentoPorAutoridade(3);
 
 switch ($_REQUEST["acaofornecedor"]) {
     case 'CadastrarFornecedor':
-        $nm_Fornecedor = $_POST["nm_Fornecedor"];
-        $num_CNPJ = $_POST["num_CNPJ"];
-        $ds_Email = $_POST["ds_Email"];
-        $ds_Endereco = $_POST["ds_Endereco"];
-        $st_Fornecedor = $_POST["st_Fornecedor"];
+        $nm_Fornecedor = validateInput($_POST["nm_Fornecedor"]);
+        $num_CNPJ = validateInput($_POST["num_CNPJ"]);
+        $ds_Email = validateInput($_POST["ds_Email"]);
+        $ds_Endereco = validateInput($_POST["ds_Endereco"]);
+        $st_Fornecedor = validateInput($_POST["st_Fornecedor"]);
 
         try{
             $sql = $conn->prepare("INSERT INTO fornecedor (nm_Fornecedor, num_CNPJ, ds_Email, ds_Endereco) 
@@ -38,12 +38,12 @@ switch ($_REQUEST["acaofornecedor"]) {
         break;
 
     case 'editarfornecedor':
-        $cd_Fornecedor = $_REQUEST["cd_Fornecedor"];
-        $nm_Fornecedor = $_POST["nm_Fornecedor"];
-        $num_CNPJ = $_POST["num_CNPJ"];
-        $ds_Email = $_POST["ds_Email"];
-        $ds_Endereco = $_POST["ds_Endereco"];
-        $st_Fornecedor = $_POST["st_Fornecedor"];
+        $cd_Fornecedor = validateInput($_REQUEST["cd_Fornecedor"]);
+        $nm_Fornecedor = validateInput($_POST["nm_Fornecedor"]);
+        $num_CNPJ = validateInput($_POST["num_CNPJ"]);
+        $ds_Email = validateInput($_POST["ds_Email"]);
+        $ds_Endereco = validateInput($_POST["ds_Endereco"]);
+        $st_Fornecedor = validateInput($_POST["st_Fornecedor"]);
 
         try{
             $sql = $conn->prepare("UPDATE fornecedor SET nm_Fornecedor = ?,

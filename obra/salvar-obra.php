@@ -8,14 +8,18 @@ redirecionamentoPorAutoridade(3);
 
 switch ($_REQUEST["acaoobra"]) {
     case 'cadastrarObra':
-        $st_Obra = $_POST["st_Obra"];
-        $cd_Escola = $_POST["nm_Escola"];
+        $st_Obra = validateInput($_POST["st_Obra"]);
+        $cd_Escola = validateInput($_POST["nm_Escola"]);
         //$nm_Contratante = $_POST["nm_Contratante"];
-        $tp_AtivDescricao = $_POST["tp_AtivDescricao"];
+        $tp_AtivDescricao = validateInput($_POST["tp_AtivDescricao"]);
         $valueContrato = explode('/', $_POST["num_contrato"]);
-        $numContrato = $valueContrato[0];
-        $anoContrato = $valueContrato[1];
-        $usuarios = $_POST["usuarios"];
+        $numContrato = validateInput($valueContrato[0]);
+        $anoContrato = validateInput($valueContrato[1]);
+        if(isset($_POST["usuarios"])){
+            $usuarios = validateArray($_POST["usuarios"]);
+        } else {
+            $usuarios = null;
+        }
 
             try{
                 $sql = $conn->prepare("INSERT INTO obra (cd_Escola,tp_AtividadeDescricao,cd_situacaoObra, cd_Contrato) 
@@ -26,28 +30,32 @@ switch ($_REQUEST["acaoobra"]) {
 
                 $res = $sql->execute();
                 if ($res == true) {
-                    $cd_Obra = $conn->insert_id;
 
-                    try{
-                        $sql = $conn->prepare("INSERT INTO obra_has_usuario (cd_Obra, cd_Usuario) VALUES (?,?)");
-                        foreach ($usuarios as $cd_Usuario){
-                            $sql->bind_param('ii', $cd_Obra, $cd_Usuario);
-                            $sql->execute();
-                        }
-    
-                    } catch (mysqli_sql_exception $e){
+                    if($usuarios != null){
+
+                        $cd_Obra = $conn->insert_id;
+                        
                         try{
-                            $sql = "DELETE FROM obra ORDER BY cd_Obra DESC LIMIT 1";
-                            $conn->query($sql);
+                            $sql = $conn->prepare("INSERT INTO obra_has_usuario (cd_Obra, cd_Usuario) VALUES (?,?)");
+                            foreach ($usuarios as $cd_Usuario){
+                                $sql->bind_param('ii', $cd_Obra, $cd_Usuario);
+                                $sql->execute();
+                            }
+                            
                         } catch (mysqli_sql_exception $e){
+                            try{
+                                $sql = "DELETE FROM obra ORDER BY cd_Obra DESC LIMIT 1";
+                                $conn->query($sql);
+                            } catch (mysqli_sql_exception $e){
+                                criaLogErro($e);
+                            }
+                            
+                            print "<script>alert('Não foi possível cadastrar obra');</script>";
+                            print "<script>location.href='?page=listaobra';</script>";
                             criaLogErro($e);
                         }
-    
-                        print "<script>alert('Não foi possível cadastrar obra');</script>";
-                        print "<script>location.href='?page=listaobra';</script>";
-                        criaLogErro($e);
+                        
                     }
-
 
                     print "<script>alert('Cadastro com sucesso');</script>";
                     print "<script>location.href='?page=listaobra';</script>";
@@ -66,14 +74,18 @@ switch ($_REQUEST["acaoobra"]) {
         break;
 
     case 'editarobra':
-        $cd_Obra = $_REQUEST["cd_Obra"];
+        $cd_Obra = validateInput($_REQUEST["cd_Obra"]);
         //$cd_Escola = $_POST["cd_Escola"];
         //$cd_Contrato = $_POST["cd_Contrato"];
-        $nm_Contratante = $_POST["nm_Contratante"];
-        $tp_AtivDescricao = $_POST["tp_AtivDescricao"];
-        $st_Obra = $_POST["st_Obra"];
+        $nm_Contratante = validateInput($_POST["nm_Contratante"]);
+        $tp_AtivDescricao = validateInput($_POST["tp_AtivDescricao"]);
+        $st_Obra = validateInput($_POST["st_Obra"]);
         //$tp_Comentario = $_POST["tp_Comentario"];
-        $usuarios = $_POST["usuarios"];
+        if(isset($_POST["usuarios"])){
+            $usuarios = validateArray($_POST["usuarios"]);
+        } else {
+            $usuarios = null;
+        }
 
         try{
             $sql = $conn->prepare("UPDATE obra SET 
@@ -95,16 +107,18 @@ switch ($_REQUEST["acaoobra"]) {
 
                     if($resDelete == true){
 
-                        try{
-                            $sqlInsert = $conn->prepare("INSERT INTO obra_has_usuario (cd_Obra, cd_Usuario) VALUES (?,?)");
-                            foreach ($usuarios as $cd_Usuario){
-                                $sqlInsert->bind_param('ii', $cd_Obra, $cd_Usuario);
-                                $sqlInsert->execute();
+                        if($usuarios != null){
+                            try{
+                                $sqlInsert = $conn->prepare("INSERT INTO obra_has_usuario (cd_Obra, cd_Usuario) VALUES (?,?)");
+                                foreach ($usuarios as $cd_Usuario){
+                                    $sqlInsert->bind_param('ii', $cd_Obra, $cd_Usuario);
+                                    $sqlInsert->execute();
+                                }
+                            } catch (mysqli_sql_exception $e){
+                                print "<script>alert('Ocorreu um erro interno ao editar obra');
+                                window.history.go(-1);</script>";
+                                criaLogErro($e);
                             }
-                        } catch (mysqli_sql_exception $e){
-                            print "<script>alert('Ocorreu um erro interno ao editar obra');
-                            window.history.go(-1);</script>";
-                            criaLogErro($e);
                         }
                     }
                     
