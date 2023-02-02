@@ -2,7 +2,7 @@
 
 
 include_once('function-seduc.php');
-
+require('validator.php');
 redirecionamentoPorAutoridade(3);
 
 

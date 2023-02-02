@@ -1,5 +1,6 @@
 <?php
 require_once('function-usuario.php');
+require('validator.php');
 
 switch ($_REQUEST["acaousuario"]) {
 

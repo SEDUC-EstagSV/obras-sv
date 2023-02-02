@@ -1,4 +1,6 @@
 <?php
+
+
 function redirecionamentoPorAutoridade($nivelAutoridade){
 
     if(!isset($_SESSION["user"][1])) header("location: index.php");
@@ -32,32 +34,34 @@ function criaLogErro($erro){
     fclose($fp);
 }
 
-
 /*
 function geraEmail($cd_Usuario, $email){
-    require('config.php');
+    //require('./usuario/function-usuario.php');
+    //require('config.php');
+
     //tem que gerar um numero aleatorio
     $codigo = rand(1000, 9999);
 
     //tem que criptografar de alguma forma
-    $encryptCodigo = encryptSenha($codigo);
+    //$encryptCodigo = encryptSenha($codigo);
 
+  
     //salvar valor em uma tabela para futura comparação (criar pagina para realizar comparação)
     $sql = $conn->prepare("INSERTO INTO pedido_recuperacao_senha (cd_Usuario, num_pedido) 
                             VALUES (?,?)");
     $sql->bind_param('is', $cd_Usuario, $encryptCodigo);
     $sql->execute();
+  
 
     //mandar email (ainda não funciona em ambiente de teste)
-    ini_set("SMTP","tsl://smtp.gmail.com");
-    ini_set("smtp_port","587");
-    ini_set("sendmail_from","pmsvtec@gmail.com");
-    ini_set("sendmail_path", "C:/xampp/sendmail/sendmail.exe -t");
-
     $to = $email;   
     $subject = "Recuperação de senha";
     $message = "Seu código para definir uma nova senha é $codigo";
 
-    mail($to, $subject, $message);
+    $emailEnviado = mail($to, $subject, $message);
+    var_dump($emailEnviado);
+    var_dump($to);  
+    var_dump($subject);
+    var_dump($message);
 }
 */

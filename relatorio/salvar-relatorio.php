@@ -1,5 +1,6 @@
 <?php
 require_once 'contrato/function-contrato.php';
+require('validator.php');
 
 switch ($_REQUEST["acaorelatorio"]) {
     case 'cadastrarRelatorio':
