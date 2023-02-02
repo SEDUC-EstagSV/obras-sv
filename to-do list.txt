@@ -104,4 +104,6 @@ https://getcomposer.org/
 
 --personalizar usuario (Ex: Editar meu perfil)
 
+ver o que fazer com os pedidos antigos registrados no banco
+
 

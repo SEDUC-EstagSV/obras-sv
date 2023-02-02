@@ -3,10 +3,6 @@
 <form action="?page=recuperarusuario" method="POST">
     <input type="hidden" name="acaousuario" value="recuperarSenha">
     <div class="mb-3">
-        <label>Nome de Usuário</label>
-        <input type="name" name="user_Login" class="form-control">
-    </div>
-    <div class="mb-3">
         <label>Senha</label>
         <input type="password" name="user_Senha1" class="form-control">
     </div>
