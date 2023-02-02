@@ -40,6 +40,15 @@
           case "salvarusuario":
             include("usuario/salvar-usuario.php");
             break;
+          case "pedidorecuperacao":
+            include("usuario/pedidoRecuperacao-usuario.php");
+            break;
+          case "validarcodigo":
+            include("usuario/validarCodigoRecuperacao-usuario.php");
+            break;
+          case "recuperarsenha":
+            include("usuario/recuperarSenha-usuario.php");
+            break;
           case "recuperarusuario":
             include("usuario/recuperar-usuario.php");
             break;

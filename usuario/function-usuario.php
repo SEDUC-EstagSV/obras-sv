@@ -139,10 +139,10 @@ function gerenciarval($login, $nome, $user_Autoridade, $email, $telefone)
 
 
 //valida a recuperação de senha do usuario
-function recuperarval($login, $senha1, $senha2)
+function recuperarval($senha1, $senha2)
 {
     //validar campos se estão preenchidos
-    if (!$login || !$senha1 || !$senha2) {
+    if (!$senha1 || !$senha2) {
         print "<p class='alert alert-danger'>Preencha todos os campos!</p>";
         exit;
     }

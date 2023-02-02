@@ -2,7 +2,8 @@
 *.mwb
 *.bak
 /teste/*
-1.sql
+*.sql
+.env
 ##### Composer
 composer.phar
 /vendor/
