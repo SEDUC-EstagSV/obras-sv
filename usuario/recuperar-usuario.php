@@ -1,7 +1,8 @@
 <?php
 require('./function-seduc.php');
 require('./validator.php');
-require('function-usuario.php');
+
+
 
 function resetCookies(){
     if (!isset($_COOKIE['email']) || isset($_COOKIE['num_pedido']) || isset($_COOKIE['userId']) || isset($_COOKIE['numToCompare'])) {
@@ -25,12 +26,17 @@ switch ($_REQUEST["acaousuario"]) {
         $email = validateInput($_POST["user_Email"]);
 
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-            geraEmail($email);
-            cookieSet('email', $email);
-            header("Location: index.php?page=validarcodigo");
-            exit();
+            $emailEnviado = geraEmail($email);
+            if($emailEnviado->enviado){
+                cookieSet('email', $email);
+                print $emailEnviado->msg;
+                header("Location: index.php?page=validarcodigo");
+                exit();
+            } else {
+                print $emailEnviado->msg;
+            }
         } else {
-            print "<p class='alert alert-danger'>E-mail inválido</p>";
+            print "<script>alert('E-mail inválido');window.history.go(-1);</script>";
             exit();
         }
         break;
@@ -38,7 +44,6 @@ switch ($_REQUEST["acaousuario"]) {
         $codigo = validateInput($_POST["num_pedido"]);
         $email = $_COOKIE['email'];
         cookieSet('num_pedido', $codigo);
-
 
         try{
             $sql = $conn->prepare("SELECT cd_Usuario FROM usuario 
@@ -70,9 +75,12 @@ switch ($_REQUEST["acaousuario"]) {
                                     INNER JOIN usuario u
                                     ON u.cd_Usuario = pr.cd_Usuario
                                     WHERE pr.cd_Usuario LIKE ?
+                                    AND pr.ds_ativo LIKE ?
                                     ORDER BY cd_pedido_recuperacao DESC
-                                    LIMIT 1");
-            $sql->bind_param('i', $userId);
+                                    LIMIT ?");
+            $dsAtivo = 1;
+            $limit = 1;
+            $sql->bind_param('iii', $userId, $dsAtivo, $limit);
             $sql->execute();
 
             $res = $sql->get_result();
@@ -82,12 +90,20 @@ switch ($_REQUEST["acaousuario"]) {
             cookieSet('numToCompare', $row->num_pedido_recuperacao);
             
             if($verificaCodigo){
-                header("Location: index.php?page=recuperarsenha");
+                try{
+                    $sql = $conn->prepare("UPDATE pedido_recuperacao SET ds_ativo = ?
+                                        WHERE cd_pedido_recuperacao = ?");
+                    $dsAtivo = 0;
+                    $sql->bind_param('ii', $dsAtivo, $row->cd_pedido_recuperacao);
+                    $sql->execute();
+                    header("Location: index.php?page=recuperarsenha");
+                } catch (mysqli_sql_exception $e){
+                    criaLogErro($e);
+                }
+
             } else {
-                print "<script>alert('Código incorreto');</script>";
-                //remove cookies
-                resetCookies();
-                header("Location: index.php?page=validarcodigo");
+                print "<script>alert('Código incorreto');
+                window.history.go(-1);</script>";
             }
             
         }catch(mysqli_sql_exception $e){
@@ -95,12 +111,11 @@ switch ($_REQUEST["acaousuario"]) {
             criaLogErro($e);
             exit();
         }
-
         break;
     case "recuperarSenha":
         $user_Senha1 = validateInput($_POST["user_Senha1"]);
         $user_Senha2 = validateInput($_POST["user_Senha2"]);
-
+        require_once('function-usuario.php');
         recuperarval($user_Senha1, $user_Senha2);
         confirmarsenha($user_Senha1, $user_Senha2);
 
@@ -128,7 +143,7 @@ switch ($_REQUEST["acaousuario"]) {
                             print "<script>location.href='painel.php';</script>";
                             resetCookies();
                         } else {
-                            print "<script>alert('Usuário2 não encontrado');</script>";
+                            print "<script>alert('Usuário não encontrado');</script>";
                             print "<script>location.href='painel.php';</script>";
                             resetCookies();
                         }
@@ -140,7 +155,7 @@ switch ($_REQUEST["acaousuario"]) {
                         criaLogErro($e);
                     }
                 } else {
-                    print "<script>alert('Usuário3 não encontrado');</script>";
+                    print "<script>alert('Usuário não encontrado');</script>";
                     print "<script>location.href='painel.php';</script>";
                     resetCookies();
                 }

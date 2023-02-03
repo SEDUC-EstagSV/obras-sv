@@ -47,6 +47,14 @@ function geraEmail($emailToSend){
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
 
+    //varivel para verificar envio
+    class EmailEnviado {
+        public bool $enviado;
+        public string $msg;
+    }
+
+    $emailEnviado = new EmailEnviado();
+
     //gerar um numero aleatorio
     $codigo = rand(1000, 9999);
 
@@ -101,14 +109,17 @@ function geraEmail($emailToSend){
         $row = $res->fetch_object();
         $userId = $row->cd_Usuario;
         if($userId == null) {
-            print "<script>alert('Usuário não encontrado');
+            $emailEnviado->enviado = false;
+            $emailEnviado->msg = "<script>alert('Usuário não encontrado');
             window.history.go(-1);</script>";
+            return $emailEnviado;
         }
         
     } catch(mysqli_sql_exception $e){
-        print "<script>alert('Ocorreu um erro interno e não foi possível verificar seu email');</script>";
+        $emailEnviado->enviado = false;
+        $emailEnviado->msg = "<script>alert('Ocorreu um erro interno e não foi possível verificar seu email');</script>";
         criaLogErro($e);
-        exit();
+        return $emailEnviado;
     }
 
     //criptografar
@@ -116,28 +127,38 @@ function geraEmail($emailToSend){
     
     //salvar valor em uma tabela para futura comparação (criar pagina para realizar comparação)
     try{
-
-        $sql = $conn->prepare("INSERT INTO pedido_recuperacao (cd_Usuario, num_pedido_recuperacao) 
-        VALUES (?,?)");
-        $sql->bind_param('is', $userId, $encryptCodigo);
+        $sql = $conn->prepare("INSERT INTO pedido_recuperacao (cd_Usuario, num_pedido_recuperacao, dt_pedido_recuperacao, hr_expiracao_pedido_recuperacao) 
+        VALUES (?,?,?,?)");
+        date_default_timezone_set('America/Sao_Paulo');
+        $tempoParaExpirar = strtotime("+1 Minutes");
+        $tempoExpiracao = date("Y-m-d h:i:sa", $tempoParaExpirar );
+        $dataAtual = date("Y/m/d");
+        $sql->bind_param('isss', $userId, $encryptCodigo, $dataAtual,   $tempoExpiracao);
         $res = $sql->execute();
 
         if($res == false){
-            print "<script>alert('Não foi possível realizar a solicitação de recuperação. Se o erro persistir entre em contato com o suporte.');
+            $emailEnviado->enviado = false;
+            $emailEnviado->msg = "<script>alert('Não foi possível realizar a solicitação de recuperação. Se o erro persistir entre em contato com o suporte.');
             window.history.go(-1);</script>";
+            return $emailEnviado;
         }
     } catch(mysqli_sql_exception $e){
-        print "<script>alert('Ocorreu um erro interno. Se o erro persistir entre em contato com o suporte.');window.history.go(-1);</script>";
+        $emailEnviado->enviado = false;
+        $emailEnviado->msg = "<script>alert('Ocorreu um erro interno. Se o erro persistir entre em contato com o suporte.');window.history.go(-1);</script>";
         criaLogErro($e);
-        exit();
+        return $emailEnviado;
     }
 
     //envia o email e checa erro
     if (!$mail->send()) {
-        echo '<script>alert(Ocorreu um erro ao enviar um email. Se o erro persistir entre em contato com o suporte.);window.history.go(-1);</script>';
+        $emailEnviado->enviado = false;
+        $emailEnviado->msg = '<script>alert(Ocorreu um erro ao enviar um email. Se o erro persistir entre em contato com o suporte.);window.history.go(-1);</script>';
         //. $mail->ErrorInfo;
+        return $emailEnviado;
     } else {
-        echo "<script>alert(Mensagem enviada para seu email $emailToSend);window.history.go(-1);</script>";
+        $emailEnviado->enviado = true;
+        $emailEnviado->msg = "<script>alert(Mensagem enviada para seu email $emailToSend);window.history.go(-1);</script>";
+        return $emailEnviado;
     }
 }
 

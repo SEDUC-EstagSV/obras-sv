@@ -72,6 +72,15 @@ ALTERAR COR DE FUNDO DE ACORDO COM A SITUAÇÃO DO RELATÓRIO NA IMPRESSÃO ✔�
 
 -- Lista de Fornecedores tem uma célula vazia - Aparecendo na lista de opções para escolha✔️
 (foi adicionado a opção de não ter fornecedor, era necessario filtrar para não aparecer no contrato)
+
+esqueci minha senha por email ou sms ✔️
+obs.: pelo que vi n dá para enviar email localmente para tal é necessário utilizar
+alguma biblioteca e para instalar uma biblioteca é necessário o composer
+que é um gerenciador de dependencias
+https://mailtrap.io/blog/test-emails-in-php/
+https://getcomposer.org/
+https://github.com/PHPMailer/PHPMailer/blob/master/examples/gmail_xoauth.phps
+https://console.cloud.google.com/apis/credentials/consent?project=phpmailer-376612
 ------------------------------------------------------------------------------------------------------------
 
 definir o que cada cargo pode ver e fazer
@@ -95,15 +104,13 @@ diminuir tabelas para mostrar apenas o necessario
 
 --juntar front com back 
 
-esqueci minha senha por email ou sms
-obs.: pelo que vi n dá para enviar email localmente para tal é necessário utilizar
-alguma biblioteca e para instalar uma biblioteca é necessário o composer
-que é um gerenciador de dependencias
-https://mailtrap.io/blog/test-emails-in-php/
-https://getcomposer.org/
-
 --personalizar usuario (Ex: Editar meu perfil)
 
 ver o que fazer com os pedidos antigos registrados no banco
 
+-- retornar valores no front com caracteres corretos (EX.: UTF-8) - Os caracteres não estão obedecendo o "<meta charset="utf-8">"
+    Talvez, provavelmente o php esteja interferindo
+
+-- fazer com que o botão fique bloqueado depois de pedir o email de recuperação de senha no front
+    para que não seja enviado mais de um
 
