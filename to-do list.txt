@@ -70,28 +70,22 @@ VISUALIZAR SENHA AO LOGAR / REGISTRAR ✔️
 
 ALTERAR COR DE FUNDO DE ACORDO COM A SITUAÇÃO DO RELATÓRIO NA IMPRESSÃO ✔️
 
--- Lista de Fornecedores tem uma célula vazia - Aparecendo na lista de opções para escolha✔️
-(foi adicionado a opção de não ter fornecedor, era necessario filtrar para não aparecer no contrato)
+-- arrumar pt-br ou utf-8 em algum lugar ✔️
+
 ------------------------------------------------------------------------------------------------------------
 
 definir o que cada cargo pode ver e fazer
 
 --validar dados de requisições tanto no front quanto no back
-NAO FOI FEITA VERIFICACAO DE VALORES NULOS INCLUSIVE NO BANCO DE DADOS SERIA NECESSARIO REVER QUAIS VALORES
-ACEITAM NULO
     -- front
         relatorio✔️ (criada funções de validação de input em /js/validators.js 
                                     e funções para validação do próprio relatório em /relatorio/validarRelatorio)
     -- back
         escola✔️ (criada função de validação de input em validator.php e implementada em salvar-escola.php)
-        contrato✔️
-        fornecedor✔️
-        obra✔️
-        relatorio✔️
-        usuario✔️
-
 
 diminuir tabelas para mostrar apenas o necessario
+
+-- Lista de Fornecedores tem uma célula vazia - Aparecendo na lista de opções para escolha
 
 --juntar front com back 
 
@@ -105,3 +99,12 @@ https://getcomposer.org/
 --personalizar usuario (Ex: Editar meu perfil)
 
 
+-- Deixar o carrosel e contato apenas no Home ^^
+
+-- corrigir push de dados de escola
+
+-- colocar 'margin' nos cards
+
+-- em cadastrar novo contrato (ano do contrato) deixar apenas números.
+
+-- arrendondar card de logion no Mobile

@@ -4,7 +4,19 @@
     redirecionamentoPorAutoridade(3);
 ?>
 
-<h1>Lista de Usuários</h1>
+
+<section id="servicos" class="caixa">
+      <div class="container">
+      <div class="container-fluid" >
+      <div class="secao-title">
+
+<h3>Lista de Usuários</h3>
+
+</div>
+        <div class="card border-dark mb-3">
+
+          <div class="card-body text-dark">
+    <div class="container"> 
 
 
 <?php
@@ -62,3 +74,13 @@ if ($qtd > 0) {
     print "</table>";
 } else
     print "<p class='alert alert-danger'>Não foi possível encontrar resultados!</p>";
+
+    ?>
+
+    </div>
+    </div>
+    </div>    
+    </div>
+    </div>    
+    </div>
+</section>

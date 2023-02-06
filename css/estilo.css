@@ -1,0 +1,364 @@
+/* --------------------------- 
+		Layout
+-----------------------------*/
+
+
+html, body, #home {
+	height: 100%;
+	overflow-x: hidden;
+}
+
+body {
+	background-image: url(../imagens/capa.jpg);
+
+	
+	padding:50px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	font-family: Helvetica,Arial,sans-serif;
+}
+
+.botao {
+	margin: 15px;
+}
+
+
+
+
+
+
+
+
+/* --------------------------- 
+		Barra de navegação
+-----------------------------*/
+
+nav.navbar-transparente {
+	padding: 15px 0px;
+	background: rgba(0, 0, 0, 0.733);
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: rgb(88, 143, 180);
+	font-size: 16px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+	color: #52c5ae;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.navbar-light .navbar-toggler {
+    color: rgba(255, 255, 255, 0.363);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.divisor {
+	width: 1px;
+	background: rgba(255, 255, 255, 0.219);
+	margin: 12px 15px;
+}
+
+
+/* --------------------------
+		Capa
+-----------------------------*/
+
+.capa {
+	text-align: center;
+}
+
+.btn-custom {
+	color: rgb(255, 255, 255);
+	border-radius: 500px;
+	-webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    text-transform: uppercase;
+    transition: background 0.4s, color 0.4s;
+    padding: 10px 20px;
+}
+
+.carousel-control-next, .carousel-control-prev {
+	width: 5%;
+}
+
+
+
+/* -----------------------------------
+		Estrutura conteúdos Contato
+--------------------------------------*/
+
+.caixa {
+	margin-top: 80px;
+	margin-bottom: 0%;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-bottom: 10px;
+	padding-top: -20px;
+	padding-left: -20px;
+    border-radius: 12px;
+}
+
+
+
+#servicos {
+	background: rgba(192, 192, 192, 0.815);
+	padding-top: 0%;
+	padding-left: 0%;
+	margin: 1%;
+}
+
+#recursos {
+	color: white;
+}
+
+#servicos h1, h2, h3 {
+	color: #020202;
+}
+
+#recursos h1, h2 {
+	color: white;
+}
+
+#recursos h3 {
+	color: #9bf0e1;
+}
+
+
+
+/*--------------------------------------------
+		STYLE TOGGLE
+---------------------------------------------*/
+  .navbar-toggler:focus,
+  .navbar-toggler:active,
+  .navbar-toggler-icon:focus {
+	outline: none;
+	box-shadow: none;
+  }
+
+  .navbar-toggler span {
+	display: block;
+	background-color: #4f4f4f;
+	height: 3px;
+	width: 25px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	left: 0;
+	opacity: 1;
+	transition: all 0.25s ease-out;
+	transform-origin: center left;
+  }
+
+  .navbar-toggler span:nth-child(1) {
+	transform: translate(0%, 0%) rotate(0deg);
+  }
+
+  .navbar-toggler span:nth-child(2) {
+	opacity: 1;
+  }
+
+  .navbar-toggler span:nth-child(3) {
+	transform: translate(0%, 0%) rotate(0deg);
+  }
+
+  .navbar-toggler span:nth-child(1) {
+	margin-top: 0.3em;
+  }
+
+  .navbar-toggler:not(.collapsed) span:nth-child(1) {
+	transform: translate(15%, -33%) rotate(45deg);
+  }
+
+  .navbar-toggler:not(.collapsed) span:nth-child(2) {
+	opacity: 0;
+  }
+
+  .navbar-toggler:not(.collapsed) span:nth-child(3) {
+	transform: translate(15%, 33%) rotate(-45deg);
+  }
+
+
+
+/*-----------------------------------
+		STYLE LOGO NAVBAR
+-----------------------------------*/
+  .logo img {
+	max-height: 40px;
+  }
+
+  
+  h1, h2 {
+	color: #fff;
+	text-shadow: 2px 2px 2px gray;
+  }
+
+
+
+/* ------------------------------ 
+		Rodapé
+---------------------------------*/
+
+footer {
+	background: rgb(14, 14, 14);
+	padding: 25px 0px 20px 0px;
+	position: relative;
+	width: 100%;
+}
+
+footer h3 {
+	color: #bdb4b4;
+	font-size: 0.9em;
+	text-transform: uppercase;
+}
+
+footer h4 {
+	color: #bdb4b4;;
+	font-size: 0.8em;
+	text-transform: uppercase;
+}
+
+footer .navbar-nav a {
+	color: white;
+	font-size: 0.8em;
+}
+
+
+
+/* ---------------------------
+		Tipografia
+-----------------------------*/
+
+h1 {
+	font-size: 1.2em;
+	font-weight: 600;
+	letter-spacing: -0.05em;
+	margin-bottom: 50px;
+	color: rgb(255, 255, 255);
+}
+
+h2 {
+	font-size: 3.2em;
+	font-weight: 700;
+	letter-spacing: -0.04em;
+}
+
+h3 {
+	font-size: 2em;
+	font-weight: 700;
+	letter-spacing: -0.04em;
+}
+
+h4 {
+	font-size: 1.2em;
+	font-weight: 700;
+	letter-spacing: -0.04em;
+}
+
+
+
+/* ---------------------------
+		Links
+  -----------------------------*/
+
+  /* unvisited link */
+  a:link {
+	color: #000;
+  }
+  
+  /* visited link */
+  a:visited {
+	color: #000;
+  }
+  
+  /* mouse over link */
+  a:hover {
+	color: #000;
+  }
+  
+  /* selected link */
+  a:active {
+	color: #000;
+  }
+
+
+
+/* ---------------------------
+		Forms
+  -----------------------------*/
+
+.formInput{
+		width: 100%;
+		border-radius: 5px;
+		max-width: 70rem;
+  }
+
+
+/*---------------------------
+       @media
+----------------------------*/
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+	.btn-custom {
+		margin: 10px 15px;
+		font-size: 1em;
+	}
+
+	.formInput{
+		width: 100%;
+		border-radius: 5px;
+		max-width: 70rem;
+	  }
+
+	  .caixa {
+		margin-top: 80px;
+		margin-bottom: 10%;
+		margin-left: -55px;
+		margin-right: -55px;
+	    padding-bottom: 0px;
+		padding-top: -20px;
+		padding-left: -20px;
+		border-radius: 0px;
+	}
+	
+	#servicos {
+		background: rgba(255, 255, 255, 0.514);
+		padding-top: 5%;
+		padding-bottom: 5%;
+	}
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+	h1 {
+		font-size: 3em;
+	}
+	
+	.btn-custom {
+		margin: 10px 15px;
+	}
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+	h1 {
+		font-size: 4em;
+	}
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+	h1 {
+		font-size: 5em;
+	}
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+	h1 {
+		font-size: 6em;
+	}
+}

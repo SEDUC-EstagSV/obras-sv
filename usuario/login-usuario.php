@@ -1,4 +1,4 @@
-<h1>Login</h1>
+<h3>Login</h3>
 
 <form action="?page=salvarusuario" method="POST">
     <input type="hidden" name="acaousuario" value="loginusuario">
@@ -12,13 +12,17 @@
             <input type="password" name="user_Senha" class="form-control" id="senha" autocomplete="off">
             <i class="input-group-text bi bi-eye-slash" id="viewSenha"></i>
         </div>
-        <a href="?page=recuperarusuario">Esqueci minha senha</a>
+        <a href="?page=pedidorecuperacao">Esqueci minha senha</a>
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Entrar</button>
     </div>
     <a href="?page=novousuario">Não tem uma conta?</a>
 </form>
+
+
+
+
 <script>
         const viewSenha = document.querySelector("#viewSenha");
         const senha = document.querySelector("#senha");
