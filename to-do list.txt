@@ -117,3 +117,5 @@ ver o que fazer com os pedidos antigos registrados no banco
 validar cnpj registrados
 
 gerar novamente e salvar refresh token google api de email
+
+fix: imagem não pode ser vazio

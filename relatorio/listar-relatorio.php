@@ -89,7 +89,7 @@ if ($qtd > 0) {
         //print "<td>" . $row->cd_Escola . "</td>";
         print "<td>" . $row->nm_Escola . "</td>";
         print "<td>" . $row->ds_Local . "</td>";
-        print "<td>" . $row->num_contrato . "</td>";
+        print "<td>" . $row->num_contrato . "/" . $row->dt_AnoContrato . "</td>";
         print "<td>" . $row->nm_Fornecedor . "</td>";
         //print "<td>" . $row->nm_Contratante . "</td>";
         print "<td>" . $row->tp_AtivRealizada . "</td>";

@@ -31,7 +31,7 @@
         while ($row = $res->fetch_object()) {
 
             print "<option value={$row->cd_Obra}>$row->tp_Servico: $row->tp_AtividadeDescricao / $row->nm_Escola</option>";
-
+            echo ($row->cd_Obra);
         }
         print "</datalist>";
         print "</select>";
