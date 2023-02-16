@@ -12,7 +12,6 @@ switch ($_REQUEST["acaofornecedor"]) {
         $num_CNPJ = validateInput($_POST["num_CNPJ"]);
         $ds_Email = validateInput($_POST["ds_Email"]);
         $ds_Endereco = validateInput($_POST["ds_Endereco"]);
-        $st_Fornecedor = validateInput($_POST["st_Fornecedor"]);
 
         try{
             $sql = $conn->prepare("INSERT INTO fornecedor (nm_Fornecedor, num_CNPJ, ds_Email, ds_Endereco) 
@@ -43,18 +42,17 @@ switch ($_REQUEST["acaofornecedor"]) {
         $num_CNPJ = validateInput($_POST["num_CNPJ"]);
         $ds_Email = validateInput($_POST["ds_Email"]);
         $ds_Endereco = validateInput($_POST["ds_Endereco"]);
-        $st_Fornecedor = validateInput($_POST["st_Fornecedor"]);
+
 
         try{
             $sql = $conn->prepare("UPDATE fornecedor SET nm_Fornecedor = ?,
                                                         num_CNPJ = ?,
                                                         ds_Email = ?,
-                                                        ds_Endereco = ?, 
-                                                        st_Fornecedor = ?
+                                                        ds_Endereco = ?
                                     WHERE
                                         cd_Fornecedor = ?");
     
-            $sql->bind_param('sssssi',$nm_Fornecedor, $num_CNPJ, $ds_Email, $ds_Endereco, $st_Fornecedor, $cd_Fornecedor);
+            $sql->bind_param('sssssi',$nm_Fornecedor, $num_CNPJ, $ds_Email, $ds_Endereco, $cd_Fornecedor);
 
             $res = $sql->execute();
     

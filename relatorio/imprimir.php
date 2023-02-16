@@ -50,14 +50,25 @@ header('Access-Control-Allow-Origin: *');
   </style>
 
 <?php
-  $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
   try {
-    $sql = $conn->prepare("SELECT * FROM relatorioview WHERE cd_Relatorio = ?");
-    $sql->bind_param('i', $cd_Relatorio);
+    $cd_Relatorio = $_REQUEST["cd_Relatorio"];
+    $num_contrato = $_REQUEST["num_contrato"];
+
+    $query = "SELECT r.*, tpp.cd_tipoPeriodo, GROUP_CONCAT(tpp.nm_tipoPeriodo SEPARATOR ', ') As Periodo 
+    FROM relatorioview r
+    INNER JOIN relatorio_has_tipo_periodo rhtp
+    ON r.cd_Relatorio = rhtp.cd_Relatorio
+    INNER JOIN tipo_periodo tpp
+    ON rhtp.cd_tipoPeriodo = tpp.cd_tipoPeriodo 
+    WHERE r.num_contrato = ? AND r.cd_Relatorio = ?
+    GROUP BY num_contrato";
+    
+    $sql = $conn->prepare($query);
+    $sql->bind_param("ss",$num_contrato, $cd_Relatorio); 
     $sql->execute();
     $res = $sql->get_result();
-
+ 
     $rowRelatorio = $res->fetch_object();
   } catch (mysqli_sql_exception $e) {
     print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');

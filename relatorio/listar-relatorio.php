@@ -117,7 +117,7 @@ if ($qtd > 0) {
         print "<td>" . $row->dt_Carimbo . "</td>";
         print "<td>" . $row->nm_Dia . "</td>";
         print "<td>
-                <button onclick=\"location.href='?page=ver_relatorio&cd_Relatorio=" . $row->cd_Relatorio . "';\" class='btn btn-warning mb-3'>Abrir</button>
+                <button onclick=\"location.href='?page=ver_relatorio&cd_Relatorio=" . $row->cd_Relatorio . "&num_contrato=" . $row->num_contrato . "';\" class='btn btn-warning mb-3'>Abrir</button>
                 </td>";
         print "</tr>";
     }

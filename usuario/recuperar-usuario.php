@@ -88,7 +88,7 @@ switch ($_REQUEST["acaousuario"]) {
 
             $verificaCodigo = password_verify($codigo, $row->num_pedido_recuperacao);
             cookieSet('numToCompare', $row->num_pedido_recuperacao);
-            
+            var_dump($verificaCodigo);
             if($verificaCodigo){
                 try{
                     $sql = $conn->prepare("UPDATE pedido_recuperacao SET ds_ativo = ?
@@ -102,8 +102,10 @@ switch ($_REQUEST["acaousuario"]) {
                 }
 
             } else {
+                /*
                 print "<script>alert('Código incorreto');
                 window.history.go(-1);</script>";
+                */
             }
             
         }catch(mysqli_sql_exception $e){
