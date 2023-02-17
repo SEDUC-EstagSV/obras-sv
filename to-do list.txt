@@ -81,6 +81,10 @@ https://mailtrap.io/blog/test-emails-in-php/
 https://getcomposer.org/
 https://github.com/PHPMailer/PHPMailer/blob/master/examples/gmail_xoauth.phps
 https://console.cloud.google.com/apis/credentials/consent?project=phpmailer-376612
+
+validar cnpj registrados ✔️
+
+fix: imagem não pode ser vazio ✔️
 ------------------------------------------------------------------------------------------------------------
 
 definir o que cada cargo pode ver e fazer
@@ -114,8 +118,3 @@ ver o que fazer com os pedidos antigos registrados no banco
 -- fazer com que o botão fique bloqueado depois de pedir o email de recuperação de senha no front
     para que não seja enviado mais de um
 
-validar cnpj registrados ✔️
-
-gerar novamente e salvar refresh token google api de email
-
-fix: imagem não pode ser vazio ✔️
