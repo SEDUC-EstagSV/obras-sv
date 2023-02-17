@@ -114,8 +114,8 @@ ver o que fazer com os pedidos antigos registrados no banco
 -- fazer com que o botão fique bloqueado depois de pedir o email de recuperação de senha no front
     para que não seja enviado mais de um
 
-validar cnpj registrados
+validar cnpj registrados ✔️
 
 gerar novamente e salvar refresh token google api de email
 
-fix: imagem não pode ser vazio
+fix: imagem não pode ser vazio ✔️

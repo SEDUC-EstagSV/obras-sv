@@ -125,6 +125,20 @@ function geraEmail($emailToSend){
     //criptografar
     $encryptCodigo = encryptSenha($codigo);
     
+
+    //expira ultima requisição
+    try{
+        $sqlExpireLast = $conn->prepare("UPDATE pedido_recuperacao SET ds_ativo = ? 
+            WHERE cd_pedido_recuperacao = (SELECT cd_pedido_recuperacao 
+            FROM pedido_recuperacao WHERE cd_Usuario = ?
+            ORDER BY dt_pedido_recuperacao DESC LIMIT 1)"); 
+            $setExpired = 0;
+            $sqlExpireLast->bind_param('ii', $setExpired, $userId);
+            $sqlExpireLast->execute();
+    } catch(mysqli_sql_exception $e){
+        criaLogErro($e);
+    }
+
     //salvar valor em uma tabela para futura comparação (criar pagina para realizar comparação)
     try{
         $sql = $conn->prepare("INSERT INTO pedido_recuperacao (cd_Usuario, num_pedido_recuperacao, dt_pedido_recuperacao, hr_expiracao_pedido_recuperacao) 
