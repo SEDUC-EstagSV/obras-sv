@@ -22,19 +22,20 @@
                     location.href='painel.php';</script>";
             criaLogErro($e);
         }
-    
+        
+
+      
         print "<select class='form-select obra' name='cd_Obra' >";
         print "<datalist>";
         print "<option value='' disabled selected>Selecione o contrato / obra de referência / local</option>";
 
     
         while ($row = $res->fetch_object()) {
-
             print "<option value={$row->cd_Obra}>$row->tp_Servico: $row->tp_AtividadeDescricao / $row->nm_Escola</option>";
-            echo ($row->cd_Obra);
         }
         print "</datalist>";
         print "</select>";
+        
         ?>
     </div>
     <div class="mb-3">

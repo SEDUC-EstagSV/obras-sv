@@ -62,7 +62,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         
 
         try{
-            $sql = $conn->prepare("SELECT c.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
+            $sql = $conn->prepare("SELECT DISTINCT o.*, c.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
             $sql->bind_param("i", $cd_Obra);
             $sql->execute();
             $res = $sql->get_result();
@@ -72,6 +72,7 @@ switch ($_REQUEST["acaorelatorio"]) {
                 exit();
             }
             $row = $res->fetch_object();
+            $cd_Escola = $row->cd_Escola;
 
         } catch(mysqli_sql_exception $e){
             print "<script>alert('Ocorreu um erro interno ao buscar dados da obra informada');
@@ -90,6 +91,7 @@ switch ($_REQUEST["acaorelatorio"]) {
         try{
             $sql = $conn->prepare("INSERT INTO relatorio (
                 cd_Obra,
+                cd_Escola,
                 nm_TecResponsavel, 
                 ds_Email_TecResponsavel, 
                 nm_LocResponsavel, 
@@ -112,12 +114,12 @@ switch ($_REQUEST["acaorelatorio"]) {
                 pr_Vencer,
                 cd_Usuario,
                 num_Relatorio) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
                      (SELECT COUNT(*) AS num_relatorios 
                      FROM relatorio rnum WHERE (rnum.cd_obra LIKE ?) + 1))");
     
-            $sql->bind_param('issssisiiiiiiiiiissssii', 
-                    $cd_Obra,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
+            $sql->bind_param('iissssisiiiiiiiiiissssii', 
+                    $cd_Obra,$cd_Escola,$nm_TecResponsavel,$ds_Email,$nm_LocResponsavel,
                     $dt_Carimbo,$tp_RelaSituacao,$nm_Dia,$tp_Tempo,$tp_Condicao,
                     $qt_TotalMaodeObra,$qt_Ajudantes,$qt_Eletricistas,$qt_Mestres,$qt_Pedreiros,
                     $qt_Serventes,$qt_MaoDireta,$pt_Conclusao,$tp_AtivRealizada,$tp_RelaComentario,

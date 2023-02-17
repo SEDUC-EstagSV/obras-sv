@@ -9,10 +9,10 @@ redirecionamentoPorAutoridade(3);
 try{
     if(isset($_REQUEST['pendente'])){
         $sql = "SELECT * FROM relatorioview r 
-                WHERE nm_situacaoRelatorio LIKE 'Pendente' ORDER BY dt_Carimbo";
+                WHERE nm_situacaoRelatorio LIKE 'Pendente' ORDER BY num_Relatorio";
     } else {
         $sql = "SELECT * FROM relatorioview r 
-                ORDER BY nm_situacaoRelatorio <> 'Pendente' AND dt_Carimbo DESC";
+                ORDER BY nm_situacaoRelatorio <> 'Pendente', num_Relatorio DESC";
     }
     $res = $conn->query($sql);
     $qtd = $res->num_rows;
