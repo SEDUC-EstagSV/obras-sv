@@ -1,4 +1,4 @@
-import {validateTextInput, validateNumberInput} from '../js/validations.js';
+import {validateTextInput, validateNumberInput} from '../js/validators.js';
 //validação formulário
 const form = document.querySelector('#relatorio_form');
 

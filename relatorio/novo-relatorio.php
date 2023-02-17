@@ -139,31 +139,31 @@
     </div>
     <div class="mb-3">
         <label>Total de Mão de obra</label>
-        <input type="number" name="qt_TotalMaodeObra" class="form-control">
+        <input type="number" name="qt_TotalMaodeObra" class="form-control" value="0">
     </div>
     <div class="mb-3">
         <label>Total de ajudantes</label>
-        <input type="number" name="qt_Ajudantes" class="form-control">
+        <input type="number" name="qt_Ajudantes" class="form-control" value="0">
     </div>
     <div class="mb-3">
         <label>Total de eletricistas</label>
-        <input type="number" name="qt_Eletricistas" class="form-control">
+        <input type="number" name="qt_Eletricistas" class="form-control" value="0">
     </div>
     <div class="mb-3">
         <label>Total de Mestres de Obra</label>
-        <input type="number" name="qt_Mestres" class="form-control">
+        <input type="number" name="qt_Mestres" class="form-control" value="0">
     </div>
     <div class="mb-3">
         <label>Total de pedreiros</label>
-        <input type="number" name="qt_Pedreiros" class="form-control">
+        <input type="number" name="qt_Pedreiros" class="form-control" value="0">
     </div>
     <div class="mb-3">
         <label>Total de serventes</label>
-        <input type="number" name="qt_Serventes" class="form-control">
+        <input type="number" name="qt_Serventes" class="form-control" value="0">
     </div>
     <div class="mb-3">
         <label>Total de Mão Direta</label>
-        <input type="number" name="qt_MaoDireta" class="form-control">
+        <input type="number" name="qt_MaoDireta" class="form-control" value="0">
     </div>
     
     <div class="mb-3">

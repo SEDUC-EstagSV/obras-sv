@@ -40,7 +40,8 @@ switch ($_REQUEST["acaorelatorio"]) {
             return $new;
         }
 
-        if(isset($_FILES['foto'])){
+        $fileExists = $_FILES['foto']['tmp_name'][0] != "";
+        if($fileExists){
             $allowTypes = array('jpg','png','jpeg'); 
         
             $arquivosDeFoto = rearrange($_FILES['foto']);
@@ -128,15 +129,16 @@ switch ($_REQUEST["acaorelatorio"]) {
             $res = $sql->execute();
     
             if ($res == true) {
-
                 try{
-                    $sqlFoto = $conn->prepare("INSERT INTO foto (cd_Relatorio, img_foto, ds_foto) VALUES (?, ?, ?)");
                     $cd_Relatorio = $conn->insert_id;
-                    foreach($fotos as $a){
-                        $img = $a['tmp_name'];
-                        $descricao = $a['name'];
-                        $sqlFoto->bind_param('iss', $cd_Relatorio, $img, $descricao);
-                        $resFoto = $sqlFoto->execute();
+                    if($fotos != null){
+                        $sqlFoto = $conn->prepare("INSERT INTO foto (cd_Relatorio, img_foto, ds_foto) VALUES (?, ?, ?)");
+                        foreach($fotos as $a){
+                            $img = $a['tmp_name'];
+                            $descricao = $a['name'];
+                            $sqlFoto->bind_param('iss', $cd_Relatorio, $img, $descricao);
+                            $resFoto = $sqlFoto->execute();
+                        }
                     }
                 } catch (mysqli_sql_exception $e){
                     print "<script>alert('Ocorreu um erro interno na criação do relatório');
