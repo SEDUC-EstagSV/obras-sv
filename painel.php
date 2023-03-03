@@ -49,6 +49,17 @@
       }
     }
 
+    .dropdown-menu-dark{
+      background-color: #343a40 !important;
+    }
+
+    .dropdown-item.painel:hover{
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    a.nav-link.text-light:hover{
+      color: #fff !important;
+    }
 
   </style>
 </head>
@@ -97,39 +108,39 @@ echo "<li class='nav-item dropdown text-light'>
 
           //verifica autoridade
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
             <a class='nav-link text-light' href='?page=novousuario'>Novo Usuário</a>
             </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
             <a class='nav-link text-light' href='?page=novaobra'>Nova Obra</a>
             </li>";
           }
 
 
           if (liberaFuncaoParaAutoridade(2)) {
-            echo  "<li class='dropdown-item'>
+            echo  "<li class='dropdown-item painel'>
                       <a class='nav-link text-light' href='?page=novorelatorio'>Novo Relatório</a>
                   </li>";
           }
 
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
                       <a class='nav-link text-light' href='?page=novaescola'>Nova Escola</a>
                     </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo  "<li class='dropdown-item'>
+            echo  "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=novofornecedor'>Novo Fornecedor</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo  "<li class='dropdown-item'>
+            echo  "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=novocontrato'>Novo Contrato</a>
                   </li>";
           }
@@ -145,7 +156,7 @@ echo "<li class='nav-item dropdown text-light'>
                 <ul class='dropdown-menu dropdown-menu-dark'>";
 
          
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listaobra'>Lista de Obras</a>
                   </li>";
           }
@@ -166,7 +177,7 @@ echo "<li class='nav-item dropdown text-light'>
 
           if (liberaFuncaoParaAutoridade(3)) {
             echo "<div>
-                    <li class='dropdown-item' style='display: flex;'>
+                    <li class='dropdown-item painel' style='display: flex;'>
                     <a class='nav-link text-light' href='?page=listar_relatorio'>
                       Lista de Relatórios 
                     </a>
@@ -178,25 +189,25 @@ echo "<li class='nav-item dropdown text-light'>
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listar_escolas'>Lista de Escolas</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listar_contratos'>Lista de Contratos</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
+            echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listar_usuario'>Lista de Usuários</a>
                   </li>";
          
@@ -395,10 +406,13 @@ echo "<li class='nav-item dropdown text-light'>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
   integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
   crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-  crossorigin="anonymous"></script>
 
-</body>
-
+<!-- esse import afeta o import stackpath da funcionalidade de select do bootstrap 
+o import do outro afeta o css do dropdown deixando branco
+uma possível solução é sobrescrever o css fazendo a estilização do painel
+manualmente e colocando !important --
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+crossorigin="anonymous"></script>
+      -->
 </html>

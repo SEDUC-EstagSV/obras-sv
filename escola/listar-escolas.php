@@ -85,13 +85,12 @@ div.col {
 
 <section id="servicos" class="caixa">
 <div>
+
+    <div class="secao-title">
+        <h3>Lista de Escolas</h3>
+    </div>
 <div>
-<div class="secao-title">
-<h3>Lista de Escolas</h3>
-</div>
-<div>
-<div>
-<div> 
+
 
 <?php
 try{
@@ -137,10 +136,6 @@ if ($qtd > 0) {
     ?>
 
     </div>
-    </div>
-    </div>    
-    </div>
-    </div>    
     </div>
 </section>
 

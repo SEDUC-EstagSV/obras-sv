@@ -195,7 +195,12 @@ require_once('function-seduc.php');
   $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
   try {
-    $sql = $conn->prepare("SELECT * FROM relatorioview WHERE cd_Relatorio = ?");
+    $sql = $conn->prepare("SELECT r.*, GROUP_CONCAT(tp.nm_tipoPeriodo SEPARATOR ', ') As Periodo FROM relatorioview r
+    INNER JOIN relatorio_has_tipo_periodo rhtp
+    ON r.cd_Relatorio = rhtp.cd_Relatorio
+    INNER JOIN tipo_periodo tp
+    ON rhtp.cd_tipoPeriodo = tp.cd_tipoPeriodo
+    WHERE r.cd_Relatorio = ?");
     $sql->bind_param('i', $cd_Relatorio);
     $sql->execute();
     $res = $sql->get_result();
@@ -501,7 +506,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-2 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->cd_tipoPeriodo;
+            echo $rowRelatorio->Periodo;
           ?>
         </div>
       </div>

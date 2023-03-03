@@ -77,15 +77,12 @@ div.col {
 </style>
 
 <section id="servicos" class="caixa">
-      <div>
-      <div>
-      <div class="secao-title">
-<h3>Lista de Relatórios</h3>
-</div>
-        <div>
+<div>
+    <div class="secao-title">
+        <h3>Lista de Relatórios</h3>
+    </div>
 
-          <div>
-    <div> 
+<div> 
 
 <?php
 
@@ -147,8 +144,5 @@ print "</tr>";
 
     </div>
     </div>
-    </div>    
-    </div>
-    </div>    
-    </div>
+ 
 </section>

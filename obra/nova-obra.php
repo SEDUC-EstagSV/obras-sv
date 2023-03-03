@@ -161,7 +161,7 @@
         <div>Adicionar usuários encarregados dos relatórios da obra</div>
 
 
-        <select class="selectpicker mb-3" id="select" name="usuarios[]" 
+        <select class="selectpicker" id="select" name="usuarios[]" 
     multiple data-live-search="true" title="Selecione usuários responsáveis"
     data-selected-text-format="count" data-width="auto"
     data-count-selected-text="Usuários selecionados: {0}"
@@ -184,7 +184,7 @@
 
                     print "<option value={$row->cd_Usuario}>$row->user_Nome - $row->user_CPF</option>";
         
-                }
+                } 
             ?>
         </datalist>
     </select>
@@ -198,4 +198,9 @@
 
 </form>
 
-</section>
+<script type="text/javascript" src="./js/utils.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

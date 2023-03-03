@@ -84,12 +84,11 @@ div.col {
 
 <section id="servicos" class="caixa">
 <div>
+    <div>
+        <h3>Lista de Contratos</h3>
+    </div>
 <div>
-<h3>Lista de Contratos</h3>
-</div>
-<div>
-<div>
-<div>
+
 <?php
 
 require_once 'function-contrato.php';
@@ -154,9 +153,5 @@ if ($qtd > 0) {
 ?>
 
     </div>
-    </div>
-    </div>    
-    </div>
-    </div>    
     </div>
 </section>

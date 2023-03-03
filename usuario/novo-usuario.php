@@ -132,7 +132,6 @@
         <label>Confirmar Senha</label>
         <input type="password" name="user_Senha2" class="form-control">
     </div>
-
     <div class="mb-3">
         <label>Nome completo</label>
         <input type="name" name="user_Nome" class="form-control">
