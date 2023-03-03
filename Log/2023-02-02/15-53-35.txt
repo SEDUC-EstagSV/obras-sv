@@ -1,0 +1,5 @@
+mysqli_sql_exception: Table 'seduc_db.escolaview' doesn't exist in C:\xampp\htdocs\dashboard\seduc-obras\escola\listar-escolas.php:14
+Stack trace:
+#0 C:\xampp\htdocs\dashboard\seduc-obras\escola\listar-escolas.php(14): mysqli->query('SELECT * FROM e...')
+#1 C:\xampp\htdocs\dashboard\seduc-obras\painel.php(271): include('C:\\xampp\\htdocs...')
+#2 {main}

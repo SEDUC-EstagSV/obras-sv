@@ -1,0 +1,5 @@
+mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`seduc_db`.`relatorio`, CONSTRAINT `fk_relatorio_escola1` FOREIGN KEY (`cd_Escola`) REFERENCES `escola` (`cd_Escola`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp\htdocs\ObrasApp\relatorio\salvar-relatorio.php:126
+Stack trace:
+#0 C:\xampp\htdocs\ObrasApp\relatorio\salvar-relatorio.php(126): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\ObrasApp\painel.php(284): include('C:\\xampp\\htdocs...')
+#2 {main}
