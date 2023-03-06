@@ -101,9 +101,6 @@ switch ($_REQUEST["acaousuario"]) {
                     criaLogErro($e);
                 }
 
-            } else {
-                print "<script>alert('Código incorreto');
-                window.history.go(-1);</script>";
             }
             
         }catch(mysqli_sql_exception $e){

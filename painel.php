@@ -17,11 +17,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>SEDUC Obras</title>
+  <title>SEDUC - Obras</title>
 
   <!-- Bootstrap CSS -->
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
 
 
   <!-- Font Awesome -->
@@ -36,12 +36,10 @@
   <!-- Estilo customizado -->
   <link rel="stylesheet" type="text/css" href="css/estilo.css">
 
-  <title>Obras - Secretaria de Educação</title>
   <link rel="icon" href="imagens/favicon.ico">
 
-
-  <title>SEDUC Obras</title>
   <style>
+
     @media print {
 
       .no-print,
@@ -50,6 +48,19 @@
         height: 0 !important;
       }
     }
+
+    .dropdown-menu-dark{
+      background-color: #343a40 !important;
+    }
+
+    .dropdown-item.painel:hover{
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    a.nav-link.text-light:hover{
+      color: #fff !important;
+    }
+
   </style>
 </head>
 
@@ -68,80 +79,69 @@
   ?>
 
 
-
-
-
-
-<nav class="navbar navbar-expand-md navbar-light fixed-top navbar-transparente">
+<nav class="navbar navbar-expand-md navbar-light fixed-top navbar-transparente no-print">
       <div class="container">
 
-        <a href="index.html" class="navbar-brand">
+        <a href="painel.php" class="navbar-brand">
           <img src="imagens/logo-prefeitura.png" width="80">
         </a>
 
 <!-- ======= Mobile nav toggle button ======= -->
 <button class='navbar-toggler collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='true' aria-label='Toggle navigation'>
-  <span class='icon-bar top-bar'></span>
-    <span class='icon-bar middle-bar'></span>
-    <span class='icon-bar bottom-bar'></span>
+  <span class='icon-bar top-bar bg-light'></span>
+    <span class='icon-bar middle-bar bg-light'></span>
+    <span class='icon-bar bottom-bar bg-light'></span>
 </button>
 
   <div class='collapse navbar-collapse' id='navbarSupportedContent'>
     <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
     <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="painel.php">Home</a>
+            <a class="nav-link active text-light" aria-current="page" href="painel.php">Home</a>
           </li>
-
-
-
-
-
-
-
 
           <?php
 
-echo "<li class='nav-item dropdown'>
-      <span class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Cadastrar</span>
+echo "<li class='nav-item dropdown text-light'>
+      <span class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Cadastrar</span>
       <ul class='dropdown-menu dropdown-menu-dark'>";
 
 
           //verifica autoridade
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-            <a class='nav-link' href='?page=novousuario'>Novo Usuário</a>
+            echo "<li class='dropdown-item painel'>
+            <a class='nav-link text-light' href='?page=novousuario'>Novo Usuário</a>
             </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-            <a class='nav-link' href='?page=novaobra'>Nova Obra</a>
+            echo "<li class='dropdown-item painel'>
+            <a class='nav-link text-light' href='?page=novaobra'>Nova Obra</a>
             </li>";
           }
 
 
           if (liberaFuncaoParaAutoridade(2)) {
-            echo  "<li class='dropdown-item'>
-                      <a class='nav-link' href='?page=novorelatorio'>Novo Relatório</a>
+            echo  "<li class='dropdown-item painel'>
+                      <a class='nav-link text-light' href='?page=novorelatorio'>Novo Relatório</a>
                   </li>";
           }
 
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-                      <a class='nav-link' href='?page=novaescola'>Nova Escola</a>
+            echo "<li class='dropdown-item painel'>
+                      <a class='nav-link text-light' href='?page=novaescola'>Nova Escola</a>
                     </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo  "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=novofornecedor'>Novo Fornecedor</a>
+            echo  "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=novofornecedor'>Novo Fornecedor</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo  "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=novocontrato'>Novo Contrato</a>
+            echo  "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=novocontrato'>Novo Contrato</a>
                   </li>";
           }
 
@@ -150,16 +150,14 @@ echo "<li class='nav-item dropdown'>
                 </li>";
 
 
-
-
+          if (liberaFuncaoParaAutoridade(3)) {
                 echo "<li class='nav-item dropdown'>
-                <span class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Consultar</span>
+                <span class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Consultar</span>
                 <ul class='dropdown-menu dropdown-menu-dark'>";
 
-
-          if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=listaobra'>Lista de Obras</a>
+         
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listaobra'>Lista de Obras</a>
                   </li>";
           }
 
@@ -179,52 +177,50 @@ echo "<li class='nav-item dropdown'>
 
           if (liberaFuncaoParaAutoridade(3)) {
             echo "<div>
-                    <li class='dropdown-item' style='display: flex;'>
-                    <a class='nav-link' href='?page=listar_relatorio'>
+                    <li class='dropdown-item painel' style='display: flex;'>
+                    <a class='nav-link text-light' href='?page=listar_relatorio'>
                       Lista de Relatórios 
                     </a>
-                    <a style='margin: auto; position: absolute; transform: translate(320%, 190%);' title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill' href='?page=listar_relatorio&pendente'>
+                <!--    <a style='margin: auto; position: absolute; transform: translate(630%);' title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill' href='?page=listar_relatorio&pendente'>
                     $row->qtdPendente
-                    </a>
+                    </a> -->
                   </li>
                   </div>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=listar_escolas'>Lista de Escolas</a>
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listar_escolas'>Lista de Escolas</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=listar_contratos'>Lista de Contratos</a>
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listar_contratos'>Lista de Contratos</a>
                   </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item'>
-                    <a class='nav-link' href='?page=listar_usuario'>Lista de Usuários</a>
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listar_usuario'>Lista de Usuários</a>
                   </li>";
-          }
+         
 
-          echo "</ul>
-                </li>";
-
+          echo "</ul>"; }
           ?>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Contato</a>
+            <a class="nav-link text-light" href="?page=contato">Contato</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="?page=logout">Logout</a>
+            <a class="nav-link text-light" href="?page=logout">Logout</a>
           </li>
         </ul>
       </div>
@@ -233,11 +229,15 @@ echo "<li class='nav-item dropdown'>
 
 
   </header>
+
+
+
+  <div id="space">
   
   <section id="" class="caixa">
   <div class="container">
     <div class="row">
-      <div class="col mt-5">
+      <div class="col">
         <?php
         switch (@$_REQUEST["page"]) {
           case "novaobra":
@@ -324,19 +324,22 @@ echo "<li class='nav-item dropdown'>
           case "formvalues":
             include("formvalues.php");
             break;
+          case "contato":
+            include("contato.php");
+            break;
             default:
             if ($_SESSION["user"][1] != null)
-              print "<h3>Bem vindo, {$_SESSION["user"][0]}!</h3>";
-        }
-        ?>
 
-      </section>
+              print "<h3 class='text-light'>Bem vindo, {$_SESSION["user"][0]}!</h3>";
 
-    <section id="home" class="d-flex"><!--home -->
+
+              print '</section>
+
+              <section id="home" class="d-flex"><!--home -->
     <div class="container align-self-center"><!--container -->
       <div class="row"><!--row -->
         <div class="col-md-12 capa">
-
+<div class="titleHome">
           <div id="carousel-spotify" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner"><!--Inner -->
 
@@ -353,63 +356,27 @@ echo "<li class='nav-item dropdown'>
 
 
           </div>
-
+</div>
         </div>
       </div><!--/row -->
     </div><!--/container -->
   </section><!--/home -->
 
- 
-
-
-
-  <section id="servicos" class="caixa">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-100">
-
-
-
-          <section id="contato" class="contato">
-            <div class="container">
-
-              <div id="contato" class="secao-title">
-                <h2>Contato</h2>
-                <p>Em caso de dúvida, entrar em contato.</p>
-              </div>
-
-              <div class="row" data-aos="fade-in">
-
-                <div class=" ">
-                  <div class="info">
-                    <div class="address">
-                      <i class="bi bi-geo-alt"></i>
-                      <h4>Localização:</h4>
-                      <p>Av. Capitão-Mor Aguiar, 798 - Centro, São Vicente - SP</p>
+          
+          
+          
                     </div>
-
-                    <div class="email">
-                      <i class="bi bi-envelope"></i>
-                      <h4>Email:</h4>
-                      <p>diego@gmail.com</p>
-                    </div>
-
-                    <div class="phone">
-                      <i class="bi bi-phone"></i>
-                      <h4>Telefone:</h4>
-                      <p>13 90000 - 0000</p>
-                    </div>
-
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14583.579211162101!2d-46.3913952!3d-23.9641598!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x58222b1c27ac4740!2sSecretaria%20Municipal%20da%20Educa%C3%A7%C3%A3o%20de%20S%C3%A3o%20Vicente%20-%20SEDUC!5e0!3m2!1spt-BR!2sbr!4v1670513246812!5m2!1spt-BR!2sbr"
-                      frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+          
                   </div>
-                </div>
-              </div>
-            </div>
-        </div>
-  </section>
-  
+                </div><!--/row -->
+              </div><!--/container -->
+            </section><!--/home -->';
+              
+        }
+        ?>
+
+    
+
 
 
   </div>
@@ -419,19 +386,16 @@ echo "<li class='nav-item dropdown'>
   </section>
   
   <!-- <script scr="js/bootstrap.bundle.min.js"></script> -->
-  <footer>
-  <div class="container">
-    <div class="row" align="center">
-      <div class="col-md-50">
-        <h3>Departamento de Tecnologia</h3>
-        <h4>Produzido por Gabriel, Enzo, Laís, Renê e Thaís</h4>
-      </div>
-      </ul>
-    </div>
-  </div>
-  </div>
-</footer>
+  
+
+
+
 </div>
+
+       
+
+
+
 <script scr="js/bootstrap.bundle.min.js"></script>
 <!-- JavaScript (Opcional) -->
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
@@ -442,10 +406,13 @@ echo "<li class='nav-item dropdown'>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
   integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
   crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-  crossorigin="anonymous"></script>
 
-</body>
-
+<!-- esse import afeta o import stackpath da funcionalidade de select do bootstrap 
+o import do outro afeta o css do dropdown deixando branco
+uma possível solução é sobrescrever o css fazendo a estilização do painel
+manualmente e colocando !important --
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+crossorigin="anonymous"></script>
+      -->
 </html>

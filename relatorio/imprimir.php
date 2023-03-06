@@ -1,3 +1,142 @@
+<style>
+ 
+/* ---------------------------
+		Relatório
+-----------------------------*/
+
+#grid-table>div.row{
+
+	color: black;
+    justify-content: center;
+  }
+
+
+  /*
+.card {
+    margin: auto;
+    align-items: center;
+    flex-direction: column;
+    place-items: center;
+    justify-content: center;
+    
+  }
+
+*/
+  div.col {
+  margin: auto;
+  width: 100%;
+  /*height: auto;  */
+  word-break: break-word;
+  padding: 0 0 0 0;
+  /*text-align: center;*/
+ /*align-items: center;
+ justify-content: center;*/
+ display: table-cell;
+  vertical-align: middle;
+}
+
+body {
+  background: none;
+}
+
+#tituloImpressao{
+  color: black;
+  text-shadow: none;
+
+}
+
+/*
+.btn {
+    font-size: 18px;
+    margin: 0px;
+    margin-right: 10px;
+
+    
+    padding: 5px;
+    width: 80px;
+   }
+
+*/
+/*
+.caixa {
+  margin: 10px auto;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 500px;
+}
+*/
+
+@media (max-width: 575.98px) {
+.caixa {
+    margin: 15px;
+    margin-left: -65px;
+    margin-right: -65px;
+    font-size: 10px;
+   
+
+}
+
+.btn {
+    font-size: 10px;
+    margin: 0px;
+    margin-top: 0px;
+    padding: 5px;
+    width: 50px;
+   }
+
+   div.col {
+  margin: auto;
+  width: 100%;
+  /*height: auto;*/
+  word-break: break-word;
+  padding: 10 0 10 0;
+  text-align: center;
+}
+
+.pmsv {
+  width: 60px; 
+  height: 60px;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+h1 {
+  font-size: 22px;
+ 
+
+}
+
+
+ 
+@media print
+    {    
+        .form-impressao
+        {
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+            position: absolute !important;
+            top: 0;
+        }
+
+        .no-print, .no-print *
+        {
+            display: none !important;
+            height: 0 !important;
+        }
+    }
+
+
+
+
+}
+
+</style>
+
+
+
+
 <?php
 
 require_once('function-seduc.php');
@@ -15,7 +154,7 @@ require_once('function-seduc.php');
   <link rel="icon" type="image/x-icon" href="sv.ico">
 
 <?php
-header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Origin: *');
 ?>
   
   <style>
@@ -30,7 +169,7 @@ header('Access-Control-Allow-Origin: *');
       orphans: 3;
     }
 
-    
+ 
     @media print
     {    
         .form-impressao
@@ -46,14 +185,22 @@ header('Access-Control-Allow-Origin: *');
             display: none !important;
             height: 0 !important;
         }
-    }
+
+      }
+
+      
   </style>
 
 <?php
   $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
   try {
-    $sql = $conn->prepare("SELECT * FROM relatorioview WHERE cd_Relatorio = ?");
+    $sql = $conn->prepare("SELECT r.*, GROUP_CONCAT(tp.nm_tipoPeriodo SEPARATOR ', ') As Periodo FROM relatorioview r
+    INNER JOIN relatorio_has_tipo_periodo rhtp
+    ON r.cd_Relatorio = rhtp.cd_Relatorio
+    INNER JOIN tipo_periodo tp
+    ON rhtp.cd_tipoPeriodo = tp.cd_tipoPeriodo
+    WHERE r.cd_Relatorio = ?");
     $sql->bind_param('i', $cd_Relatorio);
     $sql->execute();
     $res = $sql->get_result();
@@ -64,7 +211,7 @@ header('Access-Control-Allow-Origin: *');
                   window.history.go(-1);</script>";
     criaLogErro($e);
   }
-  print '<form action="?page=salvarrelatorio" method="POST" style="position: absolute">
+  print '<form action="?page=salvarrelatorio" method="POST" >
         <input type="hidden" name="acaorelatorio" value="editarrelatorio">
         <input type="text" name="cd_Relatorio" hidden value='.$cd_Relatorio.'>';
   print "<button type='submit' class='btn btn-success mb-3 no-print'>Alterar situação</button>
@@ -98,22 +245,29 @@ header('Access-Control-Allow-Origin: *');
   </div>
   </form>
 
-  <div style='display: flex; flex-direction: row-reverse; margin: 0 100px'>
+  <div style='display: flex; flex-direction: row-reverse;'>
+      <div>
           <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarrelatorio&acaorelatorio=excluirRelatorio&cd_Relatorio=" . $cd_Relatorio . "';}else{false;}\" class='btn btn-danger mb-3 no-print'>Excluir</button>
+      </div>
+      <div class='mx-3'>
           <button onclick=window.print() class='btn btn-warning mb-3 no-print'>Imprimir</button>
-  </div>";
+      </div>
+
+          </div>";
 ?>
 
 </head>
 
 <body>
 
+
+
 <div class="form-impressao">
   <header>
     <div class='container-fluid'>
       <div class='container mt-3 text-center'>
-        <h1> 
-        <img src="./relatorio/img/padrao.png" width='90' height='90'>
+        <h1 id="tituloImpressao"> 
+        <img class="pmsv" src="./relatorio/img/padrao.png" width='90' height='90'>
           Prefeitura Municipal de São Vicente
         </h1>
       </div>
@@ -208,7 +362,9 @@ header('Access-Control-Allow-Origin: *');
           Contratante
         </div>
         <div class="col-9 border border-start-0 border-top-0 border-dark border-1">
-          x
+        <?php
+              echo $rowRelatorio->nm_Contratante;
+            ?>
         </div>
       </div>
 
@@ -498,6 +654,10 @@ header('Access-Control-Allow-Origin: *');
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"></script>
 
+    
+
 </body>
+
+
 
 </html>
