@@ -3,11 +3,14 @@
 
 <head>
 
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
 
   <!-- Estilo customizado -->
   <link rel="stylesheet" type="text/css" href="css/estilo.css">
+
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
+
 
 
   <!-- Meta tags Obrigatórias -->
@@ -27,11 +30,27 @@
     <![endif]-->
 
 
-  <title>Obras - Secretaria de Educação</title>
+  
   <link rel="icon" href="imagens/favicon.ico">
+
+<style>
+body {	
+	padding-top: 150px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+}
+
+
+</style>
+
+
+
+
 </head>
 
 <body>
+  
 <!--
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
@@ -51,12 +70,15 @@
 -->
 
 <header><!-- inicio Cabecalho -->
-    <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-transparente">
+    <nav class="navbar navbar-expand-md navbar-light light fixed-top navbar-transparente">
       <div class="container">
 
-        <a href="index.html" class="navbar-brand">
+        <span href="index.html" class="navbar-brand">
           <img src="imagens/logo-prefeitura.png" width="80">
-        </a>
+          <span class="text-light text-center">Obras - SEDUC</span>
+        </span>
+
+        
 
 <!-- ======= Mobile nav toggle button ======= 
 <button class='navbar-toggler collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='true' aria-label='Toggle navigation'>
@@ -90,13 +112,14 @@
 
   </header><!--/fim Cabecalho -->
 
-
-  <section id="servicos" class="caixa">
-    <div class="container">
+<div class="container">
+  <section class="caixa bg-light">
+  
+    <div class="container-fluid">
 
 
     <div class="row">
-      <div class="col mt-3  ">
+      <div class="col mt-3">
         <?php
         include("config.php");
         switch (@$_REQUEST["page"]) {
@@ -118,17 +141,21 @@
     
   </div>
 
-
 </section>
 
-
-
+</div>
 
  </div><!--/container -->
+
 </section><!--/home -->
 
 
+
+
+
+
 <script scr="js/bootstrap.bundle.min.js"></script>
+
 <!-- JavaScript (Opcional) -->
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

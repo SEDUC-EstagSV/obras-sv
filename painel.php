@@ -39,9 +39,22 @@
   <link rel="icon" href="imagens/favicon.ico">
 
   <style>
+    body{
+      font-family: Helvetica,Arial,sans-serif !important;
+    }
+
+    h1, h2, h3 {
+    color: #000 !important;
+    }
+
+  .h3, h3 {
+    font-size: calc(1.3rem + .6vw) !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    text-align: start !important;
+  }
 
     @media print {
-
       .no-print,
       .no-print * {
         display: none !important;
@@ -61,6 +74,27 @@
       color: #fff !important;
     }
 
+    .collapse.navbar-collapse{
+      text-align: start !important;
+    }
+
+    .nav-container{
+      padding: 0 15px !important;
+      margin: 0 60px !important;
+    }
+
+    .container-body{
+      margin: 0 !important;
+    }
+
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1320px !important;
+  }
+
+    #servicos{
+      margin: 12px !important;
+    }
+    
   </style>
 </head>
 
@@ -80,7 +114,7 @@
 
 
 <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-transparente no-print">
-      <div class="container">
+      <div class="container nav-container">
 
         <a href="painel.php" class="navbar-brand">
           <img src="imagens/logo-prefeitura.png" width="80">
@@ -235,7 +269,7 @@ echo "<li class='nav-item dropdown text-light'>
   <div id="space">
   
   <section id="" class="caixa">
-  <div class="container">
+  <div class="container container-body">
     <div class="row">
       <div class="col">
         <?php
