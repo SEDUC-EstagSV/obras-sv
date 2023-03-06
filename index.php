@@ -34,8 +34,7 @@
   <link rel="icon" href="imagens/favicon.ico">
 
 <style>
-body {
-	
+body {	
 	padding-top: 150px;
     padding-right: 50px;
     padding-bottom: 50px;
