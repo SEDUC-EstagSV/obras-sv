@@ -132,39 +132,25 @@
     <li class="nav-item">
             <a class="nav-link active text-light" aria-current="page" href="painel.php">Home</a>
           </li>
-
+          
           <?php
 
-echo "<li class='nav-item dropdown text-light'>
+      echo "<li class='nav-item dropdown text-light'>
       <span class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Cadastrar</span>
       <ul class='dropdown-menu dropdown-menu-dark'>";
 
+        //verifica autoridade
 
-          //verifica autoridade
           if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item painel'>
-            <a class='nav-link text-light' href='?page=novousuario'>Novo Usuário</a>
-            </li>";
+            echo  "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=novocontrato'>Novo Contrato</a>
+                  </li>";
           }
-
+      
           if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='dropdown-item painel'>
             <a class='nav-link text-light' href='?page=novaobra'>Nova Obra</a>
             </li>";
-          }
-
-
-          if (liberaFuncaoParaAutoridade(2)) {
-            echo  "<li class='dropdown-item painel'>
-                      <a class='nav-link text-light' href='?page=novorelatorio'>Novo Relatório</a>
-                  </li>";
-          }
-
-
-          if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item painel'>
-                      <a class='nav-link text-light' href='?page=novaescola'>Nova Escola</a>
-                    </li>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
@@ -174,27 +160,32 @@ echo "<li class='nav-item dropdown text-light'>
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='dropdown-item painel'>
+                      <a class='nav-link text-light' href='?page=novaescola'>Nova Escola</a>
+                    </li>";
+          }
+
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='dropdown-item painel'>
+            <a class='nav-link text-light' href='?page=novousuario'>Novo Usuário</a>
+            </li>";
+          }
+
+          if (liberaFuncaoParaAutoridade(2)) {
             echo  "<li class='dropdown-item painel'>
-                    <a class='nav-link text-light' href='?page=novocontrato'>Novo Contrato</a>
+                      <a class='nav-link text-light' href='?page=novorelatorio'>Novo Relatório</a>
                   </li>";
           }
 
-
           echo "</ul>
                 </li>";
-
 
           if (liberaFuncaoParaAutoridade(3)) {
                 echo "<li class='nav-item dropdown'>
                 <span class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Consultar</span>
                 <ul class='dropdown-menu dropdown-menu-dark'>";
-
-         
-            echo "<li class='dropdown-item painel'>
-                    <a class='nav-link text-light' href='?page=listaobra'>Lista de Obras</a>
-                  </li>";
           }
-
+          
           try {
             $sql = $conn->prepare("SELECT COUNT(cd_Relatorio) AS qtdPendente FROM relatorioview
                                     WHERE nm_situacaoRelatorio = ?");
@@ -205,33 +196,21 @@ echo "<li class='nav-item dropdown text-light'>
             $row = $res->fetch_object();
           } catch (mysqli_sql_exception $e) {
             print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
-                          window.history.go(-1);</script>";
+            window.history.go(-1);</script>";
             criaLogErro($e);
           }
-
+          
           if (liberaFuncaoParaAutoridade(3)) {
             echo "<div>
-                    <li class='dropdown-item painel' style='display: flex;'>
-                    <a class='nav-link text-light' href='?page=listar_relatorio'>
-                      Lista de Relatórios 
-                    </a>
-                <!--    <a style='margin: auto; position: absolute; transform: translate(630%);' title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill' href='?page=listar_relatorio&pendente'>
-                    $row->qtdPendente
-                    </a> -->
-                  </li>
-                  </div>";
-          }
-
-          if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item painel'>
-                    <a class='nav-link text-light' href='?page=listar_escolas'>Lista de Escolas</a>
-                  </li>";
-          }
-
-          if (liberaFuncaoParaAutoridade(3)) {
-            echo "<li class='dropdown-item painel'>
-                    <a class='nav-link text-light' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
-                  </li>";
+            <li class='dropdown-item painel' style='display: flex;'>
+            <a class='nav-link text-light' href='?page=listar_relatorio'>
+            Lista de Relatórios 
+            </a>
+            <!--    <a style='margin: auto; position: absolute; transform: translate(630%);' title='Nº de relatório pendente' class='btn btn-danger badge rounded-pill' href='?page=listar_relatorio&pendente'>
+            $row->qtdPendente
+            </a> -->
+            </li>
+            </div>";
           }
 
           if (liberaFuncaoParaAutoridade(3)) {
@@ -239,6 +218,25 @@ echo "<li class='nav-item dropdown text-light'>
                     <a class='nav-link text-light' href='?page=listar_contratos'>Lista de Contratos</a>
                   </li>";
           }
+
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listaobra'>Lista de Obras</a>
+                  </li>";
+          }
+          
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='dropdown-item painel'>
+            <a class='nav-link text-light' href='?page=listar_escolas'>Lista de Escolas</a>
+            </li>";
+          }
+          
+          if (liberaFuncaoParaAutoridade(3)) {
+            echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listar_fornecedores'>Lista de Fornecedores</a>
+                  </li>";
+          }
+
 
           if (liberaFuncaoParaAutoridade(3)) {
             echo "<li class='dropdown-item painel'>
@@ -279,9 +277,6 @@ echo "<li class='nav-item dropdown text-light'>
             break;
           case "novorelatorio":
             include("relatorio/novo-relatorio.php");
-            break;
-          case "novorelatorio":
-            include("relatorio/novo-relatorio2.php");
             break;
           case "novaescola":
             include("escola/nova-escola.php");
