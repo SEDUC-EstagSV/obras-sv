@@ -66,6 +66,19 @@ body {
 }
 */
 
+#space{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.caixa{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 @media (max-width: 575.98px) {
 .caixa {
     margin: 15px;
