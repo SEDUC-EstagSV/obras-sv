@@ -46,23 +46,24 @@ switch ($_REQUEST["acaorelatorio"]) {
         
             $arquivosDeFoto = rearrange($_FILES['foto']);
             $i = 0;
+            $fotos = $arquivosDeFoto;
             foreach($arquivosDeFoto as $foto){
-                if(in_array($foto['type'], $foto)){
-                    $fotos = $arquivosDeFoto;
+                if(in_array(str_replace("image/", "", $foto['type']), $allowTypes)){
                     $fotos[$i]['tmp_name'] = file_get_contents($foto['tmp_name']);
                     $i++;
                 } else {
                     print "<script>alert('Existe uma imagem em formato incorreto, formatos permitidos: 
-                                    jpg, png, jpeg');
-                                    window.history.go(-1);</script>";
-                }
+                        jpg, png, jpeg');
+                        window.history.go(-1);</script>";
+                    }
             } 
         } else {
             $fotos = NULL;
         }
 
+
         try{
-            $sql = $conn->prepare("SELECT c.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
+            $sql = $conn->prepare("SELECT DISTINCT c.*, o.* FROM contrato c, obra o WHERE o.cd_Contrato = c.cd_Contrato AND o.cd_Obra = ?");
             $sql->bind_param("i", $cd_Obra);
             $sql->execute();
             $res = $sql->get_result();
@@ -80,8 +81,8 @@ switch ($_REQUEST["acaorelatorio"]) {
             exit();
         }
 
-        $cd_Escola = $res->cd_Escola; 
-        
+        $cd_Escola = $row->cd_Escola; 
+
         $dt_Inicial = $row->dt_Inicial;
         $dt_Final = $row->dt_Final;
 
@@ -129,14 +130,15 @@ switch ($_REQUEST["acaorelatorio"]) {
             $res = $sql->execute();
     
             if ($res == true) {
-
                 try{
                     $sqlFoto = $conn->prepare("INSERT INTO foto (cd_Relatorio, img_foto, ds_foto) VALUES (?, ?, ?)");
                     $cd_Relatorio = $conn->insert_id;
                     foreach($fotos as $a){
                         $img = $a['tmp_name'];
                         $descricao = $a['name'];
+                        var_dump($a);
                         $sqlFoto->bind_param('iss', $cd_Relatorio, $img, $descricao);
+                        mysqli_stmt_send_long_data($sqlFoto, 1, $img);
                         $resFoto = $sqlFoto->execute();
                     }
                 } catch (mysqli_sql_exception $e){

@@ -631,7 +631,7 @@ require_once('function-seduc.php');
           $sql = $conn->prepare("SELECT * FROM foto WHERE cd_Relatorio = ?");
           $sql->bind_param('i', $cd_Relatorio);
           $sql->execute();
-          $res = $sql->get_result();
+          $resFotos = $sql->get_result();
         } catch (mysqli_sql_exception $e) {
           print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
                         window.history.go(-1);</script>";
@@ -643,7 +643,7 @@ require_once('function-seduc.php');
       <div class="row mb-3">
         <div class="col border border-top-0 border-dark border-1">
           <?php
-            while($rowFotos = $res->fetch_object()){
+            while($rowFotos = $resFotos->fetch_object()){
               echo '<img src="data:image/png;base64,'.base64_encode($rowFotos->img_foto).'" height=380px />';
             }
           ?>
