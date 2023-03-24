@@ -1,5 +1,0 @@
-mysqli_sql_exception: Column 'cd_Contrato' cannot be null in C:\xampp\htdocs\ObrasApp\obra\salvar-obra.php:31
-Stack trace:
-#0 C:\xampp\htdocs\ObrasApp\obra\salvar-obra.php(31): mysqli_stmt->execute()
-#1 C:\xampp\htdocs\ObrasApp\painel.php(278): include('C:\\xampp\\htdocs...')
-#2 {main}
