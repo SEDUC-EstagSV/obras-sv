@@ -39,9 +39,22 @@
   <link rel="icon" href="imagens/favicon.ico">
 
   <style>
+    body{
+      font-family: Helvetica,Arial,sans-serif !important;
+    }
+
+    h1, h2, h3 {
+    color: #000 !important;
+    }
+
+  .h3, h3 {
+    font-size: calc(1.3rem + .6vw) !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    text-align: start !important;
+  }
 
     @media print {
-
       .no-print,
       .no-print * {
         display: none !important;
@@ -61,6 +74,27 @@
       color: #fff !important;
     }
 
+    .collapse.navbar-collapse{
+      text-align: start !important;
+    }
+
+    .nav-container{
+      padding: 0 15px !important;
+      margin: 0 60px !important;
+    }
+
+    .container-body{
+      margin: 0 !important;
+    }
+
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1320px !important;
+  }
+
+    #servicos{
+      margin: 12px !important;
+    }
+    
   </style>
 </head>
 
@@ -80,7 +114,7 @@
 
 
 <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-transparente no-print">
-      <div class="container">
+      <div class="container nav-container">
 
         <a href="painel.php" class="navbar-brand">
           <img src="imagens/logo-prefeitura.png" width="80">
@@ -235,7 +269,7 @@ echo "<li class='nav-item dropdown text-light'>
   <div id="space">
   
   <section id="" class="caixa">
-  <div class="container">
+  <div class="container container-body">
     <div class="row">
       <div class="col">
         <?php
@@ -400,11 +434,14 @@ echo "<li class='nav-item dropdown text-light'>
 <!-- JavaScript (Opcional) -->
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
   integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
   crossorigin="anonymous"></script>
 
 <!-- esse import afeta o import stackpath da funcionalidade de select do bootstrap 
