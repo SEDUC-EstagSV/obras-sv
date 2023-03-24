@@ -1,3 +1,11 @@
+<style>
+    h1{
+        color: black;
+        text-shadow: none;
+    }
+
+</style>
+
 <h1>Solicitar Recuperação de Senha</h1>
 <p>Enviaremos um código no seu email para validar a solicitação</p>
 
