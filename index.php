@@ -129,6 +129,9 @@ body {
           case "salvarusuario":
             include("usuario/salvar-usuario.php");
             break;
+          case "pedidorecuperacao":
+            include("usuario/pedidoRecuperacao-usuario.php");
+            break;
           case "recuperarusuario":
             include("usuario/recuperar-usuario.php");
             break;
