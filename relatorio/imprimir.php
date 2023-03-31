@@ -1,12 +1,11 @@
 <style>
- 
-/* ---------------------------
+  /* ---------------------------
 		Relatório
 -----------------------------*/
 
-#grid-table>div.row{
+  #grid-table>div.row {
 
-	color: black;
+    color: black;
     justify-content: center;
   }
 
@@ -23,29 +22,29 @@
 
 */
   div.col {
-  margin: auto;
-  width: 100%;
-  /*height: auto;  */
-  word-break: break-word;
-  padding: 0 0 0 0;
-  /*text-align: center;*/
- /*align-items: center;
+    margin: auto;
+    width: 100%;
+    /*height: auto;  */
+    word-break: break-word;
+    padding: 0 0 0 0;
+    /*text-align: center;*/
+    /*align-items: center;
  justify-content: center;*/
- display: table-cell;
-  vertical-align: middle;
-}
+    display: table-cell;
+    vertical-align: middle;
+  }
 
-body {
-  background: none;
-}
+  body {
+    background: none;
+  }
 
-#tituloImpressao{
-  color: black;
-  text-shadow: none;
+  #tituloImpressao {
+    color: black;
+    text-shadow: none;
 
-}
+  }
 
-/*
+  /*
 .btn {
     font-size: 18px;
     margin: 0px;
@@ -57,7 +56,7 @@ body {
    }
 
 */
-/*
+  /*
 .caixa {
   margin: 10px auto;
   font-size: 16px;
@@ -66,72 +65,88 @@ body {
 }
 */
 
-@media (max-width: 575.98px) {
-.caixa {
-    margin: 15px;
-    margin-left: -65px;
-    margin-right: -65px;
-    font-size: 10px;
-   
-
-}
-
-.btn {
-    font-size: 10px;
-    margin: 0px;
-    margin-top: 0px;
-    padding: 5px;
-    width: 50px;
-   }
-
-   div.col {
-  margin: auto;
-  width: 100%;
-  /*height: auto;*/
-  word-break: break-word;
-  padding: 10 0 10 0;
-  text-align: center;
-}
-
-.pmsv {
-  width: 60px; 
-  height: 60px;
-}
-
-h5 {
-  font-size: 15px;
-}
-
-h1 {
-  font-size: 22px;
- 
-
-}
+  #space {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 
 
- 
-@media print
-    {    
-        .form-impressao
-        {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-            position: absolute !important;
-            top: 0;
-        }
+  .caixa {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 
-        .no-print, .no-print *
-        {
-            display: none !important;
-            height: 0 !important;
-        }
+  @media (max-width: 575.98px) {
+    .caixa {
+      margin: 15px;
+      margin-left: -65px;
+      margin-right: -65px;
+      font-size: 10px;
+
+
+    }
+
+    .btn {
+      font-size: 10px;
+      margin: 0px;
+      margin-top: 0px;
+      padding: 5px;
+      width: 50px;
+    }
+
+    div.col {
+      margin: auto;
+      width: 100%;
+      /*height: auto;*/
+      word-break: break-word;
+      padding: 10 0 10 0;
+      text-align: center;
+    }
+
+    .pmsv {
+      width: 60px;
+      height: 60px;
+    }
+
+    h5 {
+      font-size: 15px;
+    }
+
+    h1 {
+      font-size: 22px;
     }
 
 
 
 
-}
 
+    @media print {
+      .form-impressao {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        position: absolute !important;
+        top: 0;
+      }
+
+      .no-print,
+      .no-print * {
+        display: none !important;
+        height: 0 !important;
+      }
+
+      /* classe para resize de impressao */
+      .fotos {
+        max-height: 100px !important;
+        height: 100% !important;
+      }
+    }
+
+
+
+
+  }
 </style>
 
 
@@ -139,7 +154,9 @@ h1 {
 
 <?php
 
-require_once('function-seduc.php');
+include_once('function-seduc.php');
+
+redirecionamentoPorAutoridade(3);
 ?>
 <!-- A definição do html aqui n esta fazendo diferença pq ele está sendo carregado em um
     arquivo html então está carregando tudo isso dentro de uma div e não é reconhecido -->
@@ -153,12 +170,9 @@ require_once('function-seduc.php');
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="sv.ico">
 
-<?php
-//header('Access-Control-Allow-Origin: *');
-?>
-  
   <style>
-     @import url(https://allfont.net/allfont.css?fonts=english-111-vivace-bt);
+    @import url(https://allfont.net/allfont.css?fonts=english-111-vivace-bt);
+
     h1 {
       font-family: 'English 111 Vivace BT', arial;
     }
@@ -169,29 +183,25 @@ require_once('function-seduc.php');
       orphans: 3;
     }
 
- 
-    @media print
-    {    
-        .form-impressao
-        {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-            position: absolute !important;
-            top: 0;
-        }
 
-        .no-print, .no-print *
-        {
-            display: none !important;
-            height: 0 !important;
-        }
-
+    @media print {
+      .form-impressao {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        position: absolute !important;
+        top: 0;
       }
 
-      
+      .no-print,
+      .no-print * {
+        display: none !important;
+        height: 0 !important;
+      }
+
+    }
   </style>
 
-<?php
+  <?php
   $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
   try {
@@ -213,31 +223,30 @@ require_once('function-seduc.php');
   }
   print '<form action="?page=salvarrelatorio" method="POST" >
         <input type="hidden" name="acaorelatorio" value="editarrelatorio">
-        <input type="text" name="cd_Relatorio" hidden value='.$cd_Relatorio.'>';
+        <input type="text" name="cd_Relatorio" hidden value=' . $cd_Relatorio . '>';
   print "<button type='submit' class='btn btn-success mb-3 no-print'>Alterar situação</button>
   <div class='mb-3 no-print' >
   <label>Situação do Relatório</label>";
-  
-  try {
-      $sql = "SELECT * FROM situacao_relatorio";
 
-      $res = $conn->query($sql);
+  try {
+    $sql = "SELECT * FROM situacao_relatorio";
+
+    $res = $conn->query($sql);
   } catch (mysqli_sql_exception $e) {
-      print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
+    print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
               location.href='painel.php';</script>";
-      criaLogErro($e);
+    criaLogErro($e);
   }
 
 
   print "<select class='form-select situacao ' name='tp_RelaSituacao' >";
-  
+
   print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden class='text-center'>$rowRelatorio->nm_situacaoRelatorio</option>";
-  
+
   print "<datalist>";
-    while ($row = $res->fetch_object()) {
+  while ($row = $res->fetch_object()) {
 
-      print "<option class='text-center' value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
-
+    print "<option class='text-center' value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
   }
 
   print "</datalist>";
@@ -254,7 +263,7 @@ require_once('function-seduc.php');
       </div>
 
           </div>";
-?>
+  ?>
 
 </head>
 
@@ -262,74 +271,68 @@ require_once('function-seduc.php');
 
 
 
-<div class="form-impressao">
-  <header>
-    <div class='container-fluid'>
-      <div class='container mt-3 text-center'>
-        <h1 id="tituloImpressao"> 
-        <img class="pmsv" src="./relatorio/img/padrao.png" width='90' height='90'>
-          Prefeitura Municipal de São Vicente
-        </h1>
-      </div>
-      <div class='container text-center'>
-        <h5>Cidade Monumento da História Pátria</h5>
-        <h5>Cellula Mater da Nacionalidade</h5>
-      </div>
-    </div>
-
-  </header>
-
-
-  <main>
-  
-    <div class="container mt-3 text-center">
-      <div class="row border border-dark border-1 mb-3">
-        <div class="col bg-secondary bg-opacity-50" 
-            style="font-weight: bold">
-        Relatório Diário de Obra (RDO)
+  <div class="form-impressao">
+    <header>
+      <div class='container-fluid'>
+        <div class='container mt-3 text-center'>
+          <h1 id="tituloImpressao">
+            <img class="pmsv" src="./relatorio/img/padrao.png" width='90' height='90'>
+            Prefeitura Municipal de São Vicente
+          </h1>
+        </div>
+        <div class='container text-center'>
+          <h5>Cidade Monumento da História Pátria</h5>
+          <h5>Cellula Mater da Nacionalidade</h5>
         </div>
       </div>
 
-      <div class="row mb-3">
-  <?php
-
-    if ($rowRelatorio->nm_situacaoRelatorio === 'Pendente')
-    {
-      print '<div id="fst" class="col-3 border border-dark border-1 bg-warning">'; 
-    }
+    </header>
 
 
-    if ($rowRelatorio->nm_situacaoRelatorio === 'Aprovado')
-    {
-        print '<div id="fst" class="col-3 border border-dark border-1 bg-success">'; 
-    }
-    
-    if ($rowRelatorio->nm_situacaoRelatorio === 'Recusado')
-    {
-      print '<div id="fst" class="col-3 border border-dark border-1 bg-danger">'; 
-    }
- 
-  print $rowRelatorio->nm_situacaoRelatorio;
-  ?>    
-      </div>
+    <main>
+
+      <div class="container mt-3 text-center">
+        <div class="row border border-dark border-1 mb-3">
+          <div class="col bg-secondary bg-opacity-50" style="font-weight: bold">
+            Relatório Diário de Obra (RDO)
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <?php
+
+          if ($rowRelatorio->nm_situacaoRelatorio === 'Pendente') {
+            print '<div id="fst" class="col-3 border border-dark border-1 bg-warning">';
+          }
+
+
+          if ($rowRelatorio->nm_situacaoRelatorio === 'Aprovado') {
+            print '<div id="fst" class="col-3 border border-dark border-1 bg-success">';
+          }
+
+          if ($rowRelatorio->nm_situacaoRelatorio === 'Recusado') {
+            print '<div id="fst" class="col-3 border border-dark border-1 bg-danger">';
+          }
+
+          print $rowRelatorio->nm_situacaoRelatorio;
+          ?>
+        </div>
 
         <div class="col-4"></div>
 
-        <div class="col-3  border border-dark border-1 bg-secondary bg-opacity-50" 
-            style="font-weight: bold">
+        <div class="col-3  border border-dark border-1 bg-secondary bg-opacity-50" style="font-weight: bold">
           Relatório
         </div>
 
         <div class='col-2 border border-start-0 border-dark border-1'>
-          <?php 
-            echo "nº $rowRelatorio->num_Relatorio"
+          <?php
+          echo "nº $rowRelatorio->num_Relatorio"
           ?>
         </div>
       </div>
 
       <div class="row">
-        <div class="col border border-bottom-0 border-dark border-1 bg-secondary bg-opacity-50"
-              style="font-weight: bold">
+        <div class="col border border-bottom-0 border-dark border-1 bg-secondary bg-opacity-50" style="font-weight: bold">
           Informações do Relatório
         </div>
       </div>
@@ -340,7 +343,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-9 border border-start-0 border-bottom-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->nm_TecResponsavel;
+          echo $rowRelatorio->nm_TecResponsavel;
           ?>
         </div>
       </div>
@@ -350,11 +353,11 @@ require_once('function-seduc.php');
         <div class="col-3 border border-bottom-0 border-dark border-1 bg-secondary bg-opacity-25">
           E-mail
         </div>
-          <div class="col-9 border border-start-0 border-dark border-1">
-            <?php
-              echo $rowRelatorio->ds_Email_TecResponsavel;
-            ?>
-          </div>
+        <div class="col-9 border border-start-0 border-dark border-1">
+          <?php
+          echo $rowRelatorio->ds_Email_TecResponsavel;
+          ?>
+        </div>
       </div>
 
       <div class="row">
@@ -362,9 +365,9 @@ require_once('function-seduc.php');
           Contratante
         </div>
         <div class="col-9 border border-start-0 border-top-0 border-dark border-1">
-        <?php
-              echo $rowRelatorio->nm_Contratante;
-            ?>
+          <?php
+          echo $rowRelatorio->nm_Contratante;
+          ?>
         </div>
       </div>
 
@@ -374,7 +377,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-9 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->nm_Escola . " - " . $rowRelatorio->ds_Local;
+          echo $rowRelatorio->nm_Escola . " - " . $rowRelatorio->ds_Local;
           ?>
         </div>
       </div>
@@ -385,7 +388,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-4 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->pr_Total;
+          echo $rowRelatorio->pr_Total;
           ?>
         </div>
         <div class="col-3 border border-start-0 border-top-0 border-dark border-1 bg-secondary bg-opacity-25">
@@ -404,14 +407,14 @@ require_once('function-seduc.php');
         </div>
         <div class="col-4 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->pr_Decorrido;
+          echo $rowRelatorio->pr_Decorrido;
           ?>
         </div>
         <div class="col-3 border border-start-0 border-top-0 border-dark border-1 bg-secondary bg-opacity-25">
           Data do Relatório
         </div>
         <div class="col-2 border border-start-0 border-top-0 border-dark border-1">
-        <?php
+          <?php
           //***Variável abaixo para receber valor da data e hora do Relatório***
           $dataParaMudar = $rowRelatorio->dt_Carimbo;
 
@@ -420,7 +423,7 @@ require_once('function-seduc.php');
 
           //***Retorna a data formatada PT-BR  ***
           echo $dataFormatada->format("d/m/Y");
-        ?>
+          ?>
         </div>
       </div>
 
@@ -430,24 +433,24 @@ require_once('function-seduc.php');
         </div>
         <div class="col-4 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->pr_Vencer;
+          echo $rowRelatorio->pr_Vencer;
           ?>
         </div>
         <div class="col-3 border border-start-0 border-top-0 border-dark border-1 bg-secondary bg-opacity-25">
           Dia da Semana
         </div>
         <div class="col-2 border border-start-0 border-top-0 border-dark border-1">
-        <?php
+          <?php
           //Variável que recebe o valor correspondente ao dia da semana em inglês
           //$dataFormatadaNova = DateTime::createFromFormat("w", $dataParaMudar);
-          
+
           //Valor do dia da semana em inglês
           $diaSemana = date("l", strtotime($dataParaMudar));
-          
+
           //$diaSemana = $dayofweek; //Valor do dia da semana em inglês
           $allweekdays = array("Sunday" => "Domingo", "Monday" => "Segunda-feira", "Tuesday" => "Terça-feira", "Wednesday" => "Quarta-feira", "Thursday" => "Quinta-feira", "Friday" => "Sexta-feira", "Saturday" => "Sábado");
           echo $allweekdays[$diaSemana];
-        ?>
+          ?>
         </div>
       </div>
 
@@ -457,18 +460,17 @@ require_once('function-seduc.php');
         </div>
         <div class="col-9 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->nm_LocResponsavel;
+          echo $rowRelatorio->nm_LocResponsavel;
           ?>
         </div>
       </div>
 
       <?php
-        // *** INFORMAÇÕES DA OBRA ***
+      // *** INFORMAÇÕES DA OBRA ***
       ?>
 
       <div class="row">
-        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" 
-            style="font-weight: bold">
+        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" style="font-weight: bold">
           Informações da Obra
         </div>
       </div>
@@ -479,7 +481,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-4 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->nm_situacaoObra;
+          echo $rowRelatorio->nm_situacaoObra;
           ?>
         </div>
         <div class="col-3 border border-start-0 border-top-0 border-dark border-1 bg-secondary bg-opacity-25">
@@ -487,7 +489,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-2 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->pt_Conclusao . "%";
+          echo $rowRelatorio->pt_Conclusao . "%";
           ?>
         </div>
       </div>
@@ -498,7 +500,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-4 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->nm_tipoCondicao;
+          echo $rowRelatorio->nm_tipoCondicao;
           ?>
         </div>
         <div class="col-3 border border-start-0 border-top-0 border-dark border-1 bg-secondary bg-opacity-25">
@@ -506,7 +508,7 @@ require_once('function-seduc.php');
         </div>
         <div class="col-2 border border-start-0 border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->Periodo;
+          echo $rowRelatorio->Periodo;
           ?>
         </div>
       </div>
@@ -517,16 +519,15 @@ require_once('function-seduc.php');
         </div>
         <div class="col-4 border border-start-0 border-top-0 border-bottom-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->nm_tipoTempo;
+          echo $rowRelatorio->nm_tipoTempo;
           ?>
         </div>
-        <div
-          class="col-3 border border-start-0 border-top-0 border-bottom-0 border-dark border-1 bg-secondary bg-opacity-25">
+        <div class="col-3 border border-start-0 border-top-0 border-bottom-0 border-dark border-1 bg-secondary bg-opacity-25">
           Total de Mão de Obra
         </div>
         <div class="col-2 border border-start-0 border-top-0 border-bottom-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->qt_totalMaoDeObra;
+          echo $rowRelatorio->qt_totalMaoDeObra;
           ?>
         </div>
       </div>
@@ -545,39 +546,38 @@ require_once('function-seduc.php');
       <div class="row mb-3">
         <div class="col-2 border border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->qt_Ajudantes;
+          echo $rowRelatorio->qt_Ajudantes;
           ?>
         </div>
         <div class="col-2 border border-top-0 border-start-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->qt_Eletricistas;
-          ?>  
-        </div>
-        <div class="col-2 border border-top-0 border-start-0 border-dark border-1">
-          <?php 
-            echo $rowRelatorio->qt_Pedreiros;
+          echo $rowRelatorio->qt_Eletricistas;
           ?>
         </div>
         <div class="col-2 border border-top-0 border-start-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->qt_Serventes;
+          echo $rowRelatorio->qt_Pedreiros;
           ?>
         </div>
         <div class="col-2 border border-top-0 border-start-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->qt_MaoDireta;
+          echo $rowRelatorio->qt_Serventes;
           ?>
         </div>
         <div class="col-2 border border-top-0 border-start-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->qt_Mestres;
+          echo $rowRelatorio->qt_MaoDireta;
+          ?>
+        </div>
+        <div class="col-2 border border-top-0 border-start-0 border-dark border-1">
+          <?php
+          echo $rowRelatorio->qt_Mestres;
           ?>
         </div>
       </div>
 
       <div class="row">
-        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" 
-            style="font-weight: bold">
+        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" style="font-weight: bold">
           Descrição de Atividade realizada
         </div>
       </div>
@@ -585,14 +585,13 @@ require_once('function-seduc.php');
       <div class="row mb-3">
         <div class="col border border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->tp_AtivRealizada;
+          echo $rowRelatorio->tp_AtivRealizada;
           ?>
         </div>
       </div>
 
       <div class="row">
-        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" 
-            style="font-weight: bold">
+        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" style="font-weight: bold">
           Comentários
         </div>
       </div>
@@ -600,39 +599,38 @@ require_once('function-seduc.php');
       <div class="row mb-3">
         <div class="col border border-top-0 border-dark border-1">
           <?php
-            echo $rowRelatorio->tp_Comentario;
+          echo $rowRelatorio->tp_Comentario;
           ?>
         </div>
       </div>
 
 
       <div class="row">
-        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" 
-            style="font-weight: bold">
+        <div class="col border border-dark border-1 bg-secondary bg-opacity-50" style="font-weight: bold">
           Fotos
         </div>
       </div>
 
       <?php
-        try {
-          $sql = $conn->prepare("SELECT * FROM foto WHERE cd_Relatorio = ?");
-          $sql->bind_param('i', $cd_Relatorio);
-          $sql->execute();
-          $res = $sql->get_result();
-        } catch (mysqli_sql_exception $e) {
-          print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
+      try {
+        $sql = $conn->prepare("SELECT * FROM foto WHERE cd_Relatorio = ?");
+        $sql->bind_param('i', $cd_Relatorio);
+        $sql->execute();
+        $resFotos = $sql->get_result();
+      } catch (mysqli_sql_exception $e) {
+        print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
                         window.history.go(-1);</script>";
-          criaLogErro($e);
-        }
+        criaLogErro($e);
+      }
 
       ?>
 
       <div class="row mb-3">
         <div class="col border border-top-0 border-dark border-1">
           <?php
-            while($rowFotos = $res->fetch_object()){
-              echo '<img src="data:image/png;base64,'.base64_encode($rowFotos->img_foto).'" height=380px />';
-            }
+          while ($rowFotos = $resFotos->fetch_object()) {
+            echo '<img class="fotos" src="data:image/png;base64,' . base64_encode($rowFotos->img_foto) . '" />';
+          }
           ?>
         </div>
       </div>
@@ -646,15 +644,15 @@ require_once('function-seduc.php');
         <div class="col">Responsável Técnico</div>
       </div>
 
-    </div>
+  </div>
 
 
   </main>
-</div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"></script>
 
-    
+
 
 </body>
 

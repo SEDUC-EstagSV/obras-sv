@@ -87,7 +87,6 @@ validar cnpj registrados ✔️
 fix: imagem não pode ser vazio ✔️
 ------------------------------------------------------------------------------------------------------------
 
-definir o que cada cargo pode ver e fazer
 
 --validar dados de requisições tanto no front quanto no back
 NAO FOI FEITA VERIFICACAO DE VALORES NULOS INCLUSIVE NO BANCO DE DADOS SERIA NECESSARIO REVER QUAIS VALORES
@@ -103,18 +102,50 @@ ACEITAM NULO
         relatorio✔️
         usuario✔️
 
+retornar valores no front com caracteres corretos (EX.: UTF-8) - Os caracteres não estão obedecendo 
+o "<meta charset="utf-8">". Talvez, provavelmente o php esteja interferindo ✔️
 
-diminuir tabelas para mostrar apenas o necessario
+Erro grotesco quando não há escolas selecionadas no contrato  ✔️
+Erro na query mysql
 
---juntar front com back 
+14 - Tinha um erro ao listar relatório tbm um erro de query mysql no relatorioview ✔️
 
---personalizar usuario (Ex: Editar meu perfil)
+10- função de somar total de trabalhadores na obra não funciona ✔️
+- não esta atualizado, foi arrumado só no outro computador e n foi upado no git
 
-ver o que fazer com os pedidos antigos registrados no banco
+7- aparece um erro quando gera um relatório novo com 2 ou mais imagens, porém mesmo assim 
+o relátorio é gerado. (O que é esse erro? Não sei) ✔️
 
--- retornar valores no front com caracteres corretos (EX.: UTF-8) - Os caracteres não estão obedecendo o "<meta charset="utf-8">"
-    Talvez, provavelmente o php esteja interferindo
+11- Função Imprimir não está formatando as imagens corretamente  ✔️/❌
+- n era pra mim, mas vi oq era e tá lá pra arrumar
 
--- fazer com que o botão fique bloqueado depois de pedir o email de recuperação de senha no front
-    para que não seja enviado mais de um
+13- Delete em cascata em Contrato está apagando obras e relatórios que tem escolas em comum com outros contratos ✔️
+Acho que descobri o porque desse problema acontecer: Ele deleta todas as obras que tem o mesmo cd_Escola, 
+porque quando deleta os "cd_contrato" da tabela escola_has_contrato, o "cd_Escola" da tabela escola_has_contrato
+também são deletados juntos (obveu), mas a tabela Obra não entende que tem outras contratos com a mesma escola ainda.
+Dai ela exclui. Deve ser por causa do cascate, tem como colocar uma condição no cascate? sei lá 
+Possível solução: Pegar o cd_Escola diretamente da tabela Escola invés do escola_has_contrato. 
+ps: por mim tirava a opção de excluir os contrato xd rsrsrsrs 
 
+14- redirecionamento após criar relatório e bloquear url ✔️
+-----------------------------------------------------------------------------------------------------------
+
+28/03 Erros:
+
+1- Recuperar senha não funciona (.env para token faltando no projeto) TESTAR
+
+2- Opção de colocar manualmente a porcentagem em "novo relatório" acho q ta feito
+
+Task antigas: 
+
+3- fazer com que o botão fique bloqueado depois de pedir o email de recuperação de senha no front
+para que não seja enviado mais de um
+
+5- ver o que fazer com os pedidos antigos registrados no banco - nem lembro qq isso
+
+6- personalizar usuario (Ex: Editar meu perfil) ❌
+doideira ^^^
+
+8- após confirmar que esse arquivo está 100% certo, excluir as outras variantes da covid na pasta C:\xampp\htdocs
+
+9- Criar tela de patente (crédito aos criadores do projeto)

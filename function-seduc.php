@@ -3,10 +3,11 @@
 
 function redirecionamentoPorAutoridade($nivelAutoridade){
 
-    if(!isset($_SESSION["user"][1])) header("location: index.php");
+    if(!isset($_SESSION["user"][1])) 
+    echo "<script>window.location.replace('index.php')</script>";
         
     if($_SESSION["user"][1] < $nivelAutoridade && isset($_SESSION["user"][1])){
-        header("location: painel.php");
+        echo "<script>window.location.replace('painel.php')</script>";
     }
 }
 
