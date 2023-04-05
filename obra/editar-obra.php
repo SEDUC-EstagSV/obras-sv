@@ -104,7 +104,7 @@
     <?php
     include_once('function-seduc.php');
 
-    redirecionamentoPorAutoridade(3);
+    redirecionamentoPorAutoridade(4);
     ?>
 
     <section id="servicos" class="caixa">

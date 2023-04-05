@@ -1,7 +1,7 @@
 <?php
-    include_once('function-seduc.php');
+include_once('function-seduc.php');
 
-    redirecionamentoPorAutoridade(3);
+redirecionamentoPorAutoridade(4);
 ?>
 
 
@@ -10,16 +10,16 @@
 <?php
 $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
-try{
+try {
     $sql = $conn->prepare("SELECT * FROM relatorioview WHERE cd_Relatorio= ?");
     $sql->bind_param('i', $cd_Relatorio);
     $sql->execute();
     $res = $sql->get_result();
-    
+
     $rowRelatorio = $res->fetch_object();
 
     $periodos = $rowRelatorio->Periodo;
-} catch(mysqli_sql_exception $e){
+} catch (mysqli_sql_exception $e) {
     print "<script>alert('Ocorreu um erro interno ao buscar dados do relatório');
                     window.history.go(-1);</script>";
     criaLogErro($e);
@@ -74,7 +74,6 @@ try{
         while ($row = $res->fetch_object()) {
 
             print "<option value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
-
         }
 
         print "</datalist>";
@@ -99,7 +98,7 @@ try{
         while ($row = $res->fetch_object()) {
             print "
             <div>";
-            if(str_contains($periodos, $row->nm_tipoPeriodo)){
+            if (str_contains($periodos, $row->nm_tipoPeriodo)) {
                 print "<input type='checkbox' name='tp_Periodo[]' value=$row->cd_tipoPeriodo checked>";
             } else {
                 print "<input type='checkbox' name='tp_Periodo[]' value=$row->cd_tipoPeriodo>";
@@ -107,7 +106,6 @@ try{
             print "    
                 <label for='tp_Periodo'>$row->nm_tipoPeriodo</label>
             </div>";
-
         }
         ?>
     </div>
@@ -115,59 +113,57 @@ try{
         <label>Clima</label>
 
         <?php
-        
-            try {
-                $sql = "SELECT * FROM tipo_tempo";
 
-                $res = $conn->query($sql);
-            } catch (mysqli_sql_exception $e) {
-                print "<script>alert('Ocorreu um erro interno ao buscar dados de formulario');
+        try {
+            $sql = "SELECT * FROM tipo_tempo";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de formulario');
                         location.href='painel.php';</script>";
-                criaLogErro($e);
-            }
+            criaLogErro($e);
+        }
 
-            print "<select class='form-select tempo' name='tp_Tempo' >";
-            print "<datalist>";
-            print "<option value=$rowRelatorio->cd_tipoTempo readonly selected hidden>$rowRelatorio->nm_tipoTempo</option>";
+        print "<select class='form-select tempo' name='tp_Tempo' >";
+        print "<datalist>";
+        print "<option value=$rowRelatorio->cd_tipoTempo readonly selected hidden>$rowRelatorio->nm_tipoTempo</option>";
 
 
-            while ($row = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
 
-                print "<option value={$row->cd_tipoTempo}>" . $row->nm_tipoTempo . "</option>";
+            print "<option value={$row->cd_tipoTempo}>" . $row->nm_tipoTempo . "</option>";
+        }
 
-            }
-
-            print "</datalist>";
-            print "</select>";
+        print "</datalist>";
+        print "</select>";
         ?>
     </div>
     <div class="mb-3">
         <label>Condição para trabalho</label>
         <?php
-    
-            try {
-                $sql = "SELECT * FROM tipo_condicao";
 
-                $res = $conn->query($sql);
-            } catch (mysqli_sql_exception $e) {
-                print "<script>alert('Ocorreu um erro interno ao buscar dados de formulario');
+        try {
+            $sql = "SELECT * FROM tipo_condicao";
+
+            $res = $conn->query($sql);
+        } catch (mysqli_sql_exception $e) {
+            print "<script>alert('Ocorreu um erro interno ao buscar dados de formulario');
                         location.href='painel.php';</script>";
-                criaLogErro($e);
-            }
+            criaLogErro($e);
+        }
 
-            print "<select class='form-select condicao' name='tp_Condicao' >";
-            print "<datalist>";
-            print "<option value=$rowRelatorio->cd_tipoCondicao readonly selected hidden>$rowRelatorio->nm_tipoCondicao</option>";
+        print "<select class='form-select condicao' name='tp_Condicao' >";
+        print "<datalist>";
+        print "<option value=$rowRelatorio->cd_tipoCondicao readonly selected hidden>$rowRelatorio->nm_tipoCondicao</option>";
 
 
-            while ($row = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
 
-                print "<option value={$row->cd_tipoCondicao}>" . $row->nm_tipoCondicao . "</option>";
+            print "<option value={$row->cd_tipoCondicao}>" . $row->nm_tipoCondicao . "</option>";
+        }
 
-            }
-
-            print "</datalist>";
-            print "</select>";
+        print "</datalist>";
+        print "</select>";
         ?>
     </div>
     <div class="mb-3">

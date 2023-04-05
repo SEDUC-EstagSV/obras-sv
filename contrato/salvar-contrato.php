@@ -4,7 +4,7 @@
 include_once('function-seduc.php');
 
 
-redirecionamentoPorAutoridade(3);
+redirecionamentoPorAutoridade(4);
 
 
 require_once('validator.php');

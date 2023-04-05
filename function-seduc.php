@@ -14,7 +14,18 @@ function redirecionamentoPorAutoridade($nivelAutoridade)
 
 function liberaFuncaoParaAutoridade($nivelAutoridade)
 {
+    if ($_SESSION["user"][1] == 10) return true;
+
     $libera = $_SESSION["user"][1] >= $nivelAutoridade && isset($_SESSION["user"][1]);
+
+    return $libera;
+}
+
+function liberaFuncaoApenasParaAutoridade($nivelAutoridade)
+{
+    if ($_SESSION["user"][1] == 10) return true;
+
+    $libera = $_SESSION["user"][1] == $nivelAutoridade && isset($_SESSION["user"][1]);
 
     return $libera;
 }

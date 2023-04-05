@@ -4,7 +4,7 @@
 include_once('function-seduc.php');
 require('validator.php');
 require_once 'function-fornecedor.php';
-redirecionamentoPorAutoridade(3);
+redirecionamentoPorAutoridade(4);
 
 
 switch ($_REQUEST["acaofornecedor"]) {

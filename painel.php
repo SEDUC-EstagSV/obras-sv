@@ -141,46 +141,49 @@
             </li>
 
             <?php
+            echo "<li class='nav-item dropdown text-light'>";
 
-            echo "<li class='nav-item dropdown text-light'>
-      <span class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>Cadastrar</span>
-      <ul class='dropdown-menu dropdown-menu-dark'>";
+            if (liberaFuncaoApenasParaAutoridade(2) || liberaFuncaoApenasParaAutoridade(4)) {
+              echo "<span class='nav-link dropdown-toggle text-light' href='#' role='button' 
+              data-bs-toggle='dropdown' aria-expanded='false'>Cadastrar</span>";
+            }
+            echo "<ul class='dropdown-menu dropdown-menu-dark'>";
 
 
             //verifica autoridade
-            if (liberaFuncaoParaAutoridade(3)) {
+            if (liberaFuncaoParaAutoridade(4)) {
               echo "<li class='dropdown-item painel'>
             <a class='nav-link text-light' href='?page=novousuario'>Novo Usuário</a>
             </li>";
             }
 
-            if (liberaFuncaoParaAutoridade(3)) {
+            if (liberaFuncaoParaAutoridade(4)) {
               echo "<li class='dropdown-item painel'>
             <a class='nav-link text-light' href='?page=novaobra'>Nova Obra</a>
             </li>";
             }
 
 
-            if (liberaFuncaoParaAutoridade(2)) {
+            if (liberaFuncaoApenasParaAutoridade(2)) {
               echo  "<li class='dropdown-item painel'>
                       <a class='nav-link text-light' href='?page=novorelatorio'>Novo Relatório</a>
                   </li>";
             }
 
 
-            if (liberaFuncaoParaAutoridade(3)) {
+            if (liberaFuncaoParaAutoridade(4)) {
               echo "<li class='dropdown-item painel'>
                       <a class='nav-link text-light' href='?page=novaescola'>Nova Escola</a>
                     </li>";
             }
 
-            if (liberaFuncaoParaAutoridade(3)) {
+            if (liberaFuncaoParaAutoridade(4)) {
               echo  "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=novofornecedor'>Novo Fornecedor</a>
                   </li>";
             }
 
-            if (liberaFuncaoParaAutoridade(3)) {
+            if (liberaFuncaoParaAutoridade(4)) {
               echo  "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=novocontrato'>Novo Contrato</a>
                   </li>";
@@ -369,7 +372,7 @@
               case "contato":
                 include("contato.php");
                 break;
-                
+
               default:
                 if ($_SESSION["user"][1] != null)
 

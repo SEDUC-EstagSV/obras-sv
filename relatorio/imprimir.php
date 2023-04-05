@@ -221,48 +221,53 @@ redirecionamentoPorAutoridade(3);
                   window.history.go(-1);</script>";
     criaLogErro($e);
   }
-  print '<form action="?page=salvarrelatorio" method="POST" >
-        <input type="hidden" name="acaorelatorio" value="editarrelatorio">
-        <input type="text" name="cd_Relatorio" hidden value=' . $cd_Relatorio . '>';
-  print "<button type='submit' class='btn btn-success mb-3 no-print'>Alterar situação</button>
-  <div class='mb-3 no-print' >
-  <label>Situação do Relatório</label>";
+  if (liberaFuncaoParaAutoridade(4)) {
 
-  try {
-    $sql = "SELECT * FROM situacao_relatorio";
+    print '<form action="?page=salvarrelatorio" method="POST" >
+    <input type="hidden" name="acaorelatorio" value="editarrelatorio">
+    <input type="text" name="cd_Relatorio" hidden value=' . $cd_Relatorio . '>';
+    print "<div class='mb-3 no-print' >
+    <label>Situação do Relatório</label>";
 
-    $res = $conn->query($sql);
-  } catch (mysqli_sql_exception $e) {
-    print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
-              location.href='painel.php';</script>";
-    criaLogErro($e);
+
+    try {
+      $sql = "SELECT * FROM situacao_relatorio";
+
+      $res = $conn->query($sql);
+    } catch (mysqli_sql_exception $e) {
+      print "<script>alert('Ocorreu um erro interno ao buscar dados de periodos');
+      location.href='painel.php';</script>";
+      criaLogErro($e);
+    }
+
+
+    print "<select class='form-select situacao ' name='tp_RelaSituacao' >";
+
+    print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden class='text-center'>$rowRelatorio->nm_situacaoRelatorio</option>";
+    print "<datalist>";
+    while ($row = $res->fetch_object()) {
+
+      print "<option class='text-center' value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
+    }
+
+    print "</datalist>";
+
+    print "</select>
+    </div>
+    </form>";
+
+    print "<button type='submit' class='btn btn-success mb-3 no-print'>Alterar situação</button>";
+    print "<div style='display: flex; flex-direction: row-reverse;'>";
+
+    print "<div>
+    <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarrelatorio&acaorelatorio=excluirRelatorio&cd_Relatorio=" . $cd_Relatorio . "';}else{false;}\" class='btn btn-danger mb-3 no-print'>Excluir</button>
+    </div>
+    <div class='mx-3'>
+    <button onclick=window.print() class='btn btn-warning mb-3 no-print'>Imprimir</button>
+    </div>
+    
+    </div>";
   }
-
-
-  print "<select class='form-select situacao ' name='tp_RelaSituacao' >";
-
-  print "<option value='$rowRelatorio->cd_situacaoRelatorio' readonly selected hidden class='text-center'>$rowRelatorio->nm_situacaoRelatorio</option>";
-
-  print "<datalist>";
-  while ($row = $res->fetch_object()) {
-
-    print "<option class='text-center' value={$row->cd_situacaoRelatorio}>" . $row->nm_situacaoRelatorio . "</option>";
-  }
-
-  print "</datalist>";
-  print "</select>
-  </div>
-  </form>
-
-  <div style='display: flex; flex-direction: row-reverse;'>
-      <div>
-          <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarrelatorio&acaorelatorio=excluirRelatorio&cd_Relatorio=" . $cd_Relatorio . "';}else{false;}\" class='btn btn-danger mb-3 no-print'>Excluir</button>
-      </div>
-      <div class='mx-3'>
-          <button onclick=window.print() class='btn btn-warning mb-3 no-print'>Imprimir</button>
-      </div>
-
-          </div>";
   ?>
 
 </head>
