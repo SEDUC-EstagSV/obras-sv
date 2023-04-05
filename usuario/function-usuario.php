@@ -13,7 +13,7 @@ function cadastraval($login, $senha, $senha2, $nome, $cpf, $email, $telefone)
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     } else {
-        print "<p class='alert alert-danger'>E-mail invalido!</p>";
+        print "<script>alert('E-mail Inválido!');</script>";
         exit;
     }
 }
@@ -44,7 +44,7 @@ function validaCPF($cpf)
         }
     }
     if ($erro == false) {
-        print "<p class='alert alert-danger'>CPF invalido!</p>";
+        print "<script>alert('CPF Inválido!');</script>";
         exit;
     }
     return $cpf;
@@ -56,7 +56,8 @@ function confirmarsenha($senha, $senha2)
 {
 
     if ($senha != $senha2) {
-        print "<p class='alert alert-danger'>Senhas não são iguais!</p>";
+        print "<script>alert('Senhas não são iguais!');</script>";
+        print "<script>window.history.go(-1);</script>";
         exit;
     }
 }
@@ -68,7 +69,8 @@ function loginval($login, $senha)
 
     //validar campos se estão preenchidos
     if (!$login || !$senha) {
-        print "<p class='alert alert-danger'>Preencha todos os campos!</p>";
+        print "<script>alert('Preencha todos os campos!');</script>";
+        print "<script>location.href='index.php';</script>";
         exit;
     }
 }
@@ -94,7 +96,8 @@ function loginAutoridade($autoridade)
             //esperando confirmação do cadastro
         case 1:
             print "<script>alert('Esperando liberação');</script>";
-            include("usuario/logout-usuario.php");
+            unset($_SESSION["user"]);
+            session_destroy();
             print "<script>location.href='index.php';</script>";
             break;
             //Usuário subordianado
@@ -148,6 +151,7 @@ function recuperarval($senha1, $senha2)
     }
 }
 
-function encryptSenha($senha){
+function encryptSenha($senha)
+{
     return password_hash($senha, PASSWORD_BCRYPT);
 }

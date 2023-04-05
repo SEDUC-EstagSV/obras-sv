@@ -135,6 +135,14 @@ body {
           case "recuperarusuario":
             include("usuario/recuperar-usuario.php");
             break;
+
+          case "validarcodigo":
+            include("usuario/validarCodigoRecuperacao-usuario.php");
+            break;
+
+          case "recuperarsenha":
+            include("usuario/recuperarSenha-usuario.php");
+            break;
           default:
             include("usuario/login-usuario.php");
         }

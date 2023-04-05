@@ -114,7 +114,7 @@ redirecionamentoPorAutoridade(3);
                     <label>Fornecedor</label>
                     <?php
                     try {
-                        $sql = "SELECT * FROM fornecedor";
+                        $sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor > 0";
 
                         $res = $conn->query($sql);
                     } catch (mysqli_sql_exception $e) {
