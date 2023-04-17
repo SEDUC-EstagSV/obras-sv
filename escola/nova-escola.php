@@ -23,6 +23,9 @@
         margin-bottom: 100px;
     }
 
+	label {
+		font-weight: bold;
+	}
 
     .form-control {
         width: 100%;
@@ -53,7 +56,7 @@
             margin-right: -85px;
             font-size: 15px;
             background-color: white;
-            font-size: 10px;
+            font-size: 12px;
             padding: 10px;
 
         }

@@ -29,6 +29,11 @@
         border-radius: 5px;
     }
 
+	label {
+		font-weight: bold;
+	}
+
+
     #servicos {
         padding: 25px 50px 5px 50px;
 
@@ -53,7 +58,7 @@
             margin-right: -85px;
             font-size: 15px;
             background-color: white;
-            font-size: 10px;
+            font-size: 12px;
             padding: 10px;
         }
 

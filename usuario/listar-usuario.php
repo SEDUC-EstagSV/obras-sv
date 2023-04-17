@@ -1,4 +1,8 @@
 <style>
+	#keepAll {
+		word-break: keep-all;
+	}
+	
     #grid-table>div.row {
         color: black;
         justify-content: center;
@@ -62,7 +66,7 @@
         div.col {
             margin: auto;
             width: 100%;
-            word-break: break-word;
+            
             padding: 10 0 10 0;
             padding: 2px;
         }
@@ -86,7 +90,7 @@ redirecionamentoPorAutoridade(3);
     <div>
         <h3>Lista de Usuários</h3>
     </div>
-    <div>
+    <div style="overflow-x:auto;">
 
 
         <?php
@@ -112,30 +116,30 @@ redirecionamentoPorAutoridade(3);
         if ($qtd > 0) {
             print "<table class='table table-hover table-striped table-bordered'>";
             print "<tr>";
-            print "<th>#Usuário</th>";
-            print "<th>Fornecedor</th>";
-            print "<th>User</th>";
-            print "<th>Nome</th>";
-            print "<th>E-mail</th>";
-            print "<th>Telefone</th>";
-            print "<th>Nivel de permissão</th>";
+            //print "<th class='align-middle text-center'>#Usuário</th>";
+            print "<th id='keepAll' class='align-middle text-center'>Usuário</th>";
+			print "<th id='keepAll' class='align-middle text-center'>Nome</th>";
+            print "<th id='keepAll' class='align-middle text-center'>Fornecedor</th>";
+			print "<th id='keepAll' class='align-middle text-center'>E-mail</th>";
+            print "<th id='keepAll' class='align-middle text-center'>Telefone</th>";
+            print "<th id='keepAll' class='align-middle text-center'>Nível de permissão</th>";
             if (liberaFuncaoParaAutoridade(4)) {
-                print "<th>Ações</th>";
+                print "<th class='align-middle text-center'>Ações</th>";
             }
             print "</tr>";
             while ($row = $res->fetch_object()) {
 
                 print "<tr>";
-                print "<td>" . $row->cd_Usuario . "</td>";
-                print "<td>" . $row->nm_Fornecedor . "</td>";
-                print "<td>" . $row->user_Login . "</td>";
-                print "<td>" . $row->user_Nome . "</td>";
-                print "<td>" . $row->user_Email . "</td>";
-                print "<td>" . $row->user_Telefone . "</td>";
-                print "<td>" . $row->nm_nivelAutoridade . "</td>";
+                // print "<td id='keepAll' class='align-middle text-center'>" . $row->cd_Usuario . "</td>";
+                print "<td id='keepAll' class='align-middle'>" . $row->user_Login . "</td>";
+                print "<td id='keepAll' class='align-middle'>" . $row->user_Nome . "</td>";
+				print "<td id='keepAll' class='align-middle'>" . $row->nm_Fornecedor . "</td>";
+                print "<td id='keepAll' class='align-middle'>" . $row->user_Email . "</td>";
+                print "<td id='keepAll' class='align-middle'>" . $row->user_Telefone . "</td>";
+                print "<td id='keepAll' class='align-middle text-center'>" . $row->nm_nivelAutoridade . "</td>";
 
                 if (liberaFuncaoParaAutoridade(4)) {
-                    print "<td>";
+                    print "<td class='align-middle text-center'>";
                     print "<button onclick=\"location.href='?page=gerenciarusuario&cd_Usuario=$row->cd_Usuario';\" class='btn btn-success'>Editar</button>
              <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarusuario&acaousuario=excluirusuario&cd_Usuario=" . $row->cd_Usuario . "';}else{false;}\" class='btn btn-danger'>Excluir</button>";
                     print "</td>";

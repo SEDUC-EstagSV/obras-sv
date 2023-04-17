@@ -1,31 +1,9 @@
-31/03
-
-1- O redirecionamento da recuperação de senha está funcionando, porém falta tratar as entradas errado do usuário.
-Ex: 1.Se colocar o Código de verificação errado ele trava a tela ✔️
-Ex: 2. Na hora de criar nova senha, aparece o alerta de Senhas Diferentes mas fica travado na tela. Redirecionar
-para a tela "recuperarSenha-usuario" novamente após o alerta.  ✔️
-
-2- Após criar novo usuário, o usuario com a permissão "PENDENTE" fica preso num loop infinito na tela de painel.php
-solução: redirecionar pro index após o aviso "Esperar liberação do Supervisor" ✔️
-
-3- erro ao editar fornecedor (mensagem de "ocorreu erro interno ao editar fornecedor") ✔️
-
-4- após confirmar que esse arquivo está 100% certo, excluir as outras variantes da covid na pasta C:\xampp\htdocs ✔️
-
-5- Criar função para validar CNPJ <-- Porfavor, é a ultima coisa que falta ✔️
-
 ------------------------------------------------------------------------------------------------------------------------
-04/04 
+13/03
 
 Versão 2.0:
 
-1- Pedido de recuperação não está pegando a hora exata para poder expirar após a hora determinada ✔️
-
-2- personalizar usuario (Ex: Editar meu perfil) 
-
-3- Criar visualização de secretária
-
-4- Graficos? : front
+1- personalizar usuário (Ex: Editar meu perfil) 
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -35,3 +13,7 @@ Criar tela de patente (crédito aos criadores do projeto)
 
 1- fazer com que o botão fique bloqueado depois de pedir o email de recuperação de senha no front
 para que não seja enviado mais de um
+
+2- Alinhar informações das colunas do app usando ( class='align-middle text-center') ✔️
+
+4- Graficos? : front

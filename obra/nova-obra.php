@@ -23,6 +23,13 @@
         margin-bottom: 100px;
     }
 
+	label {
+		font-weight: bold;
+	}
+
+	#add {
+		font-weight: bold;
+	}
 
     .form-control {
         width: 100%;
@@ -48,7 +55,7 @@
             margin-left: -65px;
             margin-right: -85px;
             background-color: white;
-            font-size: 10px;
+            font-size: 12px;
             padding: 10px;
         }
 
@@ -150,7 +157,7 @@ redirecionamentoPorAutoridade(4);
 
 
         <div class="mb-3">
-            <div>Adicionar usuários encarregados dos relatórios da obra</div>
+            <div id="add">Adicionar usuários encarregados dos relatórios da obra</div>
 
 
             <select class="selectpicker" id="select" name="usuarios[]" multiple data-live-search="true" title="Selecione usuários responsáveis" data-selected-text-format="count" data-width="auto" data-count-selected-text="Usuários selecionados: {0}">

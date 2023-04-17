@@ -94,10 +94,59 @@ redirecionamentoPorAutoridade(3);
 <section id="servicos" class="caixa">
     <div>
         <div class="secao-title">
-            <h3>Lista de Relatórios</h3>
+            <h3>Lista de Gráficos</h3>
         </div>
 
         <div style="overflow-x:auto;">
+
+
+		<form action="?page=salvarrelatorio" enctype='multipart/form-data' id="relatorio_form" method="POST">
+        <input type="hidden" name="acaorelatorio" value="cadastrarRelatorio">
+        <div class="mb-3">
+            <label>Referência da Obra</label>
+            <?php
+            try {
+                $sql = $conn->prepare("SELECT COUNT(DISTINCT cd_Contrato) FROM `obra`");
+
+            
+                $sql->execute();
+
+                $res = $sql->get_result();
+            } catch (mysqli_sql_exception $e) {
+                print "<script>alert('Ocorreu um erro interno ao buscar dados de situacao de obra');
+                    location.href='painel.php';</script>";
+                criaLogErro($e);
+            }
+
+            print "<select class='form-select obra' name='cd_Obra' >";
+            print "<datalist>";
+            print "<option value='' disabled selected>Selecione o contrato / obra de referência / local</option>";
+
+
+            while ($row = $res->fetch_object()) {
+
+                print "<option value={$row->cd_Obra}>$row->tp_Servico: $row->tp_AtividadeDescricao / $row->nm_Escola</option>";
+            }
+            print "</datalist>";
+            print "</select>";
+            ?>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <?php
 

@@ -112,14 +112,8 @@ body {
 
   </header><!--/fim Cabecalho -->
 
-<div class="container">
-  <section class="caixa bg-light">
-  
-    <div class="container-fluid">
 
 
-    <div class="row">
-      <div class="col mt-3">
         <?php
         include("config.php");
         switch (@$_REQUEST["page"]) {
@@ -147,19 +141,6 @@ body {
             include("usuario/login-usuario.php");
         }
         ?>
-      </div>
-    </div>
-    
-  </div>
-
-</section>
-
-</div>
-
- </div><!--/container -->
-
-</section><!--/home -->
-
 
 
 

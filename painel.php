@@ -232,6 +232,12 @@
                   </div>";
             }
 
+			if (liberaFuncaoParaAutoridade(3)) {
+              echo "<li class='dropdown-item painel'>
+                    <a class='nav-link text-light' href='?page=listar_grafico'>Lista de Gráficos</a>
+                  </li>";
+            }
+
             if (liberaFuncaoParaAutoridade(3)) {
               echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listar_escolas'>Lista de Escolas</a>
@@ -262,6 +268,10 @@
 
             <li class="nav-item">
               <a class="nav-link text-light" href="?page=contato">Contato</a>
+            </li>
+
+			<li class="nav-item">
+              <a class="nav-link text-light" href="?page=sobre">Sobre o App</a>
             </li>
 
             <li class="nav-item">
@@ -314,6 +324,9 @@
                 break;
               case "listar_relatorio":
                 include("relatorio/listar-relatorio.php");
+                break;
+			  case "listar_grafico":
+                include("grafico/listar-grafico.php");
                 break;
               case "ver_relatorio":
                 include("relatorio/imprimir.php");
@@ -371,6 +384,9 @@
                 break;
               case "contato":
                 include("contato.php");
+                break;
+			  case "sobre":
+                include("sobre.php");
                 break;
 
               default:

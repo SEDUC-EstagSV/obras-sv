@@ -1,4 +1,8 @@
 <style>
+	#keepAll {
+		word-break: keep-all;
+	}
+	
     #grid-table>div.row {
         color: black;
         justify-content: center;
@@ -83,10 +87,10 @@ redirecionamentoPorAutoridade(3);
 
 <section id="servicos" class="caixa">
     <div>
-        <div>
-
-        </div>
-        <div>
+         <h3>Lista de Fornecedores</h3>
+    </div>
+    <div style="overflow-x:auto;">
+         
 
 
             <?php
@@ -105,24 +109,24 @@ redirecionamentoPorAutoridade(3);
             if ($qtd > 0) {
                 print "<table class='table table-hover table-striped table-bordered'>";
                 print "<tr>";
-                print "<th>#Fornecedor</th>";
-                print "<th>Nome</th>";
-                print "<th>Email</th>";
-                print "<th>Endereço</th>";
-                print "<th>CNPJ</th>";
+                //print "<th class='align-middle text-center'>#Fornecedor</th>";
+                print "<th class='align-middle text-center'>Fornecedor</th>";
+                print "<th id='keepAll' class='align-middle text-center'>E-mail</th>";
+                print "<th id='keepAll' class='align-middle text-center'>Endereço</th>";
+                print "<th class='align-middle text-center'>CNPJ</th>";
                 if (liberaFuncaoParaAutoridade(4)) {
-                    print "<th>Ações</th>";
+                    print "<th class='align-middle text-center'>Ações</th>";
                 }
                 print "</tr>";
                 while ($row = $res->fetch_object()) {
                     print "<tr>";
-                    print "<td>" . $row->cd_Fornecedor . "</td>";
-                    print "<td>" . $row->nm_Fornecedor . "</td>";
-                    print "<td>" . $row->ds_Email . "</td>";
-                    print "<td>" . $row->ds_Endereco . "</td>";
-                    print "<td>" . $row->num_CNPJ . "</td>";
+                    // print "<td class='align-middle text-center'>" . $row->cd_Fornecedor . "</td>";
+                    print "<td id='keepAll' class='align-middle'>" . $row->nm_Fornecedor . "</td>";
+                    print "<td id='keepAll' class='align-middle'>" . $row->ds_Email . "</td>";
+                    print "<td class='align-middle'>" . $row->ds_Endereco . "</td>";
+                    print "<td id='keepAll' class='align-middle text-center'>" . $row->num_CNPJ . "</td>";
                     if (liberaFuncaoParaAutoridade(4)) {
-                        print "<td>   
+                        print "<td class='align-middle text-center'>   
                         <button onclick=\"location.href='?page=editarfornecedor&cd_Fornecedor=" . $row->cd_Fornecedor . "';\" class='btn btn-success'>Editar</button>
                         <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarfornecedor&acaofornecedor=excluirFornecedor&cd_Fornecedor=" . $row->cd_Fornecedor . "';}else{false;}\" class='btn btn-danger'>Excluir</button>
                         
@@ -135,8 +139,6 @@ redirecionamentoPorAutoridade(3);
                 print "<p class='alert alert-danger'>Não foi possível encontrar resultados!</p>";
 
             ?>
-
-        </div>
     </div>
 
 </section>

@@ -1,5 +1,9 @@
 <style>
-    #grid-table>div.row {
+	#keepAll {
+		word-break: keep-all;
+	}
+	    
+	#grid-table>div.row {
         color: black;
         justify-content: center;
     }
@@ -85,7 +89,7 @@ redirecionamentoPorAutoridade(3);
         <div>
             <h3>Lista de Contratos</h3>
         </div>
-        <div>
+        <div style="overflow-x:auto;">
 
             <?php
 
@@ -108,27 +112,27 @@ redirecionamentoPorAutoridade(3);
             if ($qtd > 0) {
                 print "<table class='table table-hover table-striped table-bordered'>";
                 print "<tr>";
-                print "<th>#Contrato</th>";
-                print "<th>#Fornecedor</th>";
-                print "<th>Nome do Fornecedor</th>";
-                print "<th>Ano do Contrato</th>";
+                print "<th class='align-middle text-center'>Nº</th>";
+                // print "<th class='align-middle text-center'>#Fornecedor</th>";
+                print "<th id='keepAll' class='align-middle text-center'>Fornecedor</th>";
+                print "<th id='keepAll' class='align-middle text-center'>Ano</th>";
                 // print "<th>Início</th>";
                 // print "<th>Termino</th>";
                 //  print "<th>Prazo Contratual</th>";
                 // print "<th>Tempo decorrido</th>";
                 // print "<th>Prazo a vencer</th>";
-                print "<th>Objeto do Contrato</th>";
-                print "<th>Situação do Contrato</th>";
+                print "<th class='align-middle text-center'>Objeto do Contrato</th>";
+                print "<th id='keepAll' class='align-middle text-center'>Situação</th>";
                 if (liberaFuncaoParaAutoridade(4)) {
-                    print "<th>Ações</th>";
+                    print "<th class='align-middle text-center'>Ações</th>";
                 }
                 print "</tr>";
                 while ($row = $res->fetch_object()) {
                     print "<tr>";
-                    print "<td>" . $row->num_contrato . "</td>";
-                    print "<td>" . $row->cd_Fornecedor . "</td>";
-                    print "<td>" . $row->nm_Fornecedor . "</td>";
-                    print "<td>" . $row->dt_AnoContrato . "</td>";
+                    print "<td id='keepAll' class='align-middle text-center'>" . $row->num_contrato . "</td>";
+                    // print "<td class='align-middle text-center'>" . $row->cd_Fornecedor . "</td>";
+                    print "<td class='align-middle'>" . $row->nm_Fornecedor . "</td>";
+                    print "<td id='keepAll' class='align-middle text-center'>" . $row->dt_AnoContrato . "</td>";
                     // print "<td>" . $row->dt_Inicial . "</td>";
                     //  print "<td>" . $row->dt_Final . "</td>";
                     // print "<td>" . $row->pr_Total . "</td>";
@@ -136,10 +140,10 @@ redirecionamentoPorAutoridade(3);
                     $dt_Final = $row->dt_Final;
                     // print "<td>" . dataDecorrida($dt_Inicial, $dt_Final) . "</td>";
                     // print "<td>" . dataVencer($dt_Final) . "</td>";
-                    print "<td>" . $row->tp_Servico . "</td>";
-                    print "<td>" . $row->nm_situacao . "</td>";
+                    print "<td id='keepAll' class='align-middle'>" . $row->tp_Servico . "</td>";
+                    print "<td id='keepAll' class='align-middle text-center'>" . $row->nm_situacao . "</td>";
                     if (liberaFuncaoParaAutoridade(4)) {
-                        print "<td>
+                        print "<td class='align-middle text-center'>
             <button onclick=\"location.href='?page=editarcontrato&cd_Contrato=" . $row->cd_Contrato . "';\" class='btn btn-success'>Editar</button>
             <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarcontrato&acaocontrato=excluircontrato&cd_Contrato=" . $row->cd_Contrato . "';}else{false;}\" class='btn btn-danger'>Excluir</button>
             

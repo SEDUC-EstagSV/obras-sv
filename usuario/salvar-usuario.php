@@ -208,8 +208,8 @@ switch ($_REQUEST["acaousuario"]) {
                         $id = $row->cd_Usuario;
                         session_start();
                         $_SESSION["user"] = [$nome, $autoridade, $id];
+						$erro = false;
                         loginAutoridade($autoridade);
-                        $erro = false;
                     }
                 }
             }

@@ -47,7 +47,7 @@
     margin: 16px;
     margin-left: -55px;
     margin-right: -65px;
-    font-size: 9px;
+    font-size: 12px;
     background-color: white;
     padding: 25px 8px 20px 10px;
 }
@@ -98,20 +98,20 @@ div.col {
                 <div class=" ">
                   <div class="info">
                     <div class="address">
-                      <i class="bi bi-geo-alt"></i>
-                      <h4>Localização:</h4>
+                      
+                      <h4><i class="bi bi-geo-alt"></i><span class="ms-3">Localização:</span></h4>
                       <p>Av. Capitão-Mor Aguiar, 798 - Centro, São Vicente - SP</p>
                     </div>
 
                     <div class="email">
-                      <i class="bi bi-envelope"></i>
-                      <h4>Email:</h4>
+                      <h4><i class="bi bi-envelope"></i><span class="ms-3">Email:</span></h4>
+                      
                       <p>diego@gmail.com</p>
                     </div>
 
                     <div class="phone">
-                      <i class="bi bi-phone"></i>
-                      <h4>Telefone:</h4>
+                      
+                      <h4><i class="bi bi-phone"></i><span class="ms-3">Telefone:</span></h4>
                       <p>13 90000 - 0000</p>
                     </div>
 

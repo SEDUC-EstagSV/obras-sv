@@ -1,4 +1,8 @@
 <style>
+	#keepAll {
+		word-break: keep-all;
+	}
+
     #grid-table>div.row {
         color: black;
         justify-content: center;
@@ -106,22 +110,22 @@ redirecionamentoPorAutoridade(3);
             if ($qtd > 0) {
                 print "<table class='table table-hover table-striped table-bordered'>";
                 print "<tr>";
-                print "<th>#</th>";
-                print "<th>Escola</th>";
-                print "<th>Endereço</th>";
-                print "<th>Situação</th>";
+                // print "<th class='align-middle text-center'>#</th>";
+                print "<th class='align-middle text-center'>Escola</th>";
+                print "<th class='align-middle text-center'>Endereço</th>";
+                print "<th id='keepAll' class='align-middle text-center'>Situação</th>";
                 if (liberaFuncaoParaAutoridade(4)) {
-                    print "<th>Ações</th>";
+                    print "<th class='align-middle text-center'>Ações</th>";
                 }
                 print "</tr>";
                 while ($row = $res->fetch_object()) {
                     print "<tr>";
-                    print "<td>" . $row->cd_Escola . "</td>";
-                    print "<td>" . $row->nm_Escola . "</td>";
-                    print "<td>" . $row->ds_Local . "</td>";
-                    print "<td>" . $row->nm_statusEscola . "</td>";
+                    // print "<td class='align-middle text-center'>" . $row->cd_Escola . "</td>";
+                    print "<td class='align-middle'>" . $row->nm_Escola . "</td>";
+                    print "<td class='align-middle'>" . $row->ds_Local . "</td>";
+                    print "<td class='align-middle text-center'>" . $row->nm_statusEscola . "</td>";
                     if (liberaFuncaoParaAutoridade(4)) {
-                        print "<td>
+                        print "<td class='align-middle text-center'>
                         <button onclick=\"location.href='?page=editarescola&cd_Escola=" . $row->cd_Escola . "';\" class='btn btn-success'>Editar</button>
                         <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvarescola&acaoescola=excluirEscola&cd_Escola=" . $row->cd_Escola . "';}else{false;}\" class='btn btn-danger'>Excluir</button>
                         </td>";

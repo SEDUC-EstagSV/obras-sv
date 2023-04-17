@@ -106,16 +106,16 @@ function loginAutoridade($autoridade)
             print "<script>location.href='painel.php';</script>";
             break;
 
-            //Supervisão 
+            //Secretária
         case 3:
-            print "<script>alert('Logado como Supervisor');</script>";
+            print "<script>alert('Logado como Secretária');</script>";
             print "<script>location.href='painel.php';</script>";
             break;
 
-            //Secretária
+            //Supervisão 
         case 4:
 
-            print "<script>alert('Logado como Secretária');</script>";
+            print "<script>alert('Logado como Supervisor');</script>";
             print "<script>location.href='painel.php';</script>";
             break;
 
