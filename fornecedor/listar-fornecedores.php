@@ -95,7 +95,7 @@ redirecionamentoPorAutoridade(3);
 
             <?php
             try {
-                $sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor <> -1";
+                $sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor <> -1 ORDER BY nm_Fornecedor ASC";
 
                 $res = $conn->query($sql);
 

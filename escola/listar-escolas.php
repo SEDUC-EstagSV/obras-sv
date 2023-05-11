@@ -96,7 +96,7 @@ redirecionamentoPorAutoridade(3);
 
             <?php
             try {
-                $sql = "SELECT * FROM escolaview ORDER BY cd_Escola ASC";
+                $sql = "SELECT * FROM escolaview ORDER BY nm_Escola ASC";
 
                 $res = $conn->query($sql);
 

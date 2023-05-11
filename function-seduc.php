@@ -55,7 +55,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\OAuth;
 //Alias the League Google OAuth2 provider class
 use League\OAuth2\Client\Provider\Google;
-
+use PHPMailer\PHPMailer\SMTP;
 
 function geraEmail($emailToSend)
 {

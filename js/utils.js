@@ -1,7 +1,7 @@
 async function loadContratos(val) {
     if (val.length >= 1) {
 
-      const dados = await fetch('/projeto/obra/autocompleteContrato.php?cd=' + val)
+      const dados = await fetch('./obra/autocompleteContrato.php?cd=' + val)
       const resposta = await dados.json();
       
       var html = "<ul class='list-group position-fixed'>"
@@ -57,7 +57,7 @@ async function loadContratos(val) {
       return $("select.form-select.escola").attr("disabled", "disabled");
     }
 
-    $.post('/projeto/obra/pesquisaEscolaPorContrato.php', {'pesquisa' : selected}, function(data){
+    $.post('./obra/pesquisaEscolaPorContrato.php', {'pesquisa' : selected}, function(data){
         var jsonData = JSON.parse(data); // turn the data string into JSON
         $("select.form-select.escola").html(jsonData);
         if(data.charAt(15) != '-'){

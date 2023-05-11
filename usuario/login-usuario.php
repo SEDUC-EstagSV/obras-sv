@@ -1,54 +1,51 @@
-
-
-
 <div class="container">
-  <section class="caixa bg-light">
-  
-    <div class="container-fluid">
+    <section class="caixa bg-light">
+
+        <div class="container-fluid">
 
 
-    <div class="row">
-      <div class="col mt-3">
+            <div class="row">
+                <div class="col mt-3">
 
 
 
-<div>
+                    <div>
 
-    <h3>Login</h3>
+                        <h3>Login</h3>
 
-    <form action="?page=salvarusuario" method="POST">
-        <input type="hidden" name="acaousuario" value="loginusuario">
-        <div class="mb-3">
-            <label>Nome de Usuário</label>
-            <input type="name" name="user_Login" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>Senha</label>
-            <div class="input-group">
-                <input type="password" name="user_Senha" class="form-control" id="senha" autocomplete="off">
-                <i class="input-group-text bi bi-eye-slash" id="viewSenha"></i>
+                        <form action="?page=salvarusuario" method="POST">
+                            <input type="hidden" name="acaousuario" value="loginusuario">
+                            <div class="mb-3">
+                                <label>Nome de Usuário</label>
+                                <input type="name" name="user_Login" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>Senha</label>
+                                <div class="input-group">
+                                    <input type="password" name="user_Senha" class="form-control" id="senha" autocomplete="off">
+                                    <i class="input-group-text bi bi-eye-slash" id="viewSenha"></i>
+                                </div>
+                                <a href="?page=pedidorecuperacao">Esqueci minha senha</a>
+                            </div>
+                            <div id="botaoLogin" class="mb-3">
+                                <button type="submit" class="btn btn-primary">Entrar</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+
+                </div>
             </div>
-            <a href="?page=pedidorecuperacao">Esqueci minha senha</a>
+
         </div>
-        <div id="botaoLogin" class="mb-3">
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </div>
-    </form>
-</div>
 
-
-
-
-</div>
-    </div>
-    
-  </div>
-
-</section>
+    </section>
 
 </div>
 
- </div><!--/container -->
+</div><!--/container -->
 
 </section><!--/home -->
 

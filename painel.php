@@ -232,7 +232,7 @@
                   </div>";
             }
 
-			if (liberaFuncaoParaAutoridade(3)) {
+            if (liberaFuncaoParaAutoridade(3)) {
               echo "<li class='dropdown-item painel'>
                     <a class='nav-link text-light' href='?page=listar_grafico'>Lista de Gráficos</a>
                   </li>";
@@ -270,7 +270,7 @@
               <a class="nav-link text-light" href="?page=contato">Contato</a>
             </li>
 
-			<li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link text-light" href="?page=sobre">Sobre o App</a>
             </li>
 
@@ -325,7 +325,7 @@
               case "listar_relatorio":
                 include("relatorio/listar-relatorio.php");
                 break;
-			  case "listar_grafico":
+              case "listar_grafico":
                 include("grafico/listar-grafico.php");
                 break;
               case "ver_relatorio":
@@ -385,7 +385,7 @@
               case "contato":
                 include("contato.php");
                 break;
-			  case "sobre":
+              case "sobre":
                 include("sobre.php");
                 break;
 

@@ -92,20 +92,22 @@ div.col {
              
 				<h4>História</h4>
 				
-                <p>Em construção.</p>
+                <p>Este site foi desenvolvido por uma equipe de estagiários do departamento de tecnologia para o departamento de obras da Secretaria de Educação de São Vicente.</p>
+                
+                <p>Por meio deste projeto puderam demonstrar suas habilidades em colaborar e criar soluções personalizadas para atender às necessidades da organização. Utilizando sua experiência técnica e criatividade para entregar um site intuitivo e fácil de usar para os usuários. A dedicação e comprometimento com o projeto foram fundamentais para o sucesso da iniciativa na organização.</p>
 				
 				<h4>Desenvolvedores</h4>
 				<p>Desenvolvido pelos estagiários da SEDUC do departamento de tecnologia:</p>
 				<ul>
 					<li>Gabriel</li>
-					<li>Enzo</li>
-					<li>Laís</li>
-					<li>Renê</li>
-					<li>Thaís</li>
+					<li>Enzo Felix dos Santos</li>
+					<li>Laís Tebas Santana</li>
+					<li>Renê Silva Amorim de Pádua</li>
+					<li>Thaís Barbosa da Silva</li>
 
 				</ul>
               </div>
-				<img src="https://www.symbols.com/images/symbol/1/988_construction.png" width="50px" height="auto">
+
             </div>
         </div>
   </section>

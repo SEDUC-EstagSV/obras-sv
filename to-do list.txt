@@ -1,4 +1,10 @@
 ------------------------------------------------------------------------------------------------------------------------
+Back
+1-Organizar os dados a serem apresentados nos gráficos
+
+
+
+------------------------------------------------------------------------------------------------------------------------
 13/03
 
 Versão 2.0:
@@ -6,7 +12,6 @@ Versão 2.0:
 1- personalizar usuário (Ex: Editar meu perfil) 
 
 ------------------------------------------------------------------------------------------------------------------------
-
 Front
 
 Criar tela de patente (crédito aos criadores do projeto)
@@ -16,4 +21,4 @@ para que não seja enviado mais de um
 
 2- Alinhar informações das colunas do app usando ( class='align-middle text-center') ✔️
 
-4- Graficos? : front
+4- Gráficos: ✔️

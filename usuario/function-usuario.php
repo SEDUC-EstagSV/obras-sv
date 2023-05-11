@@ -100,7 +100,7 @@ function loginAutoridade($autoridade)
             session_destroy();
             print "<script>location.href='index.php';</script>";
             break;
-            //Usuário subordianado
+            //Usuário subordinado
         case 2:
             print "<script>alert('Logado{$_SESSION["user"][0]}');</script>";
             print "<script>location.href='painel.php';</script>";
@@ -108,21 +108,21 @@ function loginAutoridade($autoridade)
 
             //Secretária
         case 3:
-            print "<script>alert('Logado como Secretária');</script>";
+            print "<script>alert('Logado como Secretário(a)');</script>";
             print "<script>location.href='painel.php';</script>";
             break;
 
             //Supervisão 
         case 4:
 
-            print "<script>alert('Logado como Supervisor');</script>";
+            print "<script>alert('Logado como Supervisor(a)');</script>";
             print "<script>location.href='painel.php';</script>";
             break;
 
             //Devs
         case 10:
 
-            print "<script>alert('Logado como Administrador');</script>";
+            print "<script>alert('Logado como Administrador(a)');</script>";
             print "<script>location.href='painel.php';</script>";
             break;
     }
