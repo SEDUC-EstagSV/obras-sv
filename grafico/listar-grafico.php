@@ -323,8 +323,26 @@ redirecionamentoPorAutoridade(3);
 
     <!--       xxxxxxxxx    Gráfico 06    xxxxxxxxx      -->
     <div id="chartSelect" class="mt-3 justify-content-center">
+      <?php
+      try {
+        $sqlObrasAtivasInativas = $conn->query("SELECT 
+        COUNT(*) AS qtd_total_contrato,
+        IFNULL(SUM(CASE WHEN nm_situacaoObra = 'Ativa' THEN 1 ELSE 0 END),0) AS qtd_ativo,
+        IFNULL(SUM(CASE WHEN nm_situacaoObra = 'Inativa' THEN 1 ELSE 0 END),0) AS qtd_inativo
+       FROM obraview ;
+       ");
+
+        $rowObrasAtivasInativas = $sqlObrasAtivasInativas->fetch_object();
+
+        $valorObrasAtivas = $rowObrasAtivasInativas->qtd_ativo;
+        $valorObrasInativas = $rowObrasAtivasInativas->qtd_inativo;
+      } catch (mysqli_sql_exception $e) {
+        criaLogErro($e);
+      }
+      ?>
 
       <!-- <label for="ano">Escolha o ano:</label> -->
+      <!--
       <div class="d-flex justify-content-center">
         <select name="ano" id="ano" class="form-select mt-2" aria-label="Default select example">
           <option selected style="display: none" disabled>Escolha o ano:</option>
@@ -337,7 +355,7 @@ redirecionamentoPorAutoridade(3);
         <button type="submit" class="btn btn-success align-middle m-2 mt-3">Ok</button>
 
       </div>
-
+  -->
       <div id="myChart6" class="newChart" style="border-style: none"></div>
 
     </div>
@@ -373,11 +391,10 @@ redirecionamentoPorAutoridade(3);
             }
 			
 			
-	*/
-
-      $sql = "SELECT num_Relatorio FROM relatorio 
-                            WHERE cd_Relatorio = '140'";
-
+            
+            $sql = "SELECT num_Relatorio FROM relatorio 
+            WHERE cd_Relatorio = '140'";
+            
       $res = $conn->query($sql);
 
 
@@ -386,7 +403,7 @@ redirecionamentoPorAutoridade(3);
       $res2 = $conn->query($sql2);
       $qtd2 = $res2->num_rows;
 
-
+      
 
       while ($row = $res->fetch_object()) {
         $valor = $row->num_Relatorio;
@@ -394,7 +411,8 @@ redirecionamentoPorAutoridade(3);
       while ($row2 = $res2->fetch_object()) {
         $valor2 = $row2->num_Relatorio;
       }
-
+      
+      */
 
       ?>
 
@@ -562,10 +580,10 @@ redirecionamentoPorAutoridade(3);
     var data = google.visualization.arrayToDataTable([
       ['Obras ativas e finalizadas', 'Quantidade'],
       <?php
-      print "['Ativa', $valor ],";
+      print "['Ativa', $valorObrasAtivas ],";
 
 
-      print "['Finalizada', $valor2 ],";
+      print "['Finalizada', $valorObrasInativas ],";
       ?>
     ]);
 
