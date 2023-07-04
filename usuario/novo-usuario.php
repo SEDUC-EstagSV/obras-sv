@@ -29,9 +29,9 @@
         border-radius: 5px;
     }
 
-	label {
-		font-weight: bold;
-	}
+    label {
+        font-weight: bold;
+    }
 
 
     #servicos {
@@ -118,6 +118,12 @@ redirecionamentoPorAutoridade(4);
     </div>
 
     <form action="?page=salvarusuario" method="POST">
+        <?php
+        $blank = $_GET['blank'];
+        if ($blank == 1) {
+            print "<input type='text' name='blank' value='1' hidden>";
+        }
+        ?>
         <input type="hidden" name="acaousuario" value="cadastrarUsuario">
         <div class="mb-3">
             <label>Nome de Usuário</label>

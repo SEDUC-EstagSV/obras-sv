@@ -13,6 +13,22 @@
         width: 70px;
     }
 
+    .btn-add {
+        background-color: #66d3fa;
+        color: white;
+        border: none;
+        margin-left: 1%;
+        border-radius: 3px;
+        padding: 5px;
+
+    }
+
+    .btn-add:hover {
+        color: white;
+        background-color: #2565ae;
+        text-decoration: none;
+    }
+
     .caixa {
         font-size: 16px;
         margin-left: 50px;
@@ -23,13 +39,13 @@
         margin-bottom: 100px;
     }
 
-	label {
-		font-weight: bold;
-	}
+    label {
+        font-weight: bold;
+    }
 
-	#add {
-		font-weight: bold;
-	}
+    #add {
+        font-weight: bold;
+    }
 
     .form-control {
         width: 100%;
@@ -103,10 +119,11 @@ redirecionamentoPorAutoridade(4);
         <h3>Nova obra</h3>
     </div>
 
-    <form action="?page=salvarobra" method="POST">
+    <form action="?page=salvarobra" id="form-obra" method="POST">
         <input type="hidden" name="acaoobra" value="cadastrarObra">
         <div class="mb-3">
             <label>Número do contrato</label>
+            <a class="btn-add" href="painel.php?page=novocontrato&blank=1" target="_blank">Criar novo contrato</a>
             <input type="text" name="num_contrato" id="num_contrato" class="form-control" placeholder="Digite o nº do contrato e ano - ex.: 3/2023" onkeyup="loadContratos(this.value)" onfocus="fecharContratos()" autocomplete="off">
             <span id="resultado_pesquisaContrato"></span>
         </div>
@@ -157,8 +174,10 @@ redirecionamentoPorAutoridade(4);
 
 
         <div class="mb-3">
-            <div id="add">Adicionar usuários encarregados dos relatórios da obra</div>
-
+            <div style="display: flex; align-items: center;">
+                <div id="add">Adicionar usuários encarregados dos relatórios da obra</div>
+                <a class="btn-add" href="painel.php?page=novousuario&blank=1" target="_blank">Adicionar novo usuário</a>
+            </div>
 
             <select class="selectpicker" id="select" name="usuarios[]" multiple data-live-search="true" title="Selecione usuários responsáveis" data-selected-text-format="count" data-width="auto" data-count-selected-text="Usuários selecionados: {0}">
                 <datalist>
@@ -193,6 +212,7 @@ redirecionamentoPorAutoridade(4);
     </form>
 
     <script type="text/javascript" src="./js/utils.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

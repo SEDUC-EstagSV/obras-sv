@@ -13,6 +13,22 @@
         width: 70px;
     }
 
+    .btn-add {
+        background-color: #66d3fa;
+        color: white;
+        border: none;
+        margin-left: 1%;
+        border-radius: 3px;
+        padding: 5px;
+    }
+
+    .btn-add:hover {
+        color: white;
+        background-color: #2565ae;
+        text-decoration: none;
+    }
+
+
     .caixa {
         font-size: 16px;
         margin-left: 50px;
@@ -23,9 +39,9 @@
         margin-bottom: 100px;
     }
 
-	label {
-		font-weight: bold;
-	}
+    label {
+        font-weight: bold;
+    }
 
     .form-control {
         width: 100%;
@@ -114,7 +130,7 @@ redirecionamentoPorAutoridade(4);
         <h3>Novo Contrato</h3>
     </div>
 
-    <form action="?page=salvarcontrato" method="POST">
+    <form id="form-contrato" action="?page=salvarcontrato" method="POST">
         <input type="hidden" name="acaocontrato" value="CadastrarContrato">
         <div class="mb-3">
             <label>Número do Contrato</label>
@@ -122,8 +138,14 @@ redirecionamentoPorAutoridade(4);
         </div>
         <div class="mb-3">
             <label>Fornecedor</label>
+            <a class="btn-add" href="painel.php?page=novofornecedor&blank=1" target="_blank">Adicionar novo fornecedor</a>
 
             <?php
+            $blank = $_GET['blank'];
+            if ($blank == 1) {
+                print "<input type='text' name='blank' value='1' hidden>";
+            }
+
             try {
                 $sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor <> -1";
 
@@ -194,8 +216,12 @@ redirecionamentoPorAutoridade(4);
         </div>
 
 
-        <div style="display: flex; flex-direction: column;">
+        <div>
             <label>Selecione as escolas incluídas no contrato</label>
+            <a class="btn-add" href="painel.php?page=novaescola&blank=1" target="_blank">Adicionar nova escola</a>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+
             <select class="selectpicker mb-3" id="select" name="escolas[]" multiple data-live-search="true" title="Selecione escolas vinculadas a este contrato" data-selected-text-format="count" data-width="auto" data-count-selected-text="Escolas selecionadas: {0}">
                 <datalist>
                     <?php

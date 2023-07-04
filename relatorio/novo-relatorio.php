@@ -14,16 +14,16 @@
     }
 
 
-	label {
-		font-weight: bold;
-	
-	}
+    label {
+        font-weight: bold;
 
-	#check label {
-		font-weight: lighter;
-		
-		
-	}
+    }
+
+    #check label {
+        font-weight: lighter;
+
+
+    }
 
 
     .caixa {

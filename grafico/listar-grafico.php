@@ -163,7 +163,7 @@ redirecionamentoPorAutoridade(3);
     <?php
     $data = isset($_POST['ano']) ? $_POST['ano'] : date('Y');
     try {
-      $sql = "SELECT DISTINCT dt_AnoContrato FROM contrato ORDER BY dt_AnoContrato ASC";
+      $sql = "SELECT DISTINCT dt_AnoContrato FROM relatorioview ORDER BY dt_AnoContrato ASC ";
       $res = $conn->query($sql);
 
       $sqlQtdAtivInativ = $conn->prepare("SELECT 

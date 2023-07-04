@@ -13,6 +13,7 @@ switch ($_REQUEST["acaofornecedor"]) {
         $num_CNPJ = validateInput($_POST["num_CNPJ"]);
         $ds_Email = validateInput($_POST["ds_Email"]);
         $ds_Endereco = validateInput($_POST["ds_Endereco"]);
+        $blank = validateInput($_POST['blank']);
 
         try {
             $sql = $conn->prepare("INSERT INTO fornecedor (nm_Fornecedor, num_CNPJ, ds_Email, ds_Endereco) 
@@ -23,7 +24,12 @@ switch ($_REQUEST["acaofornecedor"]) {
 
             if ($res == true) {
                 print "<script>alert('Fornecedor cadastrado com sucesso');</script>";
-                print "<script>location.href='?page=listar_fornecedores';</script>";
+
+                if ($blank == 1) {
+                    print "<script>window.close();</script>";
+                } else {
+                    print "<script>location.href='?page=listar_fornecedores';</script>";
+                }
             } else {
                 print "<script>alert('Não foi possível cadastrar');</script>";
                 print "<script>location.href='?page=listar_fornecedores';</script>";
