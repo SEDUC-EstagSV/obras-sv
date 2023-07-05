@@ -128,10 +128,6 @@ redirecionamentoPorAutoridade(4);
         <div class="mb-3">
             <label>Situação da Escola</label>
             <?php
-            $blank = $_GET['blank'];
-            if ($blank == 1) {
-                print "<input type='text' name='blank' value='1' hidden>";
-            }
             try {
                 $sql = "SELECT * FROM status_escola";
 

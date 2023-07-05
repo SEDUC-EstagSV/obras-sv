@@ -9,11 +9,11 @@ redirecionamentoPorAutoridade(4);
 
 switch ($_REQUEST["acaofornecedor"]) {
     case 'CadastrarFornecedor':
+        $modal = validateInput($_POST['modal'] ? $_POST['modal'] : 0);
         $nm_Fornecedor = validateInput($_POST["nm_Fornecedor"]);
         $num_CNPJ = validateInput($_POST["num_CNPJ"]);
         $ds_Email = validateInput($_POST["ds_Email"]);
         $ds_Endereco = validateInput($_POST["ds_Endereco"]);
-        $blank = validateInput($_POST['blank']);
 
         try {
             $sql = $conn->prepare("INSERT INTO fornecedor (nm_Fornecedor, num_CNPJ, ds_Email, ds_Endereco) 
@@ -25,14 +25,20 @@ switch ($_REQUEST["acaofornecedor"]) {
             if ($res == true) {
                 print "<script>alert('Fornecedor cadastrado com sucesso');</script>";
 
-                if ($blank == 1) {
-                    print "<script>window.close();</script>";
-                } else {
+
+                print "<script>window.close();</script>";
+                if ($modal == 0) {
                     print "<script>location.href='?page=listar_fornecedores';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
                 }
             } else {
                 print "<script>alert('Não foi possível cadastrar');</script>";
-                print "<script>location.href='?page=listar_fornecedores';</script>";
+                if ($modal == 0) {
+                    print "<script>location.href='?page=listar_fornecedores';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
+                }
             }
         } catch (mysqli_sql_exception $e) {
             print "<script>alert('Ocorreu um erro interno ao registrar fornecedor');

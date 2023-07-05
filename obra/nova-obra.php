@@ -39,6 +39,10 @@
         margin-bottom: 100px;
     }
 
+    #divFormContrato .caixa {
+        padding-top: 15px;
+    }
+
     label {
         font-weight: bold;
     }
@@ -123,7 +127,8 @@ redirecionamentoPorAutoridade(4);
         <input type="hidden" name="acaoobra" value="cadastrarObra">
         <div class="mb-3">
             <label>Número do contrato</label>
-            <a class="btn-add" href="painel.php?page=novocontrato&blank=1" target="_blank">Criar novo contrato</a>
+            <button type="button" class="btn-add" data-bs-toggle="modal" data-bs-target="#modal-form-contrato">Adicionar novo contrato</button>
+
             <input type="text" name="num_contrato" id="num_contrato" class="form-control" placeholder="Digite o nº do contrato e ano - ex.: 3/2023" onkeyup="loadContratos(this.value)" onfocus="fecharContratos()" autocomplete="off">
             <span id="resultado_pesquisaContrato"></span>
         </div>
@@ -176,10 +181,11 @@ redirecionamentoPorAutoridade(4);
         <div class="mb-3">
             <div style="display: flex; align-items: center;">
                 <div id="add">Adicionar usuários encarregados dos relatórios da obra</div>
-                <a class="btn-add" href="painel.php?page=novousuario&blank=1" target="_blank">Adicionar novo usuário</a>
+                <button type="button" class="btn-add" data-bs-toggle="modal" data-bs-target="#modal-form-usuario">Adicionar novo usuário</button>
+
             </div>
 
-            <select class="selectpicker" id="select" name="usuarios[]" multiple data-live-search="true" title="Selecione usuários responsáveis" data-selected-text-format="count" data-width="auto" data-count-selected-text="Usuários selecionados: {0}">
+            <select class="selectpicker" id="select-usuario" name="usuarios[]" multiple data-live-search="true" title="Selecione usuários responsáveis" data-selected-text-format="count" data-width="100%" data-count-selected-text="Usuários selecionados: {0}">
                 <datalist>
                     <?php
                     try {
@@ -211,10 +217,10 @@ redirecionamentoPorAutoridade(4);
 
     </form>
 
-    <script type="text/javascript" src="./js/utils.js"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <?php
+    include_once('./components/modal-contrato.php');
+    include_once('./components/modal-usuario.php');
+    include_once('./components/modal-fornecedor.php');
+    include_once('./components/modal-escola.php');
+    include_once('./components/footer-select.php');
+    ?>

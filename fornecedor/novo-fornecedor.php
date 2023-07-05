@@ -114,12 +114,6 @@ redirecionamentoPorAutoridade(4);
         <h3>Novo Fornecedor</h3>
 
         <form action="?page=salvarfornecedor" method="POST">
-            <?php
-            $blank = $_GET['blank'];
-            if ($blank == 1) {
-                print "<input type='text' name='blank' value='1' hidden>";
-            }
-            ?>
             <input type="hidden" name="acaofornecedor" value="CadastrarFornecedor">
             <div class="mb-3">
                 <label>Nome fornecedor</label>

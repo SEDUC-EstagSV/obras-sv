@@ -12,7 +12,7 @@ require_once 'function-contrato.php';
 
 switch ($_REQUEST["acaocontrato"]) {
     case 'CadastrarContrato':
-        $blank = validateInput($_POST['blank']);
+        $modal = validateInput($_POST['modal'] ? $_POST['modal'] : 0);
         $st_Contrato = validateInput($_POST["st_Contrato"]);
         $cd_Fornecedor = validateInput($_POST["cd_Fornecedor"]);
         $dt_AnoContrato = validateInput($_POST["dt_AnoContrato"]);
@@ -58,14 +58,18 @@ switch ($_REQUEST["acaocontrato"]) {
                 }
 
                 print "<script>alert('Contrato cadastrado com sucesso');</script>";
-                if ($blank == 1) {
-                    print "<script>window.close();</script>";
-                } else {
+                if ($modal == 0) {
                     print "<script>location.href='?page=listar_contratos';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
                 }
             } else {
                 print "<script>alert('Não foi possível cadastrar contrato');</script>";
-                print "<script>location.href='?page=listar_contratos';</script>";
+                if ($modal == 0) {
+                    print "<script>location.href='?page=listar_contratos';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
+                }
                 criaLogErro($e);
             }
         } catch (mysqli_sql_exception $e) {

@@ -5,7 +5,7 @@ require('validator.php');
 switch ($_REQUEST["acaousuario"]) {
 
     case 'cadastrarUsuario':
-        $blank = validateInput($_POST['blank']);
+        $modal = validateInput($_POST['modal'] ? $_POST['modal'] : 0);
         $user_Login = validateInput($_POST["user_Login"]);
         $user_Senha = validateInput($_POST["user_Senha"]);
         $user_Senha2 = validateInput($_POST["user_Senha2"]);
@@ -34,7 +34,7 @@ switch ($_REQUEST["acaousuario"]) {
             if ($qtd > 0) {
                 while ($row = $res->fetch_object()) {
                     if (trim($user_Login) == $row->user_Login) {
-                        print "<p class='alert alert-danger'>Usuário já existe!</p>";
+                        print "<script>alert('Usuário já existe!')</script>";
                         $erro = true;
                     } else if (intval($user_CPF) == $row->user_CPF) {
                         print "<p class='alert alert-danger'>CPF já está em uso!</p>";
@@ -44,6 +44,7 @@ switch ($_REQUEST["acaousuario"]) {
                         $erro = true;
                     }
                     if ($erro == true) {
+                        print "<script>window.history.go(-1);</script>";
                         exit;
                     }
                 }
@@ -65,14 +66,19 @@ switch ($_REQUEST["acaousuario"]) {
 
             if ($res == true) {
                 print "<script>alert('Usuário cadastrado com sucesso');</script>";
-                if ($blank == 1) {
-                    print "<script>window.close();</script>";
-                } else {
+
+                if ($modal == 0) {
                     print "<script>location.href='painel.php';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
                 }
             } else {
                 print "<script>alert('Não foi possível cadastrar');</script>";
-                print "<script>location.href='painel.php';</script>";
+                if ($modal == 0) {
+                    print "<script>location.href='painel.php';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
+                }
             }
         } catch (mysqli_sql_exception $e) {
             print "<script>alert('Ocorreu um erro interno ao criar usuário');

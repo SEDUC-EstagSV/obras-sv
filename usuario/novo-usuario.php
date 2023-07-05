@@ -13,6 +13,21 @@
         width: 70px;
     }
 
+    .btn-add {
+        background-color: #66d3fa;
+        color: white;
+        border: none;
+        margin-left: 1%;
+        border-radius: 3px;
+        padding: 5px;
+    }
+
+    .btn-add:hover {
+        color: white;
+        background-color: #2565ae;
+        text-decoration: none;
+    }
+
     .caixa {
         font-size: 16px;
         margin-left: 50px;
@@ -118,12 +133,6 @@ redirecionamentoPorAutoridade(4);
     </div>
 
     <form action="?page=salvarusuario" method="POST">
-        <?php
-        $blank = $_GET['blank'];
-        if ($blank == 1) {
-            print "<input type='text' name='blank' value='1' hidden>";
-        }
-        ?>
         <input type="hidden" name="acaousuario" value="cadastrarUsuario">
         <div class="mb-3">
             <label>Nome de Usuário</label>
@@ -159,6 +168,7 @@ redirecionamentoPorAutoridade(4);
         </div>
         <div class="mb-3">
             <label>Fornecedor</label>
+            <button type="button" class="btn-add" data-bs-toggle="modal" data-bs-target="#modal-form-forn">Adicionar novo fornecedor</button>
 
             <?php
             try {
@@ -190,3 +200,11 @@ redirecionamentoPorAutoridade(4);
         </div>
     </form>
 </section>
+
+<?php
+$page = $_GET['page'] ? $_GET['page'] : '';
+
+if ($page == 'novousuario') {
+    require_once('./components/modal-fornecedor.php');
+}
+?>

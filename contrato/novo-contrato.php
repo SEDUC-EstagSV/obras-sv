@@ -138,13 +138,9 @@ redirecionamentoPorAutoridade(4);
         </div>
         <div class="mb-3">
             <label>Fornecedor</label>
-            <a class="btn-add" href="painel.php?page=novofornecedor&blank=1" target="_blank">Adicionar novo fornecedor</a>
+            <button type="button" class="btn-add" data-bs-toggle="modal" data-bs-target="#modal-form-forn">Adicionar novo fornecedor</button>
 
             <?php
-            $blank = $_GET['blank'];
-            if ($blank == 1) {
-                print "<input type='text' name='blank' value='1' hidden>";
-            }
 
             try {
                 $sql = "SELECT * FROM fornecedor WHERE cd_Fornecedor <> -1";
@@ -218,11 +214,12 @@ redirecionamentoPorAutoridade(4);
 
         <div>
             <label>Selecione as escolas incluídas no contrato</label>
-            <a class="btn-add" href="painel.php?page=novaescola&blank=1" target="_blank">Adicionar nova escola</a>
+            <button type="button" class="btn-add" data-bs-toggle="modal" data-bs-target="#modal-form-esc">Adicionar nova escola</button>
+
         </div>
         <div style="display: flex; flex-direction: column;">
 
-            <select class="selectpicker mb-3" id="select" name="escolas[]" multiple data-live-search="true" title="Selecione escolas vinculadas a este contrato" data-selected-text-format="count" data-width="auto" data-count-selected-text="Escolas selecionadas: {0}">
+            <select class="selectpicker mb-3" id="select" name="escolas[]" multiple data-live-search="true" title="Selecione escolas vinculadas a este contrato" data-selected-text-format="count" data-width="100%" data-count-selected-text="Escolas selecionadas: {0}">
                 <datalist>
                     <?php
                     try {
@@ -251,9 +248,13 @@ redirecionamentoPorAutoridade(4);
     </form>
 </section>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<script type="text/javascript"></script>
+
+<?php
+$page = $_GET['page'] ? $_GET['page'] : '';
+
+if ($page == 'novocontrato') {
+    require_once('./components/modal-fornecedor.php');
+    require_once('./components/modal-escola.php');
+}
+include_once('./components/footer-select.php');
+?>

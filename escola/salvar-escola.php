@@ -7,7 +7,7 @@ redirecionamentoPorAutoridade(4);
 switch ($_REQUEST["acaoescola"]) {
 
     case 'cadastrarEscola':
-        $blank = validateInput($_POST['blank']);
+        $modal = validateInput($_POST['modal'] ? $_POST['modal'] : 0);
         $nm_Escola = validateInput($_POST["nm_Escola"]);
         $ds_Local = validateInput($_POST["ds_Local"]);
         $st_Escola = validateInput($_POST["st_Escola"]);
@@ -21,14 +21,19 @@ switch ($_REQUEST["acaoescola"]) {
 
             if ($res == true) {
                 print "<script>alert('Cadastro com sucesso');</script>";
-                if ($blank == 1) {
-                    print "<script>window.close();</script>";
-                } else {
+
+                if ($modal == 0) {
                     print "<script>location.href='?page=listar_Escolas';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
                 }
             } else {
                 print "<script>alert('Não foi possível cadastrar');</script>";
-                print "<script>location.href='?page=listar_Escolas';</script>";
+                if ($modal == 0) {
+                    print "<script>location.href='?page=listar_Escolas';</script>";
+                } else {
+                    print "<script>window.history.go(-1);</script>";
+                }
             }
         } catch (mysqli_sql_exception $e) {
             print "<script>alert('Ocorreu um erro interno ao registrar escola');
