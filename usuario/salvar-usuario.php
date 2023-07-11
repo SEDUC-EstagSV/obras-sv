@@ -176,8 +176,9 @@ switch ($_REQUEST["acaousuario"]) {
         }
 
         try {
-            $sql = $conn->prepare("DELETE FROM usuario WHERE cd_Usuario=?");
-            $sql->bind_param('i', $cd_Usuario);
+            $desativado = 2;
+            $sql = $conn->prepare("UPDATE usuario SET cd_status_dados = ? WHERE cd_Usuario=?");
+            $sql->bind_param('ii', $desativado, $cd_Usuario);
 
             $res = $sql->execute();
 

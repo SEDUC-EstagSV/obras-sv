@@ -86,8 +86,9 @@ switch ($_REQUEST["acaofornecedor"]) {
         $cd_Fornecedor = $_REQUEST["cd_Fornecedor"];
 
         try {
-            $sql = $conn->prepare("DELETE FROM fornecedor WHERE cd_Fornecedor = ?");
-            $sql->bind_param('i', $cd_Fornecedor);
+            $desativado = 2;
+            $sql = $conn->prepare("UPDATE fornecedor SET cd_status_dados = ? WHERE cd_Fornecedor = ?");
+            $sql->bind_param('ii', $desativado, $cd_Fornecedor);
 
             $res = $sql->execute();
 

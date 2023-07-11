@@ -78,9 +78,10 @@ switch ($_REQUEST["acaoescola"]) {
 
     case 'excluirEscola':
         try {
+            $desativado = 2;
             $cd_Escola = $_REQUEST["cd_Escola"];
-            $sql = $conn->prepare("DELETE FROM escola WHERE cd_Escola = ?");
-            $sql->bind_param('i', $cd_Escola);
+            $sql = $conn->prepare("UPDATE escola SET cd_status_dados = ? WHERE cd_Escola = ?");
+            $sql->bind_param('ii', $desativado, $cd_Escola);
 
             $res = $sql->execute();
 

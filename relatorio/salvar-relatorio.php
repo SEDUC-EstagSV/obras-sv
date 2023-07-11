@@ -201,30 +201,18 @@ switch ($_REQUEST["acaorelatorio"]) {
         $cd_Relatorio = $_REQUEST["cd_Relatorio"];
 
         try {
-            $sql = $conn->prepare("DELETE FROM relatorio_has_tipo_periodo WHERE cd_Relatorio = ?");
-            $sql->bind_param('i', $cd_Relatorio);
-            $res = $sql->execute();
-
-            if ($res == true) {
-                try {
-                    $sql = $conn->prepare("DELETE FROM relatorio WHERE cd_Relatorio = ?");
-                    $sql->bind_param('i', $cd_Relatorio);
-                    $resDeleteRelatorio = $sql->execute();
-                } catch (mysqli_sql_exception $e) {
-                    print "<script>alert('Ocorreu um erro ao excluir');</script>";
-                    print "<script>location.href='?page=listar_relatorio';</script>";
-                }
-                print "<script>alert('Excluido com sucesso');</script>";
-                print "<script>location.href='?page=listar_relatorio';</script>";
-            } else {
-                print "<script>alert('Não foi possível excluir');</script>";
-                print "<script>location.href='?page=listar_relatorio';</script>";
-            }
+            $desativado = 2;
+            $sql = $conn->prepare("UPDATE relatorio SET cd_status_dados = ? WHERE cd_Relatorio = ?");
+            $sql->bind_param('ii', $desativado, $cd_Relatorio);
+            $resDeleteRelatorio = $sql->execute();
         } catch (mysqli_sql_exception $e) {
-            print "<script>alert('Ocorreu um erro interno ao excluir relatório');
-                            location.reload();</script>";
-            criaLogErro($e);
+            print "<script>alert('Ocorreu um erro ao excluir');</script>";
+            print "<script>location.href='?page=listar_relatorio';</script>";
         }
+        print "<script>alert('Excluido com sucesso');</script>";
+        print "<script>location.href='?page=listar_relatorio';</script>";
+
+
         break;
 
     case 'editarrelatorio':

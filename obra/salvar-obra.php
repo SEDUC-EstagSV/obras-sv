@@ -149,8 +149,9 @@ switch ($_REQUEST["acaoobra"]) {
         $cd_Obra = $_REQUEST["cd_Obra"];
 
         try {
-            $sql = $conn->prepare("DELETE FROM obra WHERE cd_Obra= ?");
-            $sql->bind_param('i', $cd_Obra);
+            $desativado = 2;
+            $sql = $conn->prepare("UPDATE obra SET cd_status_dados = ? WHERE cd_Obra= ?");
+            $sql->bind_param('ii', $desativadp, $cd_Obra);
 
             $res = $sql->execute();
 

@@ -1,8 +1,8 @@
 <style>
-	#keepAll {
-		word-break: keep-all;
-	}
-	
+    #keepAll {
+        word-break: keep-all;
+    }
+
     #grid-table>div.row {
         color: black;
         justify-content: center;
@@ -66,7 +66,7 @@
         div.col {
             margin: auto;
             width: 100%;
-            
+
             padding: 10 0 10 0;
             padding: 2px;
         }
@@ -97,11 +97,7 @@ redirecionamentoPorAutoridade(3);
         require_once('function-seduc.php');
 
         try {
-            $sql = "SELECT u.*, f.nm_Fornecedor, na.cd_nivelAutoridade, na.nm_nivelAutoridade FROM usuario u 
-                LEFT JOIN fornecedor f 
-                ON u.cd_Fornecedor = f.cd_Fornecedor
-                INNER JOIN nivel_autoridade na
-                ON u.cd_nivelAutoridade = na.cd_nivelAutoridade";
+            $sql = "SELECT * FROM usuarioview";
 
             $res = $conn->query($sql);
 
@@ -118,9 +114,9 @@ redirecionamentoPorAutoridade(3);
             print "<tr>";
             //print "<th class='align-middle text-center'>#Usuário</th>";
             print "<th id='keepAll' class='align-middle text-center'>Usuário</th>";
-			print "<th id='keepAll' class='align-middle text-center'>Nome</th>";
+            print "<th id='keepAll' class='align-middle text-center'>Nome</th>";
             print "<th id='keepAll' class='align-middle text-center'>Fornecedor</th>";
-			print "<th id='keepAll' class='align-middle text-center'>E-mail</th>";
+            print "<th id='keepAll' class='align-middle text-center'>E-mail</th>";
             print "<th id='keepAll' class='align-middle text-center'>Telefone</th>";
             print "<th id='keepAll' class='align-middle text-center'>Nível de permissão</th>";
             if (liberaFuncaoParaAutoridade(4)) {
@@ -133,7 +129,7 @@ redirecionamentoPorAutoridade(3);
                 // print "<td id='keepAll' class='align-middle text-center'>" . $row->cd_Usuario . "</td>";
                 print "<td id='keepAll' class='align-middle'>" . $row->user_Login . "</td>";
                 print "<td id='keepAll' class='align-middle'>" . $row->user_Nome . "</td>";
-				print "<td id='keepAll' class='align-middle'>" . $row->nm_Fornecedor . "</td>";
+                print "<td id='keepAll' class='align-middle'>" . $row->nm_Fornecedor . "</td>";
                 print "<td id='keepAll' class='align-middle'>" . $row->user_Email . "</td>";
                 print "<td id='keepAll' class='align-middle'>" . $row->user_Telefone . "</td>";
                 print "<td id='keepAll' class='align-middle text-center'>" . $row->nm_nivelAutoridade . "</td>";

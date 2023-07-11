@@ -155,30 +155,15 @@ switch ($_REQUEST["acaocontrato"]) {
         $cd_Contrato = $_REQUEST["cd_Contrato"];
 
         try {
-            $sql = $conn->prepare("DELETE FROM contrato WHERE cd_Contrato = ?");
-            $sql->bind_param('i', $cd_Contrato);
+            $desativado = 2;
+            $sql = $conn->prepare("UPDATE contrato SET cd_status_dados = ? WHERE cd_Contrato = ?");
+            $sql->bind_param('ii', $desativado, $cd_Contrato);
 
             $res = $sql->execute();
 
             if ($res == true) {
-                try {
-                    $sql = $conn->prepare("DELETE FROM escola_has_contrato WHERE cd_Contrato = ?");
-                    $sql->bind_param('i', $cd_Contrato);
-
-                    $res = $sql->execute();
-
-                    if ($res == true) {
-                        print "<script>alert('Excluido com sucesso');</script>";
-                        print "<script>location.href='?page=listar_contratos';</script>";
-                    } else {
-                        print "<script>alert('Não foi possível excluir');</script>";
-                        print "<script>location.href='?page=listar_contratos';</script>";
-                    }
-                } catch (mysqli_sql_exception $e) {
-                    print "<script>alert('Ocorreu um erro interno ao excluir contrato');
-                    window.history.go(-1);</script>";
-                    criaLogErro($e);
-                }
+                print "<script>alert('Excluido com sucesso');</script>";
+                print "<script>location.href='?page=listar_contratos';</script>";
             } else {
                 print "<script>alert('Não foi possível excluir');</script>";
                 print "<script>location.href='?page=listar_contratos';</script>";
