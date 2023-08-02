@@ -201,6 +201,20 @@ redirecionamentoPorAutoridade(4);
     </form>
 </section>
 
+<script>
+    const viewSenha = document.querySelector("#viewSenha");
+    const senha = document.querySelector("#senha");
+
+    viewSenha.addEventListener("click", function() {
+        // Alterar o atributo "type"
+        const type = senha.getAttribute("type") === "password" ? "text" : "password";
+        senha.setAttribute("type", type);
+
+        // Alterar ícone
+        this.classList.toggle("bi-eye");
+    });
+</script>
+
 <?php
 $page = $_GET['page'] ? $_GET['page'] : '';
 

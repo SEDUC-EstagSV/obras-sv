@@ -151,7 +151,7 @@ switch ($_REQUEST["acaoobra"]) {
         try {
             $desativado = 2;
             $sql = $conn->prepare("UPDATE obra SET cd_status_dados = ? WHERE cd_Obra= ?");
-            $sql->bind_param('ii', $desativadp, $cd_Obra);
+            $sql->bind_param('ii', $desativado, $cd_Obra);
 
             $res = $sql->execute();
 

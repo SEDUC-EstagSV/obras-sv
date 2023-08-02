@@ -56,6 +56,10 @@ switch ($_REQUEST["acaofornecedor"]) {
         $ds_Email = validateInput($_POST["ds_Email"]);
         $ds_Endereco = validateInput($_POST["ds_Endereco"]);
 
+        if (!validar_cnpj($_POST["num_CNPJ"])) {
+            exit();
+        }
+
         try {
             $sql = $conn->prepare("UPDATE fornecedor SET nm_Fornecedor = ?,
                                                         num_CNPJ = ?,
