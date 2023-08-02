@@ -1,3 +1,4 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div class="container">
     <section class="caixa bg-light">
 
@@ -27,6 +28,7 @@
                                 </div>
                                 <a href="?page=pedidorecuperacao">Esqueci minha senha</a>
                             </div>
+                            <div class="g-recaptcha" data-sitekey="6LdSzS0mAAAAABtE3DZ_UgNueyMSKuabh0O4jhnQ"></div>
                             <div id="botaoLogin" class="mb-3">
                                 <button type="submit" class="btn btn-primary">Entrar</button>
                             </div>

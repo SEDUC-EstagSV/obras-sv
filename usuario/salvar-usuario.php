@@ -2,6 +2,11 @@
 require_once('function-usuario.php');
 require('validator.php');
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '\..');
+$dotenv->load();
+
 switch ($_REQUEST["acaousuario"]) {
 
     case 'cadastrarUsuario':
@@ -197,37 +202,68 @@ switch ($_REQUEST["acaousuario"]) {
         break;
 
     case 'loginusuario':
+        // Verificar o captcha
+        $captchaResponse = $_POST['g-recaptcha-response'] ? $_POST['g-recaptcha-response'] : '';
+        $secretKey = $_ENV['SECRET_RECAPTCHA']; // Substitua pela sua chave secreta do reCAPTCHA
 
-        $user_Login = validateInput($_POST["user_Login"]);
-        $user_Senha = validateInput($_POST["user_Senha"]);
-        loginval($user_Login, $user_Senha);
+        if ($captchaResponse === '') {
+            print "<script>alert('Confirme o captcha');</script>";
+            print "<script>location.href='index.php';</script>";
+            exit();
+        }
 
-        try {
-            $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, cd_nivelAutoridade FROM usuario";
-            $res = $conn->query($sql);
-            $qtd = $res->num_rows;
-            $erro = true;
-            if ($qtd > 0) {
-                while ($row = $res->fetch_object()) {
-                    if ($user_Login == $row->user_Login && password_verify($user_Senha, $row->user_Senha)) {
-                        $autoridade = $row->cd_nivelAutoridade;
-                        $nome = $row->user_Nome;
-                        $id = $row->cd_Usuario;
-                        session_start();
-                        $_SESSION["user"] = [$nome, $autoridade, $id];
-                        $erro = false;
-                        loginAutoridade($autoridade);
+        // Fazer a solicitação de verificação para o servidor do reCAPTCHA
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $data = array(
+            'secret' => $secretKey,
+            'response' => $captchaResponse
+        );
+
+        $options = array(
+            'http' => array(
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method' => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $response = json_decode($result, true);
+
+        // Verificar se a resposta do servidor é válida
+        if ($response['success']) {
+            $user_Login = validateInput($_POST["user_Login"]);
+            $user_Senha = validateInput($_POST["user_Senha"]);
+            loginval($user_Login, $user_Senha);
+
+            try {
+                $sql = "SELECT cd_Usuario, user_Login, user_Nome, user_Senha, cd_nivelAutoridade FROM usuario";
+                $res = $conn->query($sql);
+                $qtd = $res->num_rows;
+                $erro = true;
+                if ($qtd > 0) {
+                    while ($row = $res->fetch_object()) {
+                        if ($user_Login == $row->user_Login && password_verify($user_Senha, $row->user_Senha)) {
+                            $autoridade = $row->cd_nivelAutoridade;
+                            $nome = $row->user_Nome;
+                            $id = $row->cd_Usuario;
+                            session_start();
+                            $_SESSION["user"] = [$nome, $autoridade, $id];
+                            $erro = false;
+                            loginAutoridade($autoridade);
+                        }
                     }
                 }
+                if ($erro = true) {
+                    print "<script>alert('Usuário ou senha inválidos!');</script>";
+                    print "<script>location.href='painel.php';</script>";
+                }
+            } catch (mysqli_sql_exception $e) {
+                print "<script>alert('Ocorreu um erro interno ao tentar logar usuário');
+            window.history.go(-1);</script>";
+                criaLogErro($e);
             }
-            if ($erro = true) {
-                print "<script>alert('Usuário ou senha inválidos!');</script>";
-                print "<script>location.href='painel.php';</script>";
-            }
-        } catch (mysqli_sql_exception $e) {
-            print "<script>alert('Ocorreu um erro interno ao tentar logar usuário');
-                            window.history.go(-1);</script>";
-            criaLogErro($e);
         }
         break;
 
