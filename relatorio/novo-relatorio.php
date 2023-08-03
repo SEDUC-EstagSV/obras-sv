@@ -141,12 +141,14 @@
 
             print "<select class='form-select obra' name='cd_Obra' >";
             print "<datalist>";
-            print "<option value='' disabled selected>Selecione o contrato / obra de referência / local</option>";
+            print "<option value='' disabled hidden selected>Selecione o contrato / obra de referência / local</option>";
 
-
-            while ($row = $res->fetch_object()) {
-
-                print "<option value={$row->cd_Obra}>$row->tp_Servico: $row->tp_AtividadeDescricao / $row->nm_Escola</option>";
+            if ($res->num_rows > 0) {
+                while ($row = $res->fetch_object()) {
+                    print "<option value={$row->cd_Obra}>$row->tp_Servico: $row->tp_AtividadeDescricao / $row->nm_Escola</option>";
+                }
+            } else {
+                print "<option disabled>Você ainda não foi vínculado como responsável de uma obra</option>";
             }
             print "</datalist>";
             print "</select>";
