@@ -1,7 +1,7 @@
 <style>
-	#keepAll {
-		word-break: keep-all;
-	}
+    #keepAll {
+        word-break: keep-all;
+    }
 
     #grid-table>div.row {
         color: black;
