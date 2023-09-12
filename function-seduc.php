@@ -87,7 +87,7 @@ function geraEmail($emailToSend)
     $mail->CharSet = 'UTF-8';
     $mail->AuthType = 'XOAUTH2';
 
-    $email = "pmsvtec@gmail.com";
+    $email = $_ENV['EMAIL'];
     $clientId = $_ENV['CLIENT_ID'];
     $clientSecret = $_ENV['CLIENT_SECRET'];
     $refreshToken = $_ENV['REFRESH_TOKEN'];
